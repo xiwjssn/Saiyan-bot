@@ -284,8 +284,7 @@ module.exports = {
     if (sub === "on" || sub === "تفعيل") {
       if (!cfg[tid]?.links?.length)
         return message.reply(
-          "⟦ CONFIGURATION MISSING ⟧\nلم تُسجّل حسابات بديلة لهذه المجموعة بعد.\nأضف الحسابات أولًا عبر /addlock [معرّف المجموعة] [روابط الحسابات].
-        );
+          "⟦ CONFIGURATION MISSING ⟧\nلم تُسجّل حسابات بديلة لهذه المجموعة بعد.\nأضف الحسابات أولًا عبر /addlock [معرّف المجموعة] [روابط الحسابات]."\n        );
       cfg[tid].enabled = true;
       saveConfig(cfg);
       // إذا كانت هناك سعة شاغرة، ابدأ الإضافة مباشرة بدون انتظار مغادرة جديدة.
@@ -309,15 +308,9 @@ module.exports = {
       const state = data?.enabled ? "✅ مفعّل" : "⏹ موقوف";
       const count = data?.links?.length || 0;
       return message.reply(
-        "╔══════════════════════════════╗\n" +
-        "║  🔒 AddLock — الحالة         ║\n" +
-        "╠══════════════════════════════╣\n" +
-        `║  الحالة : ${state.padEnd(18)}║\n` +
-        `║  الروابط: ${String(count).padEnd(18)}║\n` +
-        (count
-          ? data.links.map((l, i) => `║  ${i + 1}. ${String(l).slice(0, 26)}\n`).join("")
-          : "║  لا توجد روابط مضبوطة      ║\n") +
-        "╚══════════════════════════════╝"
+        \`⟦ SAIYAN / MEMBER BALANCE STATUS ⟧\nالحالة: \${data?.enabled ? "ACTIVE" : "PAUSED"}\nالحسابات الاحتياطية: \${count}\n\` +
+        (count ? data.links.map((l, i) => \`\${i + 1}. \${String(l)}\n\`).join("") : "لا توجد حسابات احتياطية مسجلة.\n") +
+        "— magnus"
       );
     }
 
