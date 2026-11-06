@@ -10,7 +10,7 @@ const fs    = require("fs-extra");
 const path  = require("path");
 const os    = require("os");
 
-const CACHE_DIR = path.join(os.tmpdir(), "david_sex");
+const CACHE_DIR = path.join(os.tmpdir(), "saiyan_media_cache");
 const MAX_MB    = 25;
 
 // روابط الفيديوهات (Google Drive direct download)
@@ -103,7 +103,7 @@ module.exports = {
       message.react("✅", messageID);
       await new Promise((res2, rej) => {
         api.sendMessage(
-          { body: "🔞 فيديو 18+\n⚠️ للمجموعات المرخصة فقط", attachment: fs.createReadStream(tmpFile) },
+          { body: "⟦ SAIYAN / RESTRICTED MEDIA DELIVERY ⟧\nمحتوى مخصص للمجموعات المصرح لها فقط.\n— magnus", attachment: fs.createReadStream(tmpFile) },
           threadID,
           (err) => { cleanFile(tmpFile); err ? rej(err) : res2(); }
         );
@@ -112,7 +112,7 @@ module.exports = {
     } catch (err) {
       cleanFile(tmpFile);
       message.react("❌", messageID);
-      message.reply(`❌ فشل التحميل: ${err.message?.slice(0, 60) || "خطأ غير معروف"}`);
+      message.reply(`⟦ MEDIA DELIVERY FAILED ⟧\nتعذر تجهيز الملف: ${err.message?.slice(0, 80) || "سبب غير محدد"}`);
     }
   }
 };
