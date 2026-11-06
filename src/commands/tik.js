@@ -9,7 +9,7 @@ const fs    = require("fs-extra");
 const path  = require("path");
 const os    = require("os");
 
-const TMP        = path.join(os.tmpdir(), "david_tik");
+const TMP        = path.join(os.tmpdir(), "saiyan_tik");
 const SEARCH_API = "https://www.tikwm.com/api/feed/search";
 fs.ensureDirSync(TMP);
 
@@ -32,10 +32,10 @@ module.exports = {
 
   onStart: async function ({ api, event, args, message }) {
     const input = args.join(" ").trim();
-    if (!input) return message.reply("❗ اكتب كلمة بحث أو رابط TikTok.\nمثال: /tik gojo");
+    if (!input) return message.reply("⟦ INPUT REQUIRED ⟧\nأرسل عبارة للبحث أو رابط TikTok مباشرًا.\nمثال: /tik gojo");
 
     message.react("🔍", event.messageID);
-    const wait = await message.reply(`🔍 جاري البحث في TikTok عن "${input}"…`);
+    const wait = await message.reply(`⟦ SAIYAN / VIDEO INDEX ⟧\nجارٍ فحص TikTok عن: ${input}…`);
 
     try {
       // مسار 1: رابط مباشر → تنزيل مباشر
@@ -54,17 +54,17 @@ module.exports = {
       if (!videos?.length) {
         api.unsendMessage(wait.messageID).catch(() => {});
         message.react("❌", event.messageID);
-        return message.reply(`❌ لم أجد نتائج لـ "${input}"`);
+        return message.reply(`⟦ NO VIDEO MATCHES ⟧\nلم تظهر نتائج لعبارة البحث: ${input}`);
       }
 
-      let body = `🎵 نتائج TikTok: "${input}"\n━━━━━━━━━━━━━━━━\n`;
+      let body = `⟦ SAIYAN / TIKTOK SEARCH RESULTS ⟧\nعبارة البحث: ${input}\n────────────────────────\n`;
       videos.slice(0, 5).forEach((v, i) => {
         const title  = (v.title || v.content_desc || "بلا عنوان").slice(0, 55);
         const author = v.author?.nickname || v.author?.unique_id || "";
         body += `${i + 1}️⃣ ${title}\n`;
         body += `   👤 ${author}  ·  👁 ${fmtViews(v.play_count)}  ·  ⏱ ${fmtDur(v.duration || 0)}\n\n`;
       });
-      body += `━━━━━━━━━━━━━━━━\n📥 ردّ بالرقم (1-${Math.min(videos.length, 5)}) لتحميل الفيديو`;
+      body += `────────────────────────\nأرسل رقم النتيجة من 1 إلى ${Math.min(videos.length, 5)} لبدء تجهيز الفيديو.`;
 
       api.unsendMessage(wait.messageID).catch(() => {});
       const listMsg = await message.reply(body);
@@ -78,10 +78,10 @@ module.exports = {
           global.GoatBot.onReply.delete(`tik_${listMsg.messageID}`);
           const choice = parseInt(re.body?.trim()) - 1;
           if (isNaN(choice) || choice < 0 || choice >= Math.min(videos.length, 5))
-            return rm.reply("❌ رقم غير صالح.");
+            return rm.reply("⟦ INVALID SELECTION ⟧\nالرقم المرسل لا يطابق أي نتيجة معروضة.");
 
           const video   = videos[choice];
-          const dlWait  = await rm.reply(`⬇️ جاري تحميل الفيديو…`);
+          const dlWait  = await rm.reply(`⟦ SAIYAN / VIDEO TRANSFER ⟧\nجارٍ تجهيز الفيديو المحدد…`);
           await this._download(api, re, rm, video, dlWait);
         }
       });
@@ -110,7 +110,7 @@ module.exports = {
       const title  = (video.title || video.content_desc || "").slice(0, 100);
       const author = video.author?.nickname || video.author?.unique_id || "";
       await api.sendMessage({
-        body:       `🎵 ${title}\n👤 ${author}\n👁 ${fmtViews(video.play_count)}  ·  ⏱ ${fmtDur(video.duration || 0)}\n👑 Saiyan V1`,
+        body:       `⟦ SAIYAN / VIDEO DELIVERED ⟧\nالعنوان: ${title}\nالناشر: ${author}\nالمشاهدات: ${fmtViews(video.play_count)} · المدة: ${fmtDur(video.duration || 0)}\n— magnus`,
         attachment: fs.createReadStream(outPath)
       }, event.threadID);
       fs.removeSync(outPath);
@@ -141,7 +141,7 @@ module.exports = {
       fs.writeFileSync(outPath, Buffer.from(res.data));
       api.unsendMessage(dlWait.messageID).catch(() => {});
       await api.sendMessage({
-        body:       `🎵 ${(data.title || "").slice(0, 100)}\n👑 Saiyan V1`,
+        body:       `⟦ SAIYAN / VIDEO DELIVERED ⟧\n${(data.title || "فيديو بدون عنوان").slice(0, 100)}\n— magnus`,
         attachment: fs.createReadStream(outPath)
       }, event.threadID);
       fs.removeSync(outPath);
