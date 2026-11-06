@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /delete — حذف رسالة (الرد على رسالة البوت)
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /delete — حذف رسالة (الرد على رسالة البوت)
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  * يتحقق من صلاحية إدارة الرسائل (Manage Messages) عبر adminIDs
  */
 "use strict";
@@ -33,7 +33,7 @@ module.exports = {
     name: "delete",
     aliases: ["حذف", "del", "rm"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 3,
     role: 1,
     category: "management",
