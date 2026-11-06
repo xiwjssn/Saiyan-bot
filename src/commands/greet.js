@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /greet — رسالة ترحيبية
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /greet — رسالة ترحيبية
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  */
 "use strict";
 
@@ -10,7 +10,7 @@ module.exports = {
     name: "greet",
     aliases: ["hello", "hi", "مرحبا", "هلا", "سلام"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 0,
     category: "utility",
@@ -21,7 +21,7 @@ module.exports = {
   onStart: async function ({ api, event, message }) {
     const { senderID } = event;
     const prefix = global.GoatBot?.config?.prefix || "/";
-    const botName = global.GoatBot?.config?.botName || "DAVID V1";
+    const botName = global.GoatBot?.config?.botName || "Saiyan V1";
 
     let name = "صديقي";
     try {
@@ -52,7 +52,7 @@ module.exports = {
       `  ${prefix}daily       — مكافأة يومية\n` +
       `  ${prefix}uid         — معرفك\n\n` +
       `${LINE}\n` +
-      `  🔑 Prefix: ${prefix}  •  © 2025 DJAMEL\n` +
+      `  🔑 Prefix: ${prefix}  •  © 2025 magnus\n` +
       `${LINE}`
     );
   }
