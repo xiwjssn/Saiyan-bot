@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /thread — إدارة معلومات الغروب وإعداداته
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 (thread.js) & adapted for Saiyan engine
+ * Ported from SAIYAN CORE (thread.js) & adapted for Saiyan engine
  */
 "use strict";
 const fs   = require("fs-extra");
