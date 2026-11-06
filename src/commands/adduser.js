@@ -25,15 +25,7 @@ module.exports = {
 
     if (!args.length) {
       return message.reply(
-        "╔═══════════════════════════════╗\n" +
-        "║  ➕  إضافة عضو للغروب        ║\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  /adduser [ID]                ║\n" +
-        "║  /adduser [facebook URL]      ║\n" +
-        "║  /adduser [ID1] [ID2] ...     ║\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  مثال: /adduser 100012345678  ║\n" +
-        "╚═══════════════════════════════╝"
+        "⟦ SAIYAN / MEMBER DEPLOYMENT ⟧\nأرسل معرّفًا رقميًا أو رابط ملف فيسبوك.\nيمكن تمرير أكثر من معرّف في الأمر نفسه.\n\nمثال:\n/adduser 100012345678\n/adduser 100012345678 100098765432\n— magnus"
       );
     }
 
@@ -47,7 +39,7 @@ module.exports = {
     }
 
     const ids = args.map(a => extractID(a)).filter(Boolean);
-    if (!ids.length) return message.reply("❌ لم أتمكن من استخراج ID صالح. تأكد من كتابة ID رقمي أو رابط فيسبوك.");
+    if (!ids.length) return message.reply("⟦ INVALID IDENTIFIER ⟧\nلم أتعرف على أي معرّف صالح. استخدم ID رقميًا أو رابط ملف فيسبوك مباشر.");
 
     message.react("⏳", event.messageID);
     let done = [], fail = [];
@@ -65,16 +57,16 @@ module.exports = {
 
     message.react(done.length ? "✅" : "❌", event.messageID);
 
-    const lines = ["╔══════════════════════════════╗"];
+    const lines = ["⟦ SAIYAN / GROUP INVITATION REPORT ⟧", "────────────────────────"];
     if (done.length) {
-      lines.push(`║  ✅ تم إضافة ${done.length} عضو بنجاح`);
-      for (const uid of done) lines.push(`║     • ${uid}`);
+      lines.push(`✓ اكتملت الإضافة: ${done.length} عضو`);
+      for (const uid of done) lines.push(`  + ${uid}`);
     }
     if (fail.length) {
-      lines.push(`║  ❌ فشل إضافة ${fail.length} عضو`);
-      for (const f of fail) lines.push(`║     • ${f.uid}: ${f.reason}`);
+      lines.push(`✕ تعذرت إضافة: ${fail.length} عضو`);
+      for (const f of fail) lines.push(`  - ${f.uid}: ${f.reason}`);
     }
-    lines.push("╚══════════════════════════════╝");
+    lines.push("────────────────────────\n— magnus");
     return message.reply(lines.join("\n"));
   }
 };
