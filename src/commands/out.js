@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /out — خروج البوت من الغروب
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /out — خروج البوت من الغروب
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  */
 "use strict";
 
@@ -10,7 +10,7 @@ module.exports = {
     name: "out",
     aliases: ["leave", "اخرج", "غادر"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 3,
     category: "management",
