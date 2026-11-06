@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /weather — الطقس
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine (text-only, no canvas)
+ * Saiyan V1 — /weather — الطقس
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine (text-only, no canvas)
  */
 "use strict";
 const axios = require("axios");
@@ -31,7 +31,7 @@ module.exports = {
     name: "weather",
     aliases: ["طقس", "الطقس", "clima", "meteo"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 0,
     category: "utility",
