@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /tag — تاق مجموعات مخصصة
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 (grouptag) & adapted for Saiyan engine
+ * Ported from SAIYAN CORE (grouptag) & adapted for Saiyan engine
  * Simplified version using file-based storage (no threadsData)
  */
 "use strict";
