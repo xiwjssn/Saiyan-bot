@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /uid — معرفة ID الفيسبوك
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /uid — معرفة ID الفيسبوك
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  */
 "use strict";
 
@@ -10,7 +10,7 @@ module.exports = {
     name: "uid",
     aliases: ["id", "userid", "معرف"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 3,
     role: 0,
     category: "utility",
