@@ -65,15 +65,15 @@ module.exports = {
         .sort((a, b) => b.xp - a.xp)
         .slice(0, 5);
 
-      if (!entries.length) return message.reply("📊 لا توجد بيانات بعد.");
+      if (!entries.length) return message.reply("⟦ SAIYAN / RANKING DATA ⟧\nلم تُسجّل نقاط نشاط في هذه المجموعة بعد.");
 
       const medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"];
-      const lines  = ["╔══════════════════════════╗", "║  🏆  أعلى 5 أعضاء نشاطاً ║", "╠══════════════════════════╣"];
+      const lines  = ["⟦ SAIYAN / TOP OPERATORS ⟧", "ترتيب أعلى خمسة أعضاء بالنشاط", "────────────────────────"];
       entries.forEach((e, i) => {
         const lvl = xpToLevel(e.xp);
-        lines.push(`║  ${medals[i]} Lv${lvl} — ${e.uid.slice(-6)} — ${e.xp} XP`);
+        lines.push(`${medals[i]} المستوى ${lvl} | ...${e.uid.slice(-6)} | ${e.xp} XP`);
       });
-      lines.push("╚══════════════════════════╝");
+      lines.push("— magnus");
       return message.reply(lines.join("\n"));
     }
 
@@ -92,15 +92,12 @@ module.exports = {
     const bar      = progressBar(curXP, neededXP);
 
     return message.reply(
-      `╔══════════════════════════════╗\n` +
-      `║  📊  بطاقة المستوى           ║\n` +
-      `╠══════════════════════════════╣\n` +
-      `║  🆔 ${targetID}\n` +
-      `║  🎖  ${rankLabel(level)}\n` +
-      `║  📈 المستوى : ${level}\n` +
-      `║  ⭐ الـ XP   : ${xp}\n` +
-      `║  [${bar}] ${curXP}/${neededXP}\n` +
-      `╚══════════════════════════════╝`
+      `⟦ SAIYAN / PROGRESSION PROFILE ⟧\n` +
+      `معرّف العضو: ${targetID}\n` +
+      `التصنيف: ${rankLabel(level)}\n` +
+      `المستوى الحالي: ${level}\n` +
+      `نقاط الخبرة: ${xp} XP\n` +
+      `التقدم للمستوى التالي: [${bar}] ${curXP}/${neededXP}\n— magnus`
     );
   },
 
