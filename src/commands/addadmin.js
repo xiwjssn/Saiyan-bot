@@ -86,7 +86,7 @@ module.exports = {
       const rid = args[1] ? extractID(args[1]) : (messageReply?.senderID || Object.keys(mentions || {})[0]);
       if (!rid) return message.reply("⟦ INPUT REQUIRED ⟧\nأرسل معرّف الحساب أو ردّ على رسالة صاحبه.");
       const levels = loadLevels();
-      if (!levels[String(rid)]) return message.reply(\`⟦ NO MATCH ⟧\nالمعرّف \${rid} غير موجود في سجل الإدارة.\`);
+      if (!levels[String(rid)]) return message.reply(`⟦ NO MATCH ⟧\nالمعرّف \${rid} غير موجود في سجل الإدارة.`);
       delete levels[String(rid)];
       saveLevels(levels);
       // تحديث config
@@ -96,7 +96,7 @@ module.exports = {
         fs.writeFileSync(CONFIG_FILE, JSON.stringify(cfg, null, 2));
         if (global.GoatBot?.config) global.GoatBot.config.adminBot = cfg.adminBot;
       } catch (_) {}
-      return message.reply(\`⟦ ACCESS REVOKED ⟧\nتم سحب الصلاحية الإدارية من الحساب \${rid}.\`);
+      return message.reply(`⟦ ACCESS REVOKED ⟧\nتم سحب الصلاحية الإدارية من الحساب \${rid}.`);
     }
 
     // ── إضافة / تعديل ─────────────────────────────────────────────────────
