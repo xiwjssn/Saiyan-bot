@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /ai — دردشة مع الذكاء الاصطناعي
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 (youai/gpt) & adapted for Saiyan engine
+ * Ported from SAIYAN CORE (youai/gpt) & adapted for Saiyan engine
  * Uses free You.ai API (no key needed)
  */
 "use strict";
