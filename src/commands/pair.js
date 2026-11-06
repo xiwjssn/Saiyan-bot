@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /pair — ربط عشوائي بين عضوين
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /pair — ربط عشوائي بين عضوين
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  */
 "use strict";
 const axios = require("axios");
@@ -41,7 +41,7 @@ module.exports = {
     name: "pair",
     aliases: ["زوج", "حبيبي", "ship"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 10,
     role: 0,
     category: "fun",
