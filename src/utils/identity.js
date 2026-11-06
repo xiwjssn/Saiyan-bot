@@ -1,6 +1,6 @@
 /**
- * Saiyan identity layer
- * Runtime-wide presentation for command responses.
+ * Saiyan response identity layer.
+ * Gives outgoing command messages a consistent, original presentation.
  */
 "use strict";
 
@@ -19,22 +19,20 @@ function rewriteText(value) {
 
 function present(message) {
   if (typeof message === "string") {
-    const body = rewriteText(message);
-    if (!body.trim()) return body;
-    return `╭━━〔 ${BRAND} 〕━━╮\n${body}\n╰━━〔 ${DEVELOPER} 〕━━╯`;
+    const body = rewriteText(message).trim();
+    if (!body) return body;
+    if (/^⟦ SAIYAN · CORE ⟧/.test(body)) return body;
+    return `⟦ SAIYAN · CORE ⟧\n${body}\n\n— ${DEVELOPER}`;
   }
-
   if (message && typeof message === "object" && typeof message.body === "string") {
     return { ...message, body: present(message.body) };
   }
-
   return message;
 }
 
 function brandApi(api) {
   if (!api || (typeof api !== "object" && typeof api !== "function")) return api;
   if (WRAP.has(api)) return WRAP.get(api);
-
   const proxy = new Proxy(api, {
     get(target, property) {
       const value = Reflect.get(target, property, target);
@@ -44,7 +42,6 @@ function brandApi(api) {
       return typeof value === "function" ? value.bind(target) : value;
     }
   });
-
   WRAP.set(api, proxy);
   return proxy;
 }
