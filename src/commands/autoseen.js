@@ -38,22 +38,19 @@ module.exports = {
     if (sub === "on" || sub === "تفعيل") {
       data.enabled = true;
       saveData(data);
-      return message.reply("✅ تم تفعيل رؤية الرسائل التلقائية.");
+      return message.reply("⟦ SAIYAN / READ MODE ⟧\nتم تشغيل الرصد التلقائي للرسائل الواردة.");
     }
     if (sub === "off" || sub === "إيقاف") {
       data.enabled = false;
       saveData(data);
-      return message.reply("❌ تم إيقاف رؤية الرسائل التلقائية.");
+      return message.reply("⟦ SAIYAN / READ MODE ⟧\nتم إيقاف الرصد التلقائي. لن تُعلّم الرسائل كمقروءة عبر هذه الوحدة.");
     }
 
     return message.reply(
-      `╔══════════════════════════╗\n` +
-      `║  👁️  رؤية تلقائية        ║\n` +
-      `╠══════════════════════════╣\n` +
-      `║  الحالة: ${data.enabled ? "✅ مفعّل" : "❌ متوقف"}\n` +
-      `╠══════════════════════════╣\n` +
-      `║  /autoseen on|off        ║\n` +
-      `╚══════════════════════════╝`
+      `⟦ SAIYAN / READ MODE STATUS ⟧\n` +
+      `الحالة الحالية: ${data.enabled ? "ACTIVE / يعمل" : "INACTIVE / متوقف"}\n` +
+      `التحكم: /autoseen on أو /autoseen off\n` +
+      `النطاق: جميع المحادثات\n— magnus`
     );
   },
 
