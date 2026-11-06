@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /webss — لقطة شاشة موقع
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /webss — لقطة شاشة موقع
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  */
 "use strict";
 const axios = require("axios");
@@ -20,7 +20,7 @@ module.exports = {
     name: "webss",
     aliases: ["screenshot", "ss", "snap"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 10,
     role: 0,
     category: "utility",
