@@ -54,15 +54,7 @@ module.exports = {
 
     if (!text) {
       return message.reply(
-        "╔══════════════════════════════════╗\n" +
-        "║  🌐  أمر الترجمة               ║\n" +
-        "╠══════════════════════════════════╣\n" +
-        "║  /translate hello -> ar          ║\n" +
-        "║  /translate مرحبا -> en          ║\n" +
-        "║  رد على رسالة + /trans -> fr     ║\n" +
-        "╠══════════════════════════════════╣\n" +
-        "║  أكواد: ar en fr es de tr zh ja  ║\n" +
-        "╚══════════════════════════════════╝"
+        "⟦ SAIYAN / LANGUAGE BRIDGE ⟧\nأرسل النص ثم سهمًا ثم رمز اللغة المطلوبة.\n/translate hello -> ar\n/translate مرحبا -> en\nيمكنك أيضًا الرد على رسالة ثم استخدام /translate -> fr\nاللغات المدعومة تشمل: ar · en · fr · es · de · tr · zh · ja"
       );
     }
 
@@ -80,17 +72,11 @@ module.exports = {
 
       message.react("✅", event.messageID);
       return message.reply(
-        `╔═══════════════════════════╗\n` +
-        `║  🌐  الترجمة              ║\n` +
-        `╠═══════════════════════════╣\n` +
-        `║  ${srcLabel} → ${tgtLabel}\n` +
-        `╠═══════════════════════════╣\n` +
-        `${data.translatedText}\n` +
-        `╚═══════════════════════════╝`
+        `⟦ SAIYAN / TRANSLATION RESULT ⟧\nمن: ${srcLabel}\nإلى: ${tgtLabel}\n────────────────────────\n${data.translatedText}\n────────────────────────\n— magnus`
       );
     } catch (e) {
       message.react("❌", event.messageID);
-      return message.reply(`❌ فشل الترجمة: ${e.message}`);
+      return message.reply(`⟦ LANGUAGE BRIDGE FAILED ⟧\nتعذرت معالجة الترجمة: ${e.message}`);
     }
   }
 };
