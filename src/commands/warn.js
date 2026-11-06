@@ -44,13 +44,13 @@ module.exports = {
     // ── قائمة التحذيرات ──────────────────────────────────────────────────
     if (sub === "list" || sub === "قائمة") {
       const threadWarns = Object.entries(warns).filter(([k]) => k.startsWith(threadID + ":"));
-      if (!threadWarns.length) return message.reply("📋 لا يوجد تحذيرات في هذا الغروب.");
-      const lines = ["╔══════════════════════════╗", "║  ⚠️  قائمة التحذيرات    ║", "╠══════════════════════════╣"];
+      if (!threadWarns.length) return message.reply("⟦ SAIYAN / DISCIPLINE LOG ⟧\nلا توجد سجلات تحذير لهذه المجموعة.");
+      const lines = ["⟦ SAIYAN / WARNING REGISTER ⟧", "سجل المخالفات المسجلة", "────────────────────────"];
       for (const [key, data] of threadWarns) {
         const uid = key.split(":")[1];
-        lines.push(`║  🆔 ${uid}: ${data.count}/${MAX_WARNS} تحذيرات`);
+        lines.push(`الحساب ${uid}: ${data.count}/${MAX_WARNS} تحذيرات`);
       }
-      lines.push("╚══════════════════════════╝");
+      lines.push("— magnus");
       return message.reply(lines.join("\n"));
     }
 
@@ -58,11 +58,11 @@ module.exports = {
     if (sub === "reset" || sub === "تعيين") {
       const tagIDs = Object.keys(mentions || {});
       const rid = tagIDs[0] || messageReply?.senderID;
-      if (!rid) return message.reply("❌ حدد الشخص بـ @tag أو رد على رسالته.");
+      if (!rid) return message.reply("⟦ TARGET REQUIRED ⟧\nأشر إلى العضو أو قم بالرد على رسالته لتحديد الحساب.");
       const key = getKey(threadID, rid);
       delete warns[key];
       saveWarns(warns);
-      return message.reply(`✅ تم إعادة تعيين تحذيرات ${rid}`);
+      return message.reply(`⟦ WARNING HISTORY RESET ⟧\nتم تصفير سجل التحذيرات للحساب ${rid}.`);
     }
 
     // ── معلومات شخص ────────────────────────────────────────────────────────
@@ -71,13 +71,13 @@ module.exports = {
       const rid = tagIDs[0] || messageReply?.senderID || senderID;
       const key  = getKey(threadID, rid);
       const data = warns[key];
-      if (!data) return message.reply(`ℹ️ ${rid}: لا يوجد تحذيرات.`);
-      const lines = ["╔══════════════════════════╗", `║  ⚠️  تحذيرات: ${rid}`, "╠══════════════════════════╣"];
+      if (!data) return message.reply(`⟦ NO DISCIPLINE RECORD ⟧\nلا توجد تحذيرات مسجلة للحساب ${rid}.`);
+      const lines = ["⟦ SAIYAN / MEMBER DISCIPLINE ⟧", `الحساب: ${rid}`, "────────────────────────"];
       for (const [i, w] of (data.history || []).entries())
-        lines.push(`║  ${i + 1}. ${w.reason} — ${w.date}`);
-      lines.push(`╠══════════════════════════╣`);
-      lines.push(`║  الإجمالي: ${data.count}/${MAX_WARNS}`);
-      lines.push("╚══════════════════════════╝");
+        lines.push(`${i + 1}. ${w.reason} — ${w.date}`);
+      lines.push("────────────────────────");
+      lines.push(`إجمالي التحذيرات: ${data.count}/${MAX_WARNS}`);
+      lines.push("— magnus");
       return message.reply(lines.join("\n"));
     }
 
@@ -86,21 +86,12 @@ module.exports = {
     const targetID = tagIDs[0] || messageReply?.senderID;
     if (!targetID) {
       return message.reply(
-        "╔══════════════════════════════╗\n" +
-        "║  ⚠️  نظام التحذيرات         ║\n" +
-        "╠══════════════════════════════╣\n" +
-        `║  ${MAX_WARNS} تحذيرات = طرد تلقائي\n` +
-        "╠══════════════════════════════╣\n" +
-        "║  /warn @شخص [سبب]           ║\n" +
-        "║  /warn list — القائمة       ║\n" +
-        "║  /warn reset @شخص           ║\n" +
-        "║  /warn info @شخص            ║\n" +
-        "╚══════════════════════════════╝"
+        `⟦ SAIYAN / DISCIPLINE CONTROL ⟧\nالحد الأقصى: ${MAX_WARNS} تحذيرات قبل محاولة الإخراج.\n/warn @عضو [السبب] — تسجيل تحذير\n/warn list — عرض السجل\n/warn reset @عضو — تصفير السجل\n/warn info @عضو — تفاصيل الحساب\n— magnus`
       );
     }
 
     // حذف الاسم المُذكَر من args
-    const reason = args.filter(a => !a.startsWith("@")).slice(sub === "warn" ? 1 : 0).join(" ") || "لا يوجد سبب";
+    const reason = args.filter(a => !a.startsWith("@")).slice(sub === "warn" ? 1 : 0).join(" ") || "لم يُذكر سبب";
 
     const key  = getKey(threadID, targetID);
     if (!warns[key]) warns[key] = { count: 0, history: [] };
@@ -116,12 +107,7 @@ module.exports = {
 
     if (count >= MAX_WARNS) {
       await message.reply(
-        `╔══════════════════════════════╗\n` +
-        `║  🚨 وصل للحد الأقصى!        ║\n` +
-        `╠══════════════════════════════╣\n` +
-        `║  🆔 ${targetID}\n` +
-        `║  تحذير ${count}/${MAX_WARNS} — يُطرد الآن\n` +
-        `╚══════════════════════════════╝`
+        `⟦ SAIYAN / LIMIT REACHED ⟧\nالحساب: ${targetID}\nعدد التحذيرات: ${count}/${MAX_WARNS}\nتم بلوغ الحد؛ جارٍ تنفيذ إجراء الإخراج.\n— magnus`
       );
       try {
         await new Promise((res, rej) =>
@@ -130,19 +116,13 @@ module.exports = {
         delete warns[key];
         saveWarns(warns);
       } catch (_) {
-        message.reply("⚠️ فشل الطرد التلقائي — تأكد من أن البوت أدمن.");
+        message.reply("⟦ AUTOMATED ACTION FAILED ⟧\nتم تسجيل بلوغ الحد، لكن تعذر إخراج العضو. تحقق من صلاحيات Saiyan.");
       }
     } else {
       return message.reply(
-        `╔══════════════════════════════╗\n` +
-        `║  ⚠️  تحذير ${count}/${MAX_WARNS}          ║\n` +
-        `╠══════════════════════════════╣\n` +
-        `║  🆔 ${targetID}\n` +
-        `║  📝 السبب: ${reason}\n` +
-        (count >= MAX_WARNS - 1
-          ? `║  🚨 تحذير أخير قبل الطرد!\n`
-          : `║  ${MAX_WARNS - count} تحذيرات متبقية للطرد\n`) +
-        `╚══════════════════════════════╝`
+        `⟦ SAIYAN / WARNING ${count} OF ${MAX_WARNS} ⟧\nالحساب: ${targetID}\nسبب التسجيل: ${reason}\n` +
+        (count >= MAX_WARNS - 1 ? `هذا هو التحذير الأخير قبل إجراء الإخراج.\n` : `المتبقي قبل بلوغ الحد: ${MAX_WARNS - count}\n`) +
+        `— magnus`
       );
     }
   }
