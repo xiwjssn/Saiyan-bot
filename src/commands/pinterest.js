@@ -9,7 +9,7 @@ const fs    = require("fs-extra");
 const path  = require("path");
 const os    = require("os");
 
-const CACHE_DIR = path.join(os.tmpdir(), "david_pin");
+const CACHE_DIR = path.join(os.tmpdir(), "saiyan_pin");
 
 module.exports = {
   config: {
@@ -29,12 +29,7 @@ module.exports = {
     const query = args.join(" ");
     if (!query) {
       return message.reply(
-        "╔═══════════════════════════╗\n" +
-        "║  🖼️  Pinterest             ║\n" +
-        "╠═══════════════════════════╣\n" +
-        "║  /pin [كلمة البحث]        ║\n" +
-        "║  مثال: /pin anime girl    ║\n" +
-        "╚═══════════════════════════╝"
+        "⟦ SAIYAN / VISUAL SEARCH ⟧\nأرسل عبارة للبحث عن الصور.\nمثال: /pin anime girl"
       );
     }
 
@@ -56,7 +51,7 @@ module.exports = {
 
     if (!imageList || imageList.length === 0) {
       message.react("❌", messageID);
-      return message.reply(`❌ لم يتم العثور على نتائج لـ "${query}"`);
+      return message.reply(`⟦ NO VISUAL MATCHES ⟧\nلم تظهر صور مطابقة لعبارة البحث: ${query}`);
     }
 
     // إزالة التكرار وترتيب حسب الجودة
@@ -85,12 +80,12 @@ module.exports = {
 
     if (!attachments.length) {
       message.react("❌", messageID);
-      return message.reply("❌ فشل تحميل الصور من Pinterest");
+      return message.reply("⟦ IMAGE DELIVERY FAILED ⟧\nتعذر جلب الصور من مصدر البحث.");
     }
 
     message.react("✅", messageID);
     api.sendMessage(
-      { body: `🖼️ Pinterest — "${query}"\n📸 ${attachments.length} صور`, attachment: attachments },
+      { body: `⟦ SAIYAN / VISUAL RESULTS ⟧\nعبارة البحث: ${query}\nعدد الصور المستلمة: ${attachments.length}\n— magnus`, attachment: attachments },
       threadID,
       () => saved.forEach(f => { try { fs.unlinkSync(f); } catch (_) {} }),
       messageID
