@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /video — تحميل فيديو من يوتيوب
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 & adapted for Saiyan engine
+ * Ported from SAIYAN CORE & adapted for Saiyan engine
  * Uses yt-search for lookup + cobalt.tools API for download
  */
 "use strict";
