@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /rank — عرض مستوى المستخدم (نظام XP بسيط)
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 & adapted for Saiyan engine
+ * Ported from SAIYAN CORE & adapted for Saiyan engine
  */
 "use strict";
 const fs   = require("fs-extra");
@@ -33,8 +33,8 @@ function rankLabel(level) {
 }
 
 // تسجيل XP عند كل رسالة
-if (!global._davidXPActive) {
-  global._davidXPActive = true;
+if (!global._saiyanXPActive) {
+  global._saiyanXPActive = true;
 }
 
 module.exports = {
