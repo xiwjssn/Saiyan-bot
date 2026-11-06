@@ -5,7 +5,7 @@ module.exports = {
     name: "unsend",
     aliases: ["حذف", "del"],
     version: "1.2",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 3,
     role: 2,
     category: "utility",
