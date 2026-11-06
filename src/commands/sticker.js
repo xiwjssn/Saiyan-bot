@@ -30,11 +30,7 @@ module.exports = {
 
     if (!img) {
       return message.reply(
-        "╔══════════════════════════╗\n" +
-        "║  🖼️  تحويل إلى ملصق     ║\n" +
-        "╠══════════════════════════╣\n" +
-        "║  رد على صورة بـ /sticker ║\n" +
-        "╚══════════════════════════╝"
+        "⟦ SAIYAN / STICKER CONVERTER ⟧\nلم أجد صورة في الرسالة. أرسل صورة أو قم بالرد على صورة ثم استخدم /sticker."
       );
     }
 
@@ -65,7 +61,7 @@ module.exports = {
       message.react("✅", event.messageID);
     } catch (e) {
       message.react("❌", event.messageID);
-      message.reply(`❌ فشل: ${e.message}`);
+      message.reply(`⟦ STICKER CONVERSION FAILED ⟧\nتعذر تجهيز الملصق: ${e.message}`);
     }
   }
 };
