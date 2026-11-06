@@ -11,7 +11,7 @@ const axios    = require("axios");
 const ytSearch = require("yt-search");
 const os       = require("os");
 
-const TMP_DIR       = path.join(os.tmpdir(), "david_video");
+const TMP_DIR       = path.join(os.tmpdir(), "saiyan_video");
 const MAX_MB        = 25;
 const COBALT_API    = "https://co.wuk.sh/api/json";
 
@@ -49,14 +49,7 @@ module.exports = {
 
     if (!input) {
       return message.reply(
-        "╔═══════════════════════════════╗\n" +
-        "║  🎬  تحميل فيديو يوتيوب      ║\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  /video [رابط يوتيوب]         ║\n" +
-        "║  /video [اسم الفيديو]         ║\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  الحد الأقصى: 25 MB           ║\n" +
-        "╚═══════════════════════════════╝"
+        "⟦ SAIYAN / VIDEO RETRIEVAL ⟧\nأرسل عنوان الفيديو للبحث أو رابط YouTube مباشرًا.\nالحد الأقصى لحجم الملف: 25 MB."
       );
     }
 
@@ -74,7 +67,7 @@ module.exports = {
         const results = await ytSearch(input);
         if (!results?.videos?.length) {
           message.react("❌", messageID);
-          return message.reply(`❌ لا توجد نتائج لـ "${input}"`);
+          return message.reply(`⟦ NO VIDEO MATCHES ⟧\nلم أعثر على نتيجة مطابقة لعبارة البحث: ${input}`);
         }
         const best = results.videos[0];
         videoUrl  = `https://www.youtube.com/watch?v=${best.videoId}`;
@@ -126,12 +119,12 @@ module.exports = {
 
       const sizeMB = (fs.statSync(tmpFile).size / (1024 * 1024)).toFixed(2);
 
-      let caption = `🎬 ${videoInfo?.title || filename || "فيديو"}\n📦 ${sizeMB} MB`;
+      let caption = `⟦ SAIYAN / VIDEO DELIVERY ⟧\nالعنوان: ${videoInfo?.title || filename || "فيديو"}\nحجم الملف: ${sizeMB} MB`;
       if (videoInfo) {
         caption +=
-          `\n📺 القناة: ${videoInfo.author?.name || ""}\n` +
-          `⏱ المدة: ${videoInfo.timestamp}\n` +
-          `👁 المشاهدات: ${formatViews(videoInfo.views)}`;
+          `\nالقناة: ${videoInfo.author?.name || "غير محددة"}\n` +
+          `المدة: ${videoInfo.timestamp}\n` +
+          `المشاهدات: ${formatViews(videoInfo.views)}`;
       }
 
       await new Promise((res, rej) => {
@@ -148,11 +141,7 @@ module.exports = {
       cleanFile(path.join(TMP_DIR, `vid_${Date.now()}.mp4`));
       message.react("❌", messageID);
       message.reply(
-        `╔═══════════════════════════╗\n` +
-        `║  ❌ فشل التحميل           ║\n` +
-        `╠═══════════════════════════╣\n` +
-        `║  ${String(err.message || err).slice(0, 40)}\n` +
-        `╚═══════════════════════════╝`
+        `⟦ VIDEO RETRIEVAL FAILED ⟧\nتعذر إكمال تنزيل الفيديو.\nالتفاصيل: ${String(err.message || err).slice(0, 100)}`
       );
     }
   }
