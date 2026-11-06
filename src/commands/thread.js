@@ -52,20 +52,10 @@ module.exports = {
         const admins  = (info?.adminIDs || []).length;
 
         return message.reply(
-          `╔════════════════════════════════╗\n` +
-          `║  📋  معلومات الغروب            ║\n` +
-          `╠════════════════════════════════╣\n` +
-          `║  📛 ${name.slice(0, 22)}\n` +
-          `║  🆔 ${threadID}\n` +
-          `║  👥 الأعضاء : ${members}\n` +
-          `║  👑 الأدمن  : ${admins}\n` +
-          `╠════════════════════════════════╣\n` +
-          `║  ✉️  الترحيب: ${ts.welcomeOn ? "✅" : "❌"}\n` +
-          `║  👋 الوداع  : ${ts.leaveOn   ? "✅" : "❌"}\n` +
-          `╚════════════════════════════════╝`
+          `⟦ SAIYAN / GROUP CONFIGURATION ⟧\nاسم المحادثة: ${name}\nالمعرّف: ${threadID}\nالأعضاء: ${members}\nالمشرفون: ${admins}\n────────────────────────\nالترحيب التلقائي: ${ts.welcomeOn ? "ACTIVE" : "OFF"}\nرسالة المغادرة: ${ts.leaveOn ? "ACTIVE" : "OFF"}\n— magnus`
         );
       } catch (e) {
-        return message.reply(`❌ ${e.message}`);
+        return message.reply(`⟦ GROUP DATA UNAVAILABLE ⟧\nتعذر جلب بيانات المجموعة: ${e.message}`);
       }
     }
 
@@ -76,17 +66,15 @@ module.exports = {
         settings[threadID].welcomeOn  = true;
         settings[threadID].welcomeMsg = args.slice(2).join(" ") || "مرحباً بك {name} في {groupName}! 🎉";
         saveSettings(settings);
-        return message.reply(`✅ تم تفعيل رسالة الترحيب:\n"${settings[threadID].welcomeMsg}"`);
+        return message.reply(`⟦ WELCOME SEQUENCE ENABLED ⟧\nتم اعتماد رسالة الترحيب التالية:\n${settings[threadID].welcomeMsg}\n— magnus`);
       }
       if (toggle === "off" || toggle === "إيقاف") {
         settings[threadID].welcomeOn = false;
         saveSettings(settings);
-        return message.reply("✅ تم إيقاف رسالة الترحيب.");
+        return message.reply("⟦ WELCOME SEQUENCE DISABLED ⟧\nتم إيقاف رسالة الترحيب التلقائية.");
       }
       return message.reply(
-        `الترحيب: ${settings[threadID].welcomeOn ? "✅ مفعّل" : "❌ معطّل"}\n` +
-        `الرسالة: ${settings[threadID].welcomeMsg || "(افتراضية)"}\n\n` +
-        `/thread welcome on [رسالة]\n/thread welcome off`
+        `⟦ WELCOME CONFIGURATION ⟧\nالحالة: ${settings[threadID].welcomeOn ? "ACTIVE" : "OFF"}\nالنص: ${settings[threadID].welcomeMsg || "النص الافتراضي"}\n/thread welcome on [رسالة]\n/thread welcome off`
       );
     }
 
@@ -97,28 +85,20 @@ module.exports = {
         settings[threadID].leaveOn  = true;
         settings[threadID].leaveMsg = args.slice(2).join(" ") || "وداعاً {name}! 👋";
         saveSettings(settings);
-        return message.reply(`✅ تم تفعيل رسالة الوداع:\n"${settings[threadID].leaveMsg}"`);
+        return message.reply(`⟦ FAREWELL SEQUENCE ENABLED ⟧\nتم اعتماد رسالة المغادرة التالية:\n${settings[threadID].leaveMsg}\n— magnus`);
       }
       if (toggle === "off" || toggle === "إيقاف") {
         settings[threadID].leaveOn = false;
         saveSettings(settings);
-        return message.reply("✅ تم إيقاف رسالة الوداع.");
+        return message.reply("⟦ FAREWELL SEQUENCE DISABLED ⟧\nتم إيقاف رسالة المغادرة التلقائية.");
       }
       return message.reply(
-        `الوداع: ${settings[threadID].leaveOn ? "✅ مفعّل" : "❌ معطّل"}\n` +
-        `الرسالة: ${settings[threadID].leaveMsg || "(افتراضية)"}\n\n` +
-        `/thread leave on [رسالة]\n/thread leave off`
+        `⟦ FAREWELL CONFIGURATION ⟧\nالحالة: ${settings[threadID].leaveOn ? "ACTIVE" : "OFF"}\nالنص: ${settings[threadID].leaveMsg || "النص الافتراضي"}\n/thread leave on [رسالة]\n/thread leave off`
       );
     }
 
     return message.reply(
-      "╔══════════════════════════════╗\n" +
-      "║  📋  أوامر إدارة الغروب     ║\n" +
-      "╠══════════════════════════════╣\n" +
-      "║  /thread info    — معلومات  ║\n" +
-      "║  /thread welcome — الترحيب  ║\n" +
-      "║  /thread leave   — الوداع   ║\n" +
-      "╚══════════════════════════════╝"
+      "⟦ SAIYAN / GROUP AUTOMATION ⟧\n/thread info — ملخص إعدادات المجموعة\n/thread welcome on/off [رسالة] — إدارة الترحيب\n/thread leave on/off [رسالة] — إدارة رسالة المغادرة\n— magnus"
     );
   },
 
