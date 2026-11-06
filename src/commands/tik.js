@@ -122,7 +122,7 @@ module.exports = {
   },
 
   _downloadDirect: async function (api, event, message, url) {
-    const dlWait  = await message.reply("⬇️ جاري تنزيل الفيديو…");
+    const dlWait  = await message.reply("⟦ SAIYAN / DIRECT VIDEO TRANSFER ⟧\nجارٍ تجهيز رابط الفيديو المباشر…");
     const outPath = path.join(TMP, `tik_${Date.now()}.mp4`);
     try {
       const apiRes = await axios.get(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`, { timeout: 15000 });
