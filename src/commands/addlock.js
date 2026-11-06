@@ -1,6 +1,6 @@
 /**
- * DAVID V1 — /addlock — قفل عدد المجموعة
- * Copyright © 2025 DJAMEL — v1.0
+ * Saiyan V1 — /addlock — قفل عدد المجموعة
+ * Copyright © 2026 magnus
  *
  * عند مغادرة أي شخص للمجموعة، يُضاف أحد حسابات المالك تلقائياً
  * لإبقاء عدد الأعضاء ثابتاً.
@@ -256,7 +256,7 @@ module.exports = {
     name: "addlock",
     aliases: ["قفل-الأعضاء", "memberlock"],
     version: "1.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 2,
     category: "management",
