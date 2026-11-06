@@ -1,5 +1,3 @@
-أمر "botinfo" — معلومات Saiyan
-
 /**
  * SAIYAN — /botinfo
  * Copyright © 2026 magnus
@@ -81,9 +79,9 @@ module.exports = {
       systemMemory - freeMemory;
 
     const text = [
-      "╭───────〔 SAIYAN 〕───────╮",
+      "╭─ SAIYAN / SYSTEM DOSSIER ─╮",
       "",
-      "   SYSTEM INFORMATION",
+      "   CORE PROFILE",
       "",
       `• الحالة      : ONLINE`,
       `• الإصدار     : 2.0.0`,
@@ -91,21 +89,21 @@ module.exports = {
       `• المعرّف     : ${botID}`,
       `• Prefix      : ${prefix}`,
       "",
-      "   PERFORMANCE",
+      "   RUNTIME METRICS",
       "",
       `• التشغيل     : ${formatUptime(uptime)}`,
       `• الأوامر      : ${commands}`,
       `• ذاكرة البوت : ${formatMemory(memory.heapUsed)}`,
       `• ذاكرة النظام : ${formatMemory(usedSystemMemory)} / ${formatMemory(systemMemory)}`,
       "",
-      "   STATUS",
+      "   SERVICE STATE",
       "",
       "• المحرك      : ACTIVE",
       "• الاتصال     : STABLE",
       "• الحماية     : ENABLED",
       "",
       "╰──────────────────────────╯",
-      "        SAIYAN V2 • MAGNUS"
+      "        SAIYAN // magnus"
     ].join("\n");
 
     return message.reply(text);
