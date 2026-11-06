@@ -1,6 +1,6 @@
 /**
- * DAVID V1 — /manga — بحث وقراءة المانغا العربية عبر كشط موقع مانجا العاشق (3asq)
- * Copyright © 2025 DJAMEL
+ * Saiyan V1 — /manga — بحث وقراءة المانغا العربية عبر كشط موقع مانجا العاشق (3asq)
+ * Copyright © 2026 magnus
  * لا يعتمد على أي API خارجي — Web Scraping بواسطة axios + cheerio
  * التنقل بين الصفحات عبر نظام الردود (onReply)
  */
@@ -94,7 +94,7 @@ module.exports = {
     name: "manga",
     aliases: ["مانغا", "مانجا", "3asq"],
     version: "2.1",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 10,
     role: 0,
     category: "media",
@@ -211,7 +211,7 @@ module.exports = {
     body += opts.length
       ? `📥 ردّ بـ ${opts.join(" · ")}\nأو ردّ برقم صفحة (1-${pages.length})`
       : "✅ نهاية الفصل";
-    body += `\n👑 DAVID V1`;
+    body += `\n👑 Saiyan V1`;
 
     const sent = await new Promise((resolve) =>
       api.sendMessage({ body, attachment: streams }, event.threadID, (err, info) => {
