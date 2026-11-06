@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /badwords — فلتر الكلمات المحظورة
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /badwords — فلتر الكلمات المحظورة
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  * Uses onEvent to monitor all messages in real time
  */
 "use strict";
@@ -43,7 +43,7 @@ module.exports = {
     name: "badwords",
     aliases: ["badword", "bw", "كلماتسيئة", "فلتر"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 1,
     category: "management",
