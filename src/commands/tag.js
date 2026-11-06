@@ -92,7 +92,7 @@ module.exports = {
     // ── info ──────────────────────────────────────────────────────────────
     if (sub === "info") {
       const groupName = args[1]?.toUpperCase();
-      if (!groupName || !groups[groupName]) return message.reply(`⚠️ المجموعة "${args[1] || ''}" غير موجودة.`);
+      if (!groupName || !groups[groupName]) return message.reply(`⟦ GROUP NOT FOUND ⟧\nلا يوجد سجل بالاسم: ${args[1] || "غير محدد"}`);
       return message.reply(
         `⟦ SAIYAN / TAG GROUP DOSSIER ⟧\nالمجموعة: ${groupName}\nعدد الأعضاء: ${groups[groupName].length}\n` +
         groups[groupName].map(id => `• ${id}`).join("\n") + "\n— magnus"
