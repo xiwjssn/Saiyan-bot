@@ -1,6 +1,6 @@
 /**
- * DAVID V1 — /tiktok — تنزيل فيديو TikTok بدون علامة مائية
- * Copyright © 2025 DJAMEL
+ * Saiyan V1 — /tiktok — تنزيل فيديو TikTok بدون علامة مائية
+ * Copyright © 2026 magnus
  * Fixed: استخدام video.play مباشرة من نتائج البحث بدل بناء URL يدوياً
  */
 "use strict";
@@ -24,7 +24,7 @@ function fmtDur(s) { const m = Math.floor(s / 60); return `${m}:${String(s % 60)
 
 module.exports = {
   config: {
-    name: "tiktok", aliases: ["tik", "tt", "تيك"], version: "4.0", author: "DJAMEL",
+    name: "tiktok", aliases: ["tik", "tt", "تيك"], version: "4.0", author: "magnus",
     countDown: 10, role: 2, category: "media",
     description: "البحث في TikTok وتنزيل الفيديو بدون علامة مائية",
     guide: { en: "{pn} [كلمة بحث]\nأو أرسل رابط TikTok مباشرة" }
@@ -110,7 +110,7 @@ module.exports = {
       const title  = (video.title || video.content_desc || "").slice(0, 100);
       const author = video.author?.nickname || video.author?.unique_id || "";
       await api.sendMessage({
-        body:       `🎵 ${title}\n👤 ${author}\n👁 ${fmtViews(video.play_count)}  ·  ⏱ ${fmtDur(video.duration || 0)}\n👑 DAVID V1`,
+        body:       `🎵 ${title}\n👤 ${author}\n👁 ${fmtViews(video.play_count)}  ·  ⏱ ${fmtDur(video.duration || 0)}\n👑 Saiyan V1`,
         attachment: fs.createReadStream(outPath)
       }, event.threadID);
       fs.removeSync(outPath);
@@ -141,7 +141,7 @@ module.exports = {
       fs.writeFileSync(outPath, Buffer.from(res.data));
       api.unsendMessage(dlWait.messageID).catch(() => {});
       await api.sendMessage({
-        body:       `🎵 ${(data.title || "").slice(0, 100)}\n👑 DAVID V1`,
+        body:       `🎵 ${(data.title || "").slice(0, 100)}\n👑 Saiyan V1`,
         attachment: fs.createReadStream(outPath)
       }, event.threadID);
       fs.removeSync(outPath);
