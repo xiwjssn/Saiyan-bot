@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /info — معلومات عن شخص أو الغروب
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 (boxinfo/user) & adapted for Saiyan engine
+ * Ported from SAIYAN CORE (boxinfo/user) & adapted for Saiyan engine
  */
 "use strict";
 
