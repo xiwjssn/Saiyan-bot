@@ -1,6 +1,6 @@
 /**
- * DAVID V1 — /webvideo — تحميل فيديوهات من مواقع متعددة
- * Copyright © 2025 DJAMEL — All rights reserved
+ * Saiyan V1 — /webvideo — تحميل فيديوهات من مواقع متعددة
+ * Copyright © 2026 magnus
  * Role: 2 (Bot Admin فقط)
  *
  * المواقع المدعومة: xnxx | xvideos | pornhub | xhamster | redtube | youporn
@@ -280,7 +280,7 @@ async function downloadAndSend(api, event, message, videoUrl, title, site) {
     await new Promise((resolve, reject) => {
       api.sendMessage(
         {
-          body: `🎬 ${title.slice(0, 80)}\n📦 ${sizeMB} MB  ·  🌐 ${SUPPORTED_SITES[site]?.label || site}\n👑 DAVID V1`,
+          body: `🎬 ${title.slice(0, 80)}\n📦 ${sizeMB} MB  ·  🌐 ${SUPPORTED_SITES[site]?.label || site}\n👑 Saiyan V1`,
           attachment: fs.createReadStream(tmpFile),
         },
         event.threadID,
@@ -402,7 +402,7 @@ module.exports = {
     name: "webvideo",
     aliases: ["pornvideo", "pvideo", "wvideo", "adultvideo", "xvideo"],
     version: "1.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 20,
     role: 2,
     category: "18+",
