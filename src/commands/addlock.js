@@ -308,8 +308,8 @@ module.exports = {
       const state = data?.enabled ? "✅ مفعّل" : "⏹ موقوف";
       const count = data?.links?.length || 0;
       return message.reply(
-        \`⟦ SAIYAN / MEMBER BALANCE STATUS ⟧\nالحالة: \${data?.enabled ? "ACTIVE" : "PAUSED"}\nالحسابات الاحتياطية: \${count}\n\` +
-        (count ? data.links.map((l, i) => \`\${i + 1}. \${String(l)}\n\`).join("") : "لا توجد حسابات احتياطية مسجلة.\n") +
+        `⟦ SAIYAN / MEMBER BALANCE STATUS ⟧\nالحالة: \${data?.enabled ? "ACTIVE" : "PAUSED"}\nالحسابات الاحتياطية: \${count}\n` +
+        (count ? data.links.map((l, i) => `\${i + 1}. \${String(l)}\n`).join("") : "لا توجد حسابات احتياطية مسجلة.\n") +
         "— magnus"
       );
     }
