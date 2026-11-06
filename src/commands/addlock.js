@@ -274,7 +274,7 @@ module.exports = {
 
   onStart: async function ({ api, event, args, message }) {
     if (!isBotAdmin(event.senderID))
-      return message.reply("⛔ هذا الأمر للمالك والأدمن فقط.");
+      return message.reply("⟦ SAIYAN / ACCESS DENIED ⟧\nإعدادات تثبيت عدد الأعضاء محجوزة لإدارة البوت.");
 
     const tid = String(event.threadID);
     const cfg = loadConfig();
@@ -284,21 +284,14 @@ module.exports = {
     if (sub === "on" || sub === "تفعيل") {
       if (!cfg[tid]?.links?.length)
         return message.reply(
-          "⚠️ لا توجد روابط لهذه المجموعة بعد.\n" +
-          `استخدم: /addlock ${tid} [رابط1] [رابط2]`
+          "⟦ CONFIGURATION MISSING ⟧\nلم تُسجّل حسابات بديلة لهذه المجموعة بعد.\nأضف الحسابات أولًا عبر /addlock [معرّف المجموعة] [روابط الحسابات].
         );
       cfg[tid].enabled = true;
       saveConfig(cfg);
       // إذا كانت هناك سعة شاغرة، ابدأ الإضافة مباشرة بدون انتظار مغادرة جديدة.
       reconcileAddLock(api, tid).catch(() => {});
       return message.reply(
-        "╔══════════════════════════════╗\n" +
-        "║  ✅ تم تفعيل AddLock         ║\n" +
-        "╠══════════════════════════════╣\n" +
-        `║  الروابط: ${cfg[tid].links.length} حساب              ║\n` +
-        "║  عند مغادرة أي عضو سيُضاف  ║\n" +
-        "║  أحد حساباتك تلقائياً      ║\n" +
-        "╚══════════════════════════════╝"
+        `⟦ SAIYAN / MEMBER BALANCE ACTIVE ⟧\nالحسابات الاحتياطية: ${cfg[tid].links.length}\nعند توفر مقعد شاغر، ستحاول الوحدة إضافة الحساب التالي من القائمة.\n— magnus`
       );
     }
 
@@ -306,9 +299,7 @@ module.exports = {
     if (sub === "off" || sub === "إيقاف") {
       if (cfg[tid]) { cfg[tid].enabled = false; saveConfig(cfg); }
       return message.reply(
-        "╔══════════════════════════════╗\n" +
-        "║  🔓 تم إيقاف AddLock         ║\n" +
-        "╚══════════════════════════════╝"
+        "⟦ MEMBER BALANCE PAUSED ⟧\nتم إيقاف وحدة تعويض الأعضاء لهذه المجموعة."
       );
     }
 
@@ -334,24 +325,24 @@ module.exports = {
     if (sub === "clear" || sub === "مسح") {
       delete cfg[tid];
       saveConfig(cfg);
-      return message.reply("✅ تم مسح إعدادات AddLock لهذه المجموعة.");
+      return message.reply("⟦ CONFIGURATION CLEARED ⟧\nتم حذف إعدادات تعويض الأعضاء لهذه المجموعة.");
     }
 
     // ── /addlock list ─────────────────────────────────────────────────────
     if (sub === "list" || sub === "قائمة") {
       const entries = Object.entries(cfg);
       if (!entries.length)
-        return message.reply("📋 لا توجد مجموعات مضبوطة في AddLock.");
+        return message.reply("⟦ MEMBER BALANCE INDEX ⟧\nلا توجد مجموعات مسجلة في الوحدة.");
       const lines = [
         "╔══════════════════════════════╗",
         "║  📋 AddLock — المجموعات      ║",
         "╠══════════════════════════════╣",
       ];
       for (const [id, data] of entries) {
-        lines.push(`║  ${(data?.enabled ? "✅" : "⏹")} ID: ${id}`);
-        lines.push(`║     روابط: ${data?.links?.length || 0}`);
+        lines.push(`${data?.enabled ? "ACTIVE" : "PAUSED"} | المجموعة: ${id}`);
+        lines.push(`الحسابات الاحتياطية: ${data?.links?.length || 0}`);
       }
-      lines.push("╚══════════════════════════════╝");
+      lines.push("— magnus");
       return message.reply(lines.join("\n"));
     }
 
@@ -371,19 +362,10 @@ module.exports = {
 
     if (!linkArgs.length) {
       return message.reply(
-        "╔══════════════════════════════════════╗\n" +
-        "║  🔒 AddLock — تعليمات الاستخدام      ║\n" +
-        "╠══════════════════════════════════════╣\n" +
-        "║  ضبط روابط:                          ║\n" +
-        "║  /addlock [id] [رابط1] [رابط2]       ║\n" +
-        "║  أو في الغروب الحالي:               ║\n" +
-        "║  /addlock [رابط1] [رابط2]            ║\n" +
-        "╠══════════════════════════════════════╣\n" +
-        "║  /addlock on     — تفعيل             ║\n" +
-        "║  /addlock off    — إيقاف             ║\n" +
-        "║  /addlock status — الحالة            ║\n" +
-        "║  /addlock list   — كل المجموعات     ║\n" +
-        "╚══════════════════════════════════════╝"
+        "⟦ SAIYAN / MEMBER BALANCE CONTROL ⟧\n" +
+        "تسجيل الحسابات: /addlock [groupID] [link1] [link2]\n" +
+        "للمجموعة الحالية: /addlock [link1] [link2]\n\n" +
+        "/addlock on — تشغيل الوحدة\n/addlock off — إيقافها\n/addlock status — عرض الحالة\n/addlock list — السجل\n/addlock clear — مسح الإعدادات\n— magnus"
       );
     }
 
@@ -402,8 +384,7 @@ module.exports = {
     if (!resolvedLinks.length) {
       message.react("❌", event.messageID);
       return message.reply(
-        "❌ لم يتم حل أي رابط إلى UID.\n" +
-        "تأكد من الروابط أو استخدم UID مباشرة (أرقام فقط)."
+        "⟦ IDENTIFIER RESOLUTION FAILED ⟧\nلم أتمكن من تحويل أي رابط إلى معرّف حساب. تحقق من الروابط أو استخدم UID رقميًا مباشرًا."
       );
     }
 
@@ -418,17 +399,17 @@ module.exports = {
       "╔══════════════════════════════╗",
       "║  ✅ تم ضبط AddLock           ║",
       "╠══════════════════════════════╣",
-      `║  المجموعة : ${targetTid.slice(0, 17)}`,
-      `║  الحسابات : ${resolvedLinks.length}`,
+      `المجموعة: ${targetTid}`,
+      `عدد الحسابات: ${resolvedLinks.length}`,
     ];
     resolvedLinks.forEach((l, i) =>
-      lines.push(`║  ${i + 1}. UID: ${l.uid.slice(0, 18)}`)
+      lines.push(`${i + 1}. UID: ${l.uid}`)
     );
     if (failedLinks.length)
-      lines.push(`║  ⚠️ لم يُحل: ${failedLinks.length} رابط`);
+      lines.push(`تعذر تفسير ${failedLinks.length} رابط`);
     lines.push("╠══════════════════════════════╣");
-    lines.push("║  استخدم /addlock on للتفعيل ║");
-    lines.push("╚══════════════════════════════╝");
+    lines.push("لتشغيل الوحدة: /addlock on");
+    lines.push("— magnus");
     return message.reply(lines.join("\n"));
   },
 
