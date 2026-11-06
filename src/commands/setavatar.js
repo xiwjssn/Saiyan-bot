@@ -2,8 +2,8 @@
  * Saiyan V1 — /setavatar — تغيير صورة بروفايل البوت
  * Copyright © 2026 magnus
  *
- * تم المقارنة مع WHITE-V3 المصدر:
- *  - arraybuffer ← حفظ ملف مؤقت ← fs.createReadStream  (مطابق WHITE-V3)
+ * تم المقارنة مع SAIYAN CORE المصدر:
+ *  - arraybuffer ← حفظ ملف مؤقت ← fs.createReadStream  (مطابق SAIYAN CORE)
  *  - api.changeAvatar(stream, "", null, cb)  (يدعم Legacy Promise)
  *  - تنظيف الملف المؤقت في finally
  */
@@ -61,7 +61,7 @@ module.exports = {
 
     message.react("⏳", event.messageID);
 
-    // ── تحميل الصورة كـ arraybuffer (نهج WHITE-V3) ──────────────────────
+    // ── تحميل الصورة كـ arraybuffer (نهج SAIYAN CORE) ──────────────────────
     const tmpFile = path.join(os.tmpdir(), `saiyan_avatar_${Date.now()}.jpg`);
 
     try {
@@ -74,7 +74,7 @@ module.exports = {
       // حفظ في ملف مؤقت — مطلوب لأن FCA تتحقق بـ isReadableStream3
       fs.writeFileSync(tmpFile, Buffer.from(imgRes.data));
 
-      // إنشاء ReadStream نظيف من الملف (مطابق WHITE-V3)
+      // إنشاء ReadStream نظيف من الملف (مطابق SAIYAN CORE)
       const stream = fs.createReadStream(tmpFile);
 
       await new Promise((resolve, reject) => {
