@@ -360,7 +360,7 @@ function registerReply(
     return;
 
   const key =
-    `crow_chats_${state.messageID}`;
+    `saiyan_chats_${state.messageID}`;
 
   global.GoatBot.onReply.set(
     key,
@@ -842,7 +842,7 @@ async function executeRemoteCommand(
   if (!parsed) {
 
     return sourceMessage.reply(
-      "⚠️ الأمر غير معروف.\n\n" +
+      "⟦ UNKNOWN COMMAND ⟧\n\n" +
       "الأوامر المتاحة:\n" +
       "• /angel [رسالة] [min] [max]\n" +
       "• /nm [اسم] [min] [max]\n" +
@@ -867,7 +867,7 @@ async function executeRemoteCommand(
     type: "message",
 
     messageID:
-      `crow_remote_${Date.now()}`,
+      `saiyan_remote_${Date.now()}`,
 
     threadID:
       targetThreadID,
@@ -914,13 +914,13 @@ async function executeRemoteCommand(
 
     return sourceMessage.reply(
       `🟢 تم تمرير /${parsed.name} إلى "${threadName(group)}".\n\n` +
-      "🐦‍⬛ Saiyan جاهز لأمر آخر."
+      "Saiyan جاهز لطلب آخر."
     );
 
   } catch (error) {
 
     global.log?.error?.(
-      "CROW_CHATS_REMOTE",
+      "SAIYAN_CHATS_REMOTE",
       `فشل تنفيذ /${parsed.name}: ${error.message}`
     );
 
@@ -938,7 +938,7 @@ async function executeRemoteCommand(
 function buildCommandPrompt(group) {
 
   return (
-    "🐦‍⬛ Saiyan — Remote Control\n\n" +
+    "⟦ SAIYAN / REMOTE CONTROL ⟧\n\n" +
 
     `🎯 الهدف: ${threadName(group)}\n` +
     `🔗 ${group.threadID}\n\n` +
@@ -1308,7 +1308,7 @@ async function showRequestList(
             }
 
             return dMsg.reply(
-              "⟦ PARTIAL COMPLETION ⟧\nتمت محاولة فتح المحادثة، لكن تعذر إرسال رسالة التعريف.\n"
+              "⟦ PARTIAL COMPLETION ⟧\nتمت محاولة فتح المحادثة، لكن تعذر إرسال رسالة التعريف.\n" +
               (
                 result.helloError?.message ||
                 "تحقق من اتصال الحساب."
@@ -1391,7 +1391,7 @@ async function acceptByThreadID(
   }
 
   return message.reply(
-    "⟦ CONVERSATION PARTIALLY OPENED ⟧\nتعذر إرسال رسالة التعريف.\n"
+    "⟦ CONVERSATION PARTIALLY OPENED ⟧\nتعذر إرسال رسالة التعريف.\n" +
     (
       result.helloError?.message ||
       result.acceptError?.message ||
