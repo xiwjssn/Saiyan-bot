@@ -183,7 +183,7 @@ module.exports = {
       }
 
       return message.reply(
-        "⛔ تم إيقاف حماية الكنيات في هذه المحادثة."
+        "⟦ SAIYAN / NICKNAME LOCK DISABLED ⟧\nتم إيقاف تثبيت الكنيات في هذه المحادثة."
       );
     }
 
@@ -193,8 +193,7 @@ module.exports = {
 
       if (!lock?.active) {
         return message.reply(
-          "ℹ️ حماية الكنيات غير مفعلة حالياً.\n" +
-          "استخدم /nick [الكنية] لتفعيلها."
+          "⟦ NICKNAME LOCK INACTIVE ⟧\nلا توجد قاعدة كنيات فعالة حاليًا.\nاستخدم /nick [الكنية] لإنشاء قاعدة جديدة."
         );
       }
 
@@ -206,10 +205,11 @@ module.exports = {
         : "🟡 متوقفة";
 
       return message.reply(
-        `🛡️ حماية الكنيات: ${running}\n` +
-        `✏️ الكنية العامة: ${lock.globalName || "لا يوجد"}\n` +
-        `👤 الكنيات الخاصة: ${perCount}\n` +
-        `🔁 المدة: 3.5–4 ثوانٍ لكل عضو`
+        `⟦ SAIYAN / NICKNAME CORE ⟧\n` +
+        `حالة التنفيذ: ${running}\n` +
+        `الكنية العامة: ${lock.globalName || "غير محددة"}\n` +
+        `القواعد الفردية: ${perCount}\n` +
+        `دورة المراجعة: 3.5–4 ثوانٍ لكل عضو\n— magnus`
       );
     }
 
@@ -220,7 +220,7 @@ module.exports = {
       }
 
       await message.reply(
-        "🧹 جارٍ تنظيف كنيات أعضاء الغروب..."
+        "⟦ SAIYAN / NICKNAME RESET ⟧\nبدأت إزالة الكنيات المسجلة من أعضاء المجموعة..."
       );
 
       try {
@@ -249,11 +249,11 @@ module.exports = {
         }
 
         return message.reply(
-          "✅ تم حذف الكنيات من أعضاء الغروب."
+          "⟦ RESET COMPLETE ⟧\nاكتملت محاولة إزالة الكنيات من أعضاء المجموعة."
         );
       } catch (error) {
         return message.reply(
-          "⚠️ تعذر إكمال العملية: " +
+          "⟦ RESET INTERRUPTED ⟧\nتعذر إكمال العملية: "
           (error.message || "خطأ غير معروف")
         );
       }
@@ -266,8 +266,7 @@ module.exports = {
 
       if (!uid || !name) {
         return message.reply(
-          "⚠️ الصيغة الصحيحة:\n" +
-          "/nick set [UID] [الكنية]"
+          "⟦ INVALID RULE FORMAT ⟧\nاستخدم الصيغة التالية:\n/nick set [UID] [الكنية]"
         );
       }
 
@@ -292,10 +291,7 @@ module.exports = {
       applyAllLoop(api, tid).catch(() => {});
 
       return message.reply(
-        `✅ تم تثبيت كنية العضو.\n` +
-        `👤 UID: ${uid}\n` +
-        `✏️ الكنية: ${name}\n` +
-        `🔄 الحماية تعمل الآن.`
+        `⟦ INDIVIDUAL NICKNAME RULE SAVED ⟧\nالمعرّف: ${uid}\nالكنية المعتمدة: ${name}\nالحالة: بدأت المراقبة\n— magnus`
       );
     }
 
@@ -304,12 +300,7 @@ module.exports = {
 
     if (!name) {
       return message.reply(
-        "⚠️ يجب كتابة الكنية التي تريد تثبيتها.\n\n" +
-        "📌 الاستخدام:\n" +
-        "/nick [الكنية] — تثبيت كنية للجميع\n" +
-        "/nick set [uid] [الكنية] — عضو محدد\n" +
-        "/nick status — الحالة\n" +
-        "/nick off — إيقاف الحماية"
+        "⟦ SAIYAN / NICKNAME CONTROL ⟧\nلم تحدد الكنية المطلوبة.\n/nick [الكنية] — قاعدة عامة\n/nick set [UID] [الكنية] — قاعدة لعضو محدد\n/nick status — حالة الوحدة\n/nick off — إيقاف التثبيت\n— magnus"
       );
     }
 
@@ -325,12 +316,7 @@ module.exports = {
     save(data);
 
     await message.reply(
-      `🛡️ تم تشغيل حماية الكنيات.\n\n` +
-      `✏️ الكنية: ${name}\n` +
-      `🔁 التحديث: كل 3.5–4 ثوانٍ\n` +
-      `👁️ تتم مراقبة أي تغيير تلقائياً\n` +
-      `♻️ الحماية مستمرة حتى إيقافها\n\n` +
-      `⛔ للإيقاف: /nick off`
+      `⟦ SAIYAN / NICKNAME CORE ACTIVATED ⟧\nالقاعدة العامة: ${name}\nدورة المراجعة: 3.5–4 ثوانٍ لكل عضو\nالمراقبة: تلقائية ومستمرة\nتظل القاعدة فعالة حتى إيقافها.\nأمر الإيقاف: /nick off\n— magnus`
     );
 
     applyAllLoop(api, tid).catch(() => {});
