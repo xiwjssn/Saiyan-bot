@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /rank — عرض مستوى المستخدم (نظام XP بسيط)
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /rank — عرض مستوى المستخدم (نظام XP بسيط)
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  */
 "use strict";
 const fs   = require("fs-extra");
@@ -42,7 +42,7 @@ module.exports = {
     name: "rank",
     aliases: ["level", "xp", "مستوى", "رتبة"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 0,
     category: "utility",
