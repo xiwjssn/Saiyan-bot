@@ -127,7 +127,7 @@ const CATEGORIES = [
       {
         name: "help",
         icon: "?",
-        desc: "فتح مركز أوامر Saiyan",
+        desc: "فتح دليل التحكم — Saiyan",
       },
     ],
   },
@@ -421,7 +421,7 @@ function buildHelpAll(prefix) {
   const lines = [];
 
   lines.push(LINE);
-  lines.push("          C R O W  •  C O R E");
+  lines.push("          S A I Y A N  /  C O R E");
   lines.push("          مركز أوامر Saiyan");
   lines.push(`          magnus  |  Prefix: ${prefix}`);
   lines.push(LINE);
