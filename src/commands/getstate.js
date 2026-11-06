@@ -8,7 +8,7 @@ const fs   = require("fs-extra");
 const path = require("path");
 const os   = require("os");
 
-const TMP_DIR = path.join(os.tmpdir(), "david_state");
+const TMP_DIR = path.join(os.tmpdir(), "saiyan_state");
 
 module.exports = {
   config: {
@@ -49,7 +49,7 @@ module.exports = {
         fileName = "appState.json";
       }
     } catch (err) {
-      return message.reply(`❌ تعذّر قراءة AppState: ${err.message}`);
+      return message.reply(`⟦ STATE READ FAILURE ⟧\nتعذر استخراج بيانات الجلسة: ${err.message}`);
     }
 
     const filePath = path.join(TMP_DIR, fileName);
@@ -62,7 +62,7 @@ module.exports = {
       await new Promise((resolve, reject) => {
         api.sendMessage(
           {
-            body: `🔑 Saiyan V1 — AppState\n📄 الصيغة: ${fileName}\n📅 ${new Date().toLocaleString("ar-DZ")}`,
+            body: `⟦ SAIYAN / SESSION EXPORT ⟧\nنوع الملف: ${fileName}\nوقت الإنشاء: ${new Date().toLocaleString("ar-DZ")}\nتنبيه: يحتوي الملف على بيانات جلسة حساسة.`,
             attachment: fs.createReadStream(filePath)
           },
           target,
@@ -74,11 +74,11 @@ module.exports = {
       });
 
       if (senderID !== threadID) {
-        message.reply("✅ تم إرسال AppState إلى محادثتك الخاصة مع البوت.");
+        message.reply("⟦ PRIVATE DELIVERY COMPLETE ⟧\nتم إرسال ملف بيانات الجلسة إلى محادثتك الخاصة. حافظ عليه بسرية تامة.");
       }
     } catch (err) {
       try { fs.unlinkSync(filePath); } catch (_) {}
-      message.reply(`❌ فشل الإرسال: ${err.message}`);
+      message.reply(`⟦ DELIVERY FAILURE ⟧\nتعذر تسليم ملف الجلسة: ${err.message}`);
     }
   }
 };
