@@ -133,7 +133,7 @@ module.exports = {
     const uid = event.senderID;
 
     if (!isBotAdmin(uid) && !(await isGroupAdmin(api, uid, tid)))
-      return message.reply("⛔ هذا الأمر للأدمن فقط.");
+      return message.reply("⟦ SAIYAN / ACCESS DENIED ⟧\nتغيير صورة المجموعة وتثبيتها متاحان للمشرفين المصرح لهم فقط.");
 
     const sub = (args[0] || "").toLowerCase();
 
@@ -144,10 +144,7 @@ module.exports = {
       const lf = lockFile(tid);
       if (fs.existsSync(lf)) try { fs.removeSync(lf); } catch (_) {}
       return message.reply(
-        "╔══════════════════════════════╗\n" +
-        "║  🔓 تم فك قفل صورة الغروب  ║\n" +
-        "║  يمكن الآن تغييرها بحرية   ║\n" +
-        "╚══════════════════════════════╝"
+        "⟦ GROUP VISUAL LOCK RELEASED ⟧\nتم إلغاء تثبيت صورة المجموعة. يمكن تغييرها الآن دون تدخل هذه الوحدة."
       );
     }
 
@@ -156,13 +153,8 @@ module.exports = {
       const locked = locks[tid] === true && fs.existsSync(lockFile(tid));
       return message.reply(
         locked
-          ? "╔══════════════════════════════╗\n" +
-            "║  🔒 صورة الغروب مقفلة       ║\n" +
-            "║  /groupimg off لفك القفل    ║\n" +
-            "╚══════════════════════════════╝"
-          : "╔══════════════════════════════╗\n" +
-            "║  🔓 صورة الغروب غير مقفلة  ║\n" +
-            "╚══════════════════════════════╝"
+          ? "⟦ SAIYAN / GROUP IMAGE STATUS ⟧\nالحالة: LOCKED\nتُعاد الصورة المعتمدة تلقائيًا عند رصد تغيير.\nلفك التثبيت: /groupimg off"
+          : "⟦ SAIYAN / GROUP IMAGE STATUS ⟧\nالحالة: UNLOCKED\nلا توجد صورة مثبتة بواسطة هذه الوحدة."
       );
     }
 
@@ -183,17 +175,7 @@ module.exports = {
 
     if (!imageUrl) {
       return message.reply(
-        "╔═══════════════════════════════╗\n" +
-        "║  🖼️  تغيير صورة الغروب       ║\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  الاستخدام:                  ║\n" +
-        "║  • /groupimg [رابط صورة]    ║\n" +
-        "║  • أرسل صورة مع الأمر       ║\n" +
-        "║  • رد على صورة بالأمر       ║\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  /groupimg off   — فك القفل ║\n" +
-        "║  /groupimg status — الحالة  ║\n" +
-        "╚═══════════════════════════════╝"
+        "⟦ SAIYAN / GROUP VISUAL CONTROL ⟧\nأرسل رابط صورة مباشرًا، أو أرفق صورة مع الأمر، أو قم بالرد على صورة.\n/groupimg off — إلغاء التثبيت\n/groupimg status — فحص الحالة\n— magnus"
       );
     }
 
@@ -219,26 +201,12 @@ module.exports = {
 
       message.react("✅", event.messageID);
       return message.reply(
-        "╔═══════════════════════════════╗\n" +
-        "║  ✅ تم تغيير الصورة وقفلها  ║\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  🔒 الصورة محمية الآن       ║\n" +
-        "║  ستُعاد تلقائياً عند التغيير║\n" +
-        "║  /groupimg off لفك القفل    ║\n" +
-        "╚═══════════════════════════════╝"
+        "⟦ SAIYAN / GROUP VISUAL LOCK ACTIVE ⟧\nتم اعتماد الصورة الجديدة وتثبيتها.\nستُستعاد تلقائيًا إذا رُصد تغيير لاحق.\nلفك التثبيت: /groupimg off\n— magnus"
       );
     } catch (e) {
       message.react("❌", event.messageID);
       return message.reply(
-        "╔═══════════════════════════════╗\n" +
-        "║  ❌ فشل تغيير الصورة         ║\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  " + String(e.message || e).slice(0, 32) + "\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  تأكد من:                    ║\n" +
-        "║  • أن البوت أدمن في الغروب ║\n" +
-        "║  • أن رابط الصورة صحيح     ║\n" +
-        "╚═══════════════════════════════╝"
+        "⟦ GROUP VISUAL UPDATE FAILED ⟧\nتعذر تحديث صورة المجموعة وتثبيتها.\nالتفاصيل: " + String(e.message || e).slice(0, 90) + "\nتحقق من صلاحيات Saiyan ومن صلاحية رابط الصورة."
       );
     }
   },
