@@ -59,8 +59,7 @@ module.exports = {
     const { senderID, threadID, mentions, messageReply } = event;
 
     if (!isTopAdmin(senderID))
-      return message.reply("⟦ SAIYAN / ACCESS DENIED ⟧
-هذا الإجراء محجوز لمالك النظام أو الإدارة العليا.");
+      return message.reply("⟦ SAIYAN / ACCESS DENIED ⟧\nهذا الإجراء محجوز لمالك النظام أو الإدارة العليا.");
 
     const sub = (args[0] || "").toLowerCase();
 
@@ -70,8 +69,7 @@ module.exports = {
       const cfg    = global.GoatBot?.config || {};
       const supers = [cfg.ownerID, ...(cfg.superAdminBot || [])].filter(Boolean).map(String);
       if (!Object.keys(levels).length && !supers.length)
-        return message.reply("⟦ SAIYAN / ADMIN INDEX ⟧
-لا توجد حسابات إدارية إضافية مسجّلة حاليًا.");
+        return message.reply("⟦ SAIYAN / ADMIN INDEX ⟧\nلا توجد حسابات إدارية إضافية مسجّلة حاليًا.");
 
       const lines = ["⟦ SAIYAN / ADMIN REGISTRY ⟧", "سجل الصلاحيات الإدارية", "────────────────────────"];
       const emoji = { 3: "🥇", 2: "🥈", 1: "🥉" };
@@ -86,11 +84,9 @@ module.exports = {
     // ── إزالة أدمن ────────────────────────────────────────────────────────
     if (sub === "remove" || sub === "إزالة") {
       const rid = args[1] ? extractID(args[1]) : (messageReply?.senderID || Object.keys(mentions || {})[0]);
-      if (!rid) return message.reply("⟦ INPUT REQUIRED ⟧
-أرسل معرّف الحساب أو ردّ على رسالة صاحبه.");
+      if (!rid) return message.reply("⟦ INPUT REQUIRED ⟧\nأرسل معرّف الحساب أو ردّ على رسالة صاحبه.");
       const levels = loadLevels();
-      if (!levels[String(rid)]) return message.reply(`⟦ NO MATCH ⟧
-المعرّف ${rid} غير موجود في سجل الإدارة.`);
+      if (!levels[String(rid)]) return message.reply(\`⟦ NO MATCH ⟧\nالمعرّف \${rid} غير موجود في سجل الإدارة.\`);
       delete levels[String(rid)];
       saveLevels(levels);
       // تحديث config
@@ -100,8 +96,7 @@ module.exports = {
         fs.writeFileSync(CONFIG_FILE, JSON.stringify(cfg, null, 2));
         if (global.GoatBot?.config) global.GoatBot.config.adminBot = cfg.adminBot;
       } catch (_) {}
-      return message.reply(`⟦ ACCESS REVOKED ⟧
-تم سحب الصلاحية الإدارية من الحساب ${rid}.`);
+      return message.reply(\`⟦ ACCESS REVOKED ⟧\nتم سحب الصلاحية الإدارية من الحساب \${rid}.\`);
     }
 
     // ── إضافة / تعديل ─────────────────────────────────────────────────────
@@ -118,11 +113,9 @@ module.exports = {
     else if (args[1])     targetID = extractID(args[1]);
     else if (messageReply) targetID = messageReply.senderID;
 
-    if (!targetID) return message.reply("⟦ TARGET MISSING ⟧
-حدّد الحساب بالإشارة إليه، أو بالرد على رسالته، أو بإرسال ID.");
+    if (!targetID) return message.reply("⟦ TARGET MISSING ⟧\nحدّد الحساب بالإشارة إليه، أو بالرد على رسالته، أو بإرسال ID.");
     if (String(targetID) === String(senderID))
-      return message.reply("⟦ OPERATION BLOCKED ⟧
-لا يمكن منح حسابك صلاحية إدارية عبر هذا الأمر.");
+      return message.reply("⟦ OPERATION BLOCKED ⟧\nلا يمكن منح حسابك صلاحية إدارية عبر هذا الأمر.");
 
     const levels   = loadLevels();
     const oldLevel = levels[String(targetID)];
