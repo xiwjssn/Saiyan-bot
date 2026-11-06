@@ -284,7 +284,8 @@ module.exports = {
     if (sub === "on" || sub === "تفعيل") {
       if (!cfg[tid]?.links?.length)
         return message.reply(
-          "⟦ CONFIGURATION MISSING ⟧\nلم تُسجّل حسابات بديلة لهذه المجموعة بعد.\nأضف الحسابات أولًا عبر /addlock [معرّف المجموعة] [روابط الحسابات]."\n        );
+          "⟦ CONFIGURATION MISSING ⟧\nلم تُسجّل حسابات بديلة لهذه المجموعة بعد.\nأضف الحسابات أولًا عبر /addlock [معرّف المجموعة] [روابط الحسابات]."
+        );
       cfg[tid].enabled = true;
       saveConfig(cfg);
       // إذا كانت هناك سعة شاغرة، ابدأ الإضافة مباشرة بدون انتظار مغادرة جديدة.
