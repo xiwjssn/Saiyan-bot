@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /sexvid — فيديو للكبار (18+)
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /sexvid — فيديو للكبار (18+)
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  * Role: 2 (Bot Admin only — للمجموعات المرخصة فقط)
  */
 "use strict";
@@ -58,7 +58,7 @@ module.exports = {
     name: "sexvid",
     aliases: ["sex", "18+", "adult"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 30,
     role: 2,
     category: "18+",
