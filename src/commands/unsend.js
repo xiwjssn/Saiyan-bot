@@ -74,7 +74,7 @@ module.exports = {
       }, 1000);
 
     } catch (e) {
-      return message.reply("❌ فشل الحذف: " + (e.message || JSON.stringify(e)));
+      return message.reply("⟦ MESSAGE REMOVAL FAILED ⟧\nتعذر إتمام الإزالة: " (e.message || JSON.stringify(e)));
     }
   }
 };
