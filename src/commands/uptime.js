@@ -1,6 +1,6 @@
 /**
- * CROW — /uptime
- * Copyright © 2026 Itachi
+ * Saiyan — /uptime
+ * Copyright © 2026 magnus
  */
 "use strict";
 
@@ -30,15 +30,15 @@ module.exports = {
     name: "uptime",
     aliases: ["up", "ping", "وقت"],
     version: "3.0",
-    author: "Itachi",
+    author: "magnus",
     countDown: 5,
     role: 2,
     category: "info",
 
-    description: "استدعاء معلومات CROW ومراقبة حالة التشغيل",
+    description: "استدعاء معلومات Saiyan ومراقبة حالة التشغيل",
 
     guide: {
-      en: "{pn} — استدعاء معلومات CROW"
+      en: "{pn} — استدعاء معلومات Saiyan"
     }
   },
 
@@ -97,7 +97,7 @@ module.exports = {
       "🧩 الوحدات النشطة",
       `└─ 📦 ${commandCount} أمر`,
       "",
-      "💾 ذاكرة CROW",
+      "💾 ذاكرة Saiyan",
       `└─ 🧠 ${ramUsed} MB`,
       "",
       "🖥️ موارد الجهاز",
@@ -112,7 +112,7 @@ module.exports = {
       "",
       "━━━━━━━━━━━━━━━━━━",
       "☁️ كل الأنظمة تعمل بشكل طبيعي.",
-      "👤 Itachi",
+      "👤 magnus",
       "━━━━━━━━━━━━━━━━━━"
     ].join("\n");
 
