@@ -37,7 +37,7 @@ module.exports = {
 
   onStart: async function ({ api, event, args, message }) {
     if (!isBotAdmin(event.senderID))
-      return message.reply("⛔ هذا الأمر للمالك فقط.");
+      return message.reply("⟦ SAIYAN / ACCESS DENIED ⟧\nتغيير صورة الحساب متاح لمالك البوت فقط.");
 
     // ── استخراج رابط الصورة ─────────────────────────────────────────────
     let imgUrl = null;
@@ -55,20 +55,14 @@ module.exports = {
 
     if (!imgUrl) {
       return message.reply(
-        "╔══════════════════════════╗\n" +
-        "║  📸  تغيير صورة البوت   ║\n" +
-        "╠══════════════════════════╣\n" +
-        "║  الاستخدام:              ║\n" +
-        "║  • /setavatar [رابط]    ║\n" +
-        "║  • رد على صورة بالأمر   ║\n" +
-        "╚══════════════════════════╝"
+        "⟦ SAIYAN / AVATAR CONFIGURATION ⟧\nلم يتم العثور على صورة. أرسل رابط صورة مباشرًا مع الأمر أو قم بالرد على صورة ثم أرسل /setavatar."
       );
     }
 
     message.react("⏳", event.messageID);
 
     // ── تحميل الصورة كـ arraybuffer (نهج WHITE-V3) ──────────────────────
-    const tmpFile = path.join(os.tmpdir(), `david_avatar_${Date.now()}.jpg`);
+    const tmpFile = path.join(os.tmpdir(), `saiyan_avatar_${Date.now()}.jpg`);
 
     try {
       const imgRes = await axios.get(imgUrl, {
@@ -93,28 +87,13 @@ module.exports = {
 
       message.react("✅", event.messageID);
       return message.reply(
-        "╔═══════════════════════════╗\n" +
-        "║  ✅ تم بنجاح              ║\n" +
-        "╠═══════════════════════════╣\n" +
-        "║  تم تغيير صورة البوت 🎉  ║\n" +
-        "║  قد تحتاج لإعادة تحميل   ║\n" +
-        "║  الصفحة لرؤية التغيير    ║\n" +
-        "╚═══════════════════════════╝"
+        "⟦ SAIYAN / AVATAR UPDATED ⟧\nتم اعتماد الصورة الجديدة للحساب. قد تحتاج إلى إعادة تحميل المحادثة حتى يظهر التغيير."
       );
 
     } catch (err) {
       message.react("❌", event.messageID);
       return message.reply(
-        "╔═══════════════════════════╗\n" +
-        "║  ❌ فشل تغيير الصورة      ║\n" +
-        "╠═══════════════════════════╣\n" +
-        "║  السبب: " + String(err.message || err).slice(0, 35) + "\n" +
-        "╠═══════════════════════════╣\n" +
-        "║  ⚠️ قد يكون السبب:        ║\n" +
-        "║  • الكوكيز منتهية الصلاحية║\n" +
-        "║  • فيسبوك حظر الطلب مؤقتاً║\n" +
-        "║  • رابط الصورة غير صالح  ║\n" +
-        "╚═══════════════════════════╝"
+        "⟦ AVATAR UPDATE FAILED ⟧\nتعذر تغيير الصورة.\nالتفاصيل: " + String(err.message || err).slice(0, 80) + "\nتحقق من صلاحية الجلسة ومن إمكانية الوصول إلى رابط الصورة."
       );
 
     } finally {
