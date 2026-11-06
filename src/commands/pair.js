@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /pair — ربط عشوائي بين عضوين
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 & adapted for Saiyan engine
+ * Ported from SAIYAN CORE & adapted for Saiyan engine
  */
 "use strict";
 const axios = require("axios");
