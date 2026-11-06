@@ -1,6 +1,6 @@
 /**
- * DAVID V1 — /song — تحميل أغاني من يوتيوب
- * Copyright © 2025 DJAMEL
+ * Saiyan V1 — /song — تحميل أغاني من يوتيوب
+ * Copyright © 2026 magnus
  * Uses direct YouTube audio extraction with ytdl-core + ffmpeg
  */
 "use strict";
@@ -85,7 +85,7 @@ module.exports = {
     name: "song",
     aliases: ["mp3", "music", "اغنية", "أغنية", "موسيقى"],
     version: "3.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 10,
     role: 0,
     category: "media",
