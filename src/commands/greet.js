@@ -21,7 +21,7 @@ module.exports = {
   onStart: async function ({ api, event, message }) {
     const { senderID } = event;
     const prefix = global.GoatBot?.config?.prefix || "/";
-    const botName = global.GoatBot?.config?.botName || "Saiyan V1";
+    const botName = global.GoatBot?.config?.botName || "Saiyan";
 
     let name = "صديقي";
     try {
@@ -35,13 +35,12 @@ module.exports = {
 
     return message.reply(
       `${LINE}\n` +
-      `  👋 مرحباً ${name}!\n` +
+      `⟦ SAIYAN / CONNECTION ESTABLISHED ⟧\nأهلًا ${name}، تم فتح قناة التواصل.\n` +
       `${LINE}\n\n` +
-      `  🤖 أنا ${botName}\n` +
-      `  ⚡ بوت ماسنجر ذكي بـ 30+ أمر\n` +
-      `  🛡️ محمي بـ 20 طبقة حماية\n\n` +
+      `أنا ${botName}، مساعد المجموعة لتنفيذ الأدوات والخدمات المتاحة.\n` +
+      `اختر أمرًا من الدليل لبدء الاستخدام.\n\n` +
       `${LINE}\n` +
-      `  📦 أوامر مفيدة:\n\n` +
+      `⟦ QUICK ACCESS ⟧\n` +
       `  ${prefix}help        — كل الأوامر\n` +
       `  ${prefix}ping        — حالة البوت\n` +
       `  ${prefix}ai [سؤال]  — دردشة AI\n` +
@@ -52,7 +51,7 @@ module.exports = {
       `  ${prefix}daily       — مكافأة يومية\n` +
       `  ${prefix}uid         — معرفك\n\n` +
       `${LINE}\n` +
-      `  🔑 Prefix: ${prefix}  •  © 2025 magnus\n` +
+      `بادئة الأوامر: ${prefix}\nالمطوّر: magnus\n` +
       `${LINE}`
     );
   }
