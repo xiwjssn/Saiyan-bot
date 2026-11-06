@@ -27,12 +27,7 @@ module.exports = {
     if (targetUser) {
       // معلومات شخص
       return message.reply(
-        `╔══════════════════════════╗\n` +
-        `║  👤  معلومات المستخدم   ║\n` +
-        `╠══════════════════════════╣\n` +
-        `║  🆔 ID : ${targetUser}\n` +
-        `║  💬 الغروب : ${threadID}\n` +
-        `╚══════════════════════════╝`
+        `⟦ SAIYAN / USER RECORD ⟧\nمعرّف الحساب: ${targetUser}\nمعرّف المحادثة: ${threadID}\n— magnus`
       );
     }
 
@@ -52,20 +47,17 @@ module.exports = {
 
       message.react("✅", event.messageID);
       return message.reply(
-        `╔═══════════════════════════════╗\n` +
-        `║  📋  معلومات الغروب           ║\n` +
-        `╠═══════════════════════════════╣\n` +
-        `║  📛 الاسم    : ${name.slice(0, 20)}\n` +
-        `║  🆔 ID       : ${threadID}\n` +
-        `║  👥 الأعضاء  : ${members}\n` +
-        `║  👑 الأدمن   : ${admins}\n` +
-        `║  🔒 موافقة   : ${approval}\n` +
-        `║  🤝 غروب؟   : ${isGroup}\n` +
-        `╚═══════════════════════════════╝`
+        `⟦ SAIYAN / CONVERSATION DOSSIER ⟧\n` +
+        `اسم المحادثة: ${name.slice(0, 40)}\n` +
+        `المعرّف: ${threadID}\n` +
+        `عدد الأعضاء: ${members}\n` +
+        `عدد المشرفين: ${admins}\n` +
+        `موافقة الانضمام: ${approval}\n` +
+        `مجموعة: ${isGroup}\n— magnus`
       );
     } catch (e) {
       message.react("❌", event.messageID);
-      message.reply(`❌ فشل: ${e.message}`);
+      message.reply(`⟦ DATA RETRIEVAL FAILED ⟧\nتعذر جلب بيانات المحادثة: ${e.message}`);
     }
   }
 };
