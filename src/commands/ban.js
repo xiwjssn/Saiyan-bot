@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /ban — حظر مستخدم من استخدام البوت
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /ban — حظر مستخدم من استخدام البوت
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  */
 "use strict";
 const fs   = require("fs-extra");
@@ -26,7 +26,7 @@ module.exports = {
     name: "ban",
     aliases: ["block", "حظر"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 3,
     role: 3,
     category: "management",
