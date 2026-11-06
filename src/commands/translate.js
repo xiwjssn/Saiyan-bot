@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /translate — ترجمة النصوص
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /translate — ترجمة النصوص
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  * Uses MyMemory free translation API (no key needed)
  */
 "use strict";
@@ -19,7 +19,7 @@ module.exports = {
     name: "translate",
     aliases: ["trans", "ترجمة", "ترجم"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 0,
     category: "utility",
