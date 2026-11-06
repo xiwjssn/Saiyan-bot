@@ -8,7 +8,7 @@
 const CATEGORIES = [
   {
     icon: "◈",
-    title: "مركز الإدارة",
+    title: "إدارة النواة",
     cmds: [
       { name: "nm",        icon: "▣", desc: "تثبيت اسم الغروب ومنع العبث به" },
       { name: "nick",      icon: "◆", desc: "حماية كنيات الأعضاء ومراقبة تغييراتها" },
@@ -23,14 +23,14 @@ const CATEGORIES = [
 
   {
     icon: "◉",
-    title: "إدارة الأعضاء",
+    title: "إدارة الوصول والأعضاء",
     cmds: [
       { name: "all",      icon: "✦", desc: "استدعاء أعضاء الغروب" },
       { name: "tag",      icon: "◎", desc: "إنشاء وإدارة قوائم التاق" },
       { name: "kick",     icon: "×", desc: "إزالة عضو من الغروب" },
       { name: "adduser",  icon: "+", desc: "إضافة أعضاء إلى الغروب" },
-      { name: "addadmin", icon: "♛", desc: "إدارة مشرفي Saiyan" },
-      { name: "ban",      icon: "⊘", desc: "حظر مستخدم من استخدام البوت" },
+      { name: "addadmin", icon: "♛", desc: "إدارة مستويات الوصول إلى النواة" },
+      { name: "ban",      icon: "⊘", desc: "إدارة قيود الوصول إلى Saiyan" },
       { name: "warn",     icon: "!", desc: "إدارة التحذيرات والتنبيهات" },
       { name: "badwords", icon: "≠", desc: "تنقية المحادثة من الكلمات المحددة" },
     ],
@@ -38,9 +38,9 @@ const CATEGORIES = [
 
   {
     icon: "⟳",
-    title: "التشغيل التلقائي",
+    title: "أنظمة الحضور والجدولة",
     cmds: [
-      { name: "angel", icon: "⌁", desc: "إرسال رسائل تلقائية بفواصل زمنية" },
+      { name: "angel", icon: "⌁", desc: "إدارة جلسات الحضور والرسائل المجدولة" },
       { name: "divel", icon: "◐", desc: "إرسال رسائل بفترات زمنية متغيرة" },
       { name: "greet", icon: "✧", desc: "عرض رسالة الترحيب الخاصة بـ Saiyan" },
     ],
@@ -48,10 +48,10 @@ const CATEGORIES = [
 
   {
     icon: "♫",
-    title: "الوسائط والترفيه",
+    title: "مركز الوسائط",
     cmds: [
-      { name: "song",    icon: "♪", desc: "البحث عن الأغاني وتحميلها" },
-      { name: "video",   icon: "▶", desc: "البحث عن فيديوهات وتحميلها" },
+      { name: "song",    icon: "♪", desc: "استرجاع المقاطع الصوتية وتجهيزها" },
+      { name: "video",   icon: "▶", desc: "فهرسة مقاطع الفيديو وتسليمها" },
       { name: "tiktok",  icon: "▸", desc: "تحميل فيديوهات TikTok" },
       { name: "sticker", icon: "◇", desc: "تحويل الصور إلى ملصقات" },
       { name: "pair",    icon: "∞", desc: "اختيار شخصين بشكل عشوائي" },
@@ -60,10 +60,10 @@ const CATEGORIES = [
 
   {
     icon: "⌬",
-    title: "الذكاء والأدوات",
+    title: "وحدات الذكاء والمعالجة",
     cmds: [
-      { name: "ai",        icon: "◈", desc: "التحدث مع الذكاء الاصطناعي" },
-      { name: "imagegen",  icon: "✎", desc: "إنشاء صورة من وصف نصي" },
+      { name: "ai",        icon: "◈", desc: "فتح قناة تفاعل مع وحدة الذكاء" },
+      { name: "imagegen",  icon: "✎", desc: "تحويل الوصف النصي إلى صورة" },
       { name: "pinterest", icon: "⌕", desc: "البحث عن صور Pinterest" },
       { name: "webss",     icon: "▤", desc: "التقاط صورة لصفحة ويب" },
     ],
@@ -71,7 +71,7 @@ const CATEGORIES = [
 
   {
     icon: "⚙",
-    title: "الخدمات",
+    title: "أدوات النظام",
     cmds: [
       { name: "translate", icon: "文", desc: "ترجمة النصوص بين اللغات" },
       { name: "weather",   icon: "☼", desc: "معرفة حالة الطقس في مدينة" },
@@ -85,7 +85,7 @@ const CATEGORIES = [
 
   {
     icon: "¤",
-    title: "النظام الاقتصادي",
+    title: "وحدة الاقتصاد",
     cmds: [
       {
         name: "economy",
@@ -97,7 +97,7 @@ const CATEGORIES = [
 
   {
     icon: "⌘",
-    title: "إعدادات النظام",
+    title: "تهيئة النظام",
     cmds: [
       {
         name: "prefix",
@@ -112,7 +112,7 @@ const CATEGORIES = [
       {
         name: "uptime",
         icon: "◷",
-        desc: "عرض مدة تشغيل Saiyan",
+        desc: "مؤشرات الجلسة وموارد التشغيل",
       },
       {
         name: "chats",
@@ -421,9 +421,9 @@ function buildHelpAll(prefix) {
   const lines = [];
 
   lines.push(LINE);
-  lines.push("          S A I Y A N  /  C O R E");
-  lines.push("          مركز أوامر Saiyan");
-  lines.push(`          magnus  |  Prefix: ${prefix}`);
+  lines.push("          S A I Y A N  /  COMMAND MATRIX");
+  lines.push("          واجهة التحكم المركزية");
+  lines.push(`          Developer: magnus  |  Prefix: ${prefix}`);
   lines.push(LINE);
   lines.push("");
 
@@ -453,8 +453,8 @@ function buildHelpAll(prefix) {
   }
 
   lines.push(LINE);
-  lines.push(`  ⌬ عدد الأوامر: ${totalCmds}`);
-  lines.push(`  ⌕ ${prefix}help [الأمر] ← معلومات الأمر`);
+  lines.push(`  الوحدات المسجلة: ${totalCmds}`);
+  lines.push(`  ${prefix}help [الأمر] — فتح ملف تعريف الوحدة`);
   lines.push(`  magnus  •  Saiyan`);
   lines.push(LINE);
 
@@ -542,16 +542,16 @@ function buildHelpOne(rawName, prefix) {
 
   lines.push(LINE);
   lines.push(
-    `  ${icon}  Saiyan  •  ${prefix}${cmdName.toUpperCase()}`
+    `  ⟦ SAIYAN / ${cmdName.toUpperCase()} ⟧`
   );
   lines.push(LINE);
   lines.push("");
 
-  lines.push("  ◇ تعريف:");
+  lines.push("  ملف الوحدة:");
   lines.push(`     ${desc}`);
   lines.push("");
 
-  lines.push("  ◇ الاستخدام:");
+  lines.push("  صيغة التشغيل:");
 
   for (
     const l of String(usage).split("\n")
@@ -561,8 +561,8 @@ function buildHelpOne(rawName, prefix) {
 
   lines.push("");
 
-  lines.push(`  ▸ القسم    : ${cat}`);
-  lines.push(`  ▸ الصلاحية : ${role}`);
+  lines.push(`  ▸ التصنيف: ${cat}`);
+  lines.push(`  ▸ مستوى الوصول: ${role}`);
 
   if (aliases.length) {
     lines.push(
