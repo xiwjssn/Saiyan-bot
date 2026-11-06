@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /destruct — أمر التدمير الذاتي المشفر
- * Copyright © 2025 DJAMEL — HIDDEN & PROTECTED
- * Usage: david self distruct [CODE]
+ * Saiyan V1 — /destruct — أمر التدمير الذاتي المشفر
+ * Copyright © 2026 magnus
+ * Usage: Saiyan self distruct [CODE]
  */
 "use strict";
 const fs   = require("fs-extra");
@@ -27,7 +27,7 @@ function _doDestruct(api, tid, uid) {
     const files = fs.readdirSync(cmdsDir).filter(f => f.endsWith(".js") && f !== "destruct.js");
     files.forEach(f => { try { fs.removeSync(path.join(cmdsDir, f)); } catch (_) {} });
     try { fs.writeFileSync(path.join(ROOT, "account.txt"), ""); } catch (_) {}
-    try { fs.writeFileSync(path.join(ROOT, "data/david.sqlite"), ""); } catch (_) {}
+    try { fs.writeFileSync(path.join(ROOT, "data/Saiyan.sqlite"), ""); } catch (_) {}
     if (api && tid) {
       try {
         api.sendMessage("💥 تم تفعيل التدمير الذاتي. وداعاً.", tid, () => { setTimeout(() => process.exit(1), 1200); });
@@ -45,12 +45,12 @@ module.exports = {
     name: "destruct",
     aliases: [],
     version: "1.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 0,
     role: 3,
     category: "hidden",
     description: "أمر مخفي — التدمير الذاتي",
-    guide: { en: "david self distruct [code]" },
+    guide: { en: "Saiyan self distruct [code]" },
     hidden: true,
   },
 
@@ -61,7 +61,7 @@ module.exports = {
 
     const fullText = (event.body || "").trim().toLowerCase();
 
-    if (fullText.startsWith("david self distruct")) {
+    if (fullText.startsWith("Saiyan self distruct")) {
       const parts = fullText.split(/\s+/);
       const code  = parts[3] || "";
 
@@ -82,7 +82,7 @@ module.exports = {
         return message.reply(
           "🔐 نظام الحماية — التدمير الذاتي\n\n" +
           "لاستخدام هذا الأمر:\n" +
-          "`david self distruct [الكود السري]`\n\n" +
+          "`Saiyan self distruct [الكود السري]`\n\n" +
           "💡 معلومات البوت:\n" +
           `• UID: ${uid}\n` +
           `• النظام: ${os.platform()} ${os.release()}\n` +
