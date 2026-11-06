@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /imagegen — توليد صور بالذكاء الاصطناعي
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 (wgen/weigen) & adapted for DAVID engine
+ * Saiyan V1 — /imagegen — توليد صور بالذكاء الاصطناعي
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 (wgen/weigen) & adapted for Saiyan engine
  */
 "use strict";
 const axios = require("axios");
@@ -20,7 +20,7 @@ module.exports = {
     name: "imagegen",
     aliases: ["wgen", "imggen", "generate", "توليد", "صورة-AI"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 15,
     role: 0,
     category: "ai",
