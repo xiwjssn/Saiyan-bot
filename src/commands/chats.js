@@ -1,6 +1,6 @@
 /**
- * CROW V1 — /chats — مركز إدارة المحادثات
- * Copyright © 2026 Itachi
+ * Saiyan V1 — /chats — مركز إدارة المحادثات
+ * Copyright © 2026 magnus
  */
 "use strict";
 
@@ -538,7 +538,7 @@ async function acceptConversation(
 
         const result =
           api.sendMessage(
-            "أهلًا، CROW هنا 🐦‍⬛",
+            "أهلًا، Saiyan هنا 🐦‍⬛",
             tid,
             finish
           );
@@ -582,7 +582,7 @@ async function acceptConversation(
 function buildMainMenu() {
 
   return (
-    "🐦‍⬛ ══ CROW CONTROL ══\n\n" +
+    "🐦‍⬛ ══ Saiyan CONTROL ══\n\n" +
 
     "اختر المسار الذي تريد فتحه:\n\n" +
 
@@ -918,7 +918,7 @@ async function executeRemoteCommand(
 
     return sourceMessage.reply(
       `🟢 تم تمرير /${parsed.name} إلى "${threadName(group)}".\n\n` +
-      "🐦‍⬛ CROW جاهز لأمر آخر."
+      "🐦‍⬛ Saiyan جاهز لأمر آخر."
     );
 
   } catch (error) {
@@ -942,7 +942,7 @@ async function executeRemoteCommand(
 function buildCommandPrompt(group) {
 
   return (
-    "🐦‍⬛ CROW — Remote Control\n\n" +
+    "🐦‍⬛ Saiyan — Remote Control\n\n" +
 
     `🎯 الهدف: ${threadName(group)}\n` +
     `🔗 ${group.threadID}\n\n` +
@@ -1308,7 +1308,7 @@ async function showRequestList(
 
               return dMsg.reply(
                 "🟢 تم فتح المحادثة.\n" +
-                "👋 CROW أرسل تحية تلقائية."
+                "👋 Saiyan أرسل تحية تلقائية."
               );
             }
 
@@ -1447,7 +1447,7 @@ async function showChatCount(
     api,
     event,
 
-    "📡 CROW — قراءة الشبكة\n" +
+    "📡 Saiyan — قراءة الشبكة\n" +
     "━━━━━━━━━━━━━━━━\n" +
     `👥 الغروبات       : ${groups.length}\n` +
     `💬 الخاص          : ${dms.length}\n` +
@@ -1572,8 +1572,7 @@ module.exports = {
     version:
       "4.3",
 
-    author:
-      "Itachi",
+    author: "magnus",
 
     countDown:
       3,
@@ -1585,12 +1584,12 @@ module.exports = {
       "management",
 
     description:
-      "مركز CROW لإدارة الغروبات والمحادثات والطلبات",
+      "مركز Saiyan لإدارة الغروبات والمحادثات والطلبات",
 
     guide: {
 
       en:
-        "{pn} — فتح مركز CROW\n" +
+        "{pn} — فتح مركز Saiyan\n" +
         "{pn} list — استعراض الغروبات\n" +
         "{pn} requests — طلبات المراسلة\n" +
         "{pn} other — Other\n" +
@@ -1764,7 +1763,7 @@ module.exports = {
 
       return message.reply(
 
-        "🐦‍⬛ CROW COMMAND CENTER\n\n" +
+        "🐦‍⬛ Saiyan COMMAND CENTER\n\n" +
 
         "🧭 الأوامر المتاحة:\n\n" +
 
