@@ -1,7 +1,7 @@
 /**
- * CROW V1 — /help — Command Center
- * Copyright © 2026 Itachi
- * CROW Messenger Bot
+ * Saiyan V1 — /help — Command Center
+ * Copyright © 2026 magnus
+ * Saiyan Messenger Bot
  */
 "use strict";
 
@@ -14,10 +14,10 @@ const CATEGORIES = [
       { name: "nick",      icon: "◆", desc: "حماية كنيات الأعضاء ومراقبة تغييراتها" },
       { name: "groupimg",  icon: "◉", desc: "تغيير صورة الغروب وتثبيتها" },
       { name: "groupname", icon: "▰", desc: "تحديث اسم الغروب بالاسم المطلوب" },
-      { name: "setavatar", icon: "◎", desc: "تغيير صورة حساب CROW" },
+      { name: "setavatar", icon: "◎", desc: "تغيير صورة حساب Saiyan" },
       { name: "addlock",   icon: "⛓", desc: "تثبيت عدد أعضاء الغروب وحمايته" },
       { name: "thread",    icon: "⌘", desc: "إدارة إعدادات الغروب والرسائل التلقائية" },
-      { name: "out",       icon: "↪", desc: "إخراج CROW من الغروب الحالي" },
+      { name: "out",       icon: "↪", desc: "إخراج Saiyan من الغروب الحالي" },
     ],
   },
 
@@ -29,7 +29,7 @@ const CATEGORIES = [
       { name: "tag",      icon: "◎", desc: "إنشاء وإدارة قوائم التاق" },
       { name: "kick",     icon: "×", desc: "إزالة عضو من الغروب" },
       { name: "adduser",  icon: "+", desc: "إضافة أعضاء إلى الغروب" },
-      { name: "addadmin", icon: "♛", desc: "إدارة مشرفي CROW" },
+      { name: "addadmin", icon: "♛", desc: "إدارة مشرفي Saiyan" },
       { name: "ban",      icon: "⊘", desc: "حظر مستخدم من استخدام البوت" },
       { name: "warn",     icon: "!", desc: "إدارة التحذيرات والتنبيهات" },
       { name: "badwords", icon: "≠", desc: "تنقية المحادثة من الكلمات المحددة" },
@@ -42,7 +42,7 @@ const CATEGORIES = [
     cmds: [
       { name: "angel", icon: "⌁", desc: "إرسال رسائل تلقائية بفواصل زمنية" },
       { name: "divel", icon: "◐", desc: "إرسال رسائل بفترات زمنية متغيرة" },
-      { name: "greet", icon: "✧", desc: "عرض رسالة الترحيب الخاصة بـ CROW" },
+      { name: "greet", icon: "✧", desc: "عرض رسالة الترحيب الخاصة بـ Saiyan" },
     ],
   },
 
@@ -77,9 +77,9 @@ const CATEGORIES = [
       { name: "weather",   icon: "☼", desc: "معرفة حالة الطقس في مدينة" },
       { name: "uid",       icon: "#", desc: "عرض معرف حساب فيسبوك" },
       { name: "info",      icon: "≡", desc: "عرض معلومات الغروب أو أحد أعضائه" },
-      { name: "ping",      icon: "≈", desc: "قياس سرعة استجابة CROW" },
+      { name: "ping",      icon: "≈", desc: "قياس سرعة استجابة Saiyan" },
       { name: "rank",      icon: "◇", desc: "عرض المستوى ونقاط الخبرة" },
-      { name: "unsend",    icon: "↶", desc: "حذف رسالة أرسلها CROW" },
+      { name: "unsend",    icon: "↶", desc: "حذف رسالة أرسلها Saiyan" },
     ],
   },
 
@@ -112,7 +112,7 @@ const CATEGORIES = [
       {
         name: "uptime",
         icon: "◷",
-        desc: "عرض مدة تشغيل CROW",
+        desc: "عرض مدة تشغيل Saiyan",
       },
       {
         name: "chats",
@@ -127,7 +127,7 @@ const CATEGORIES = [
       {
         name: "help",
         icon: "?",
-        desc: "فتح مركز أوامر CROW",
+        desc: "فتح مركز أوامر Saiyan",
       },
     ],
   },
@@ -177,7 +177,7 @@ const CMD_DETAILS = {
   },
 
   out: {
-    usage: "/out — إخراج CROW من الغروب",
+    usage: "/out — إخراج Saiyan من الغروب",
     role: "👑 Owner",
     cat: "الإدارة",
   },
@@ -345,7 +345,7 @@ const CMD_DETAILS = {
   },
 
   unsend: {
-    usage: "/unsend — الرد على رسالة CROW لحذفها",
+    usage: "/unsend — الرد على رسالة Saiyan لحذفها",
     role: "👤 User",
     cat: "الخدمات",
   },
@@ -369,7 +369,7 @@ const CMD_DETAILS = {
   },
 
   uptime: {
-    usage: "/uptime — عرض مدة تشغيل CROW",
+    usage: "/uptime — عرض مدة تشغيل Saiyan",
     role: "👤 User",
     cat: "النظام",
   },
@@ -422,8 +422,8 @@ function buildHelpAll(prefix) {
 
   lines.push(LINE);
   lines.push("          C R O W  •  C O R E");
-  lines.push("          مركز أوامر CROW");
-  lines.push(`          Itachi  |  Prefix: ${prefix}`);
+  lines.push("          مركز أوامر Saiyan");
+  lines.push(`          magnus  |  Prefix: ${prefix}`);
   lines.push(LINE);
   lines.push("");
 
@@ -455,7 +455,7 @@ function buildHelpAll(prefix) {
   lines.push(LINE);
   lines.push(`  ⌬ عدد الأوامر: ${totalCmds}`);
   lines.push(`  ⌕ ${prefix}help [الأمر] ← معلومات الأمر`);
-  lines.push(`  Itachi  •  CROW`);
+  lines.push(`  magnus  •  Saiyan`);
   lines.push(LINE);
 
   return lines.join("\n");
@@ -542,7 +542,7 @@ function buildHelpOne(rawName, prefix) {
 
   lines.push(LINE);
   lines.push(
-    `  ${icon}  CROW  •  ${prefix}${cmdName.toUpperCase()}`
+    `  ${icon}  Saiyan  •  ${prefix}${cmdName.toUpperCase()}`
   );
   lines.push(LINE);
   lines.push("");
@@ -571,7 +571,7 @@ function buildHelpOne(rawName, prefix) {
   }
 
   lines.push("");
-  lines.push("  Itachi  •  CROW");
+  lines.push("  magnus  •  Saiyan");
   lines.push("");
   lines.push(LINE);
 
@@ -591,7 +591,7 @@ module.exports = {
 
     version: "5.0",
 
-    author: "Itachi",
+    author: "magnus",
 
     countDown: 3,
 
@@ -600,7 +600,7 @@ module.exports = {
     category: "info",
 
     description:
-      "مركز أوامر CROW ودليل استخدام البوت",
+      "مركز أوامر Saiyan ودليل استخدام البوت",
 
     guide: {
       en:
