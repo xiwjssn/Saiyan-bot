@@ -26,12 +26,7 @@ module.exports = {
 
     if (!input) {
       return message.reply(
-        "╔═══════════════════════════╗\n" +
-        "║  🤖  دردشة AI             ║\n" +
-        "╠═══════════════════════════╣\n" +
-        "║  /ai [سؤالك]              ║\n" +
-        "║  مثال: /ai ما هي Python  ║\n" +
-        "╚═══════════════════════════╝"
+        "⟦ SAIYAN / INTELLIGENCE LINK ⟧\nأرسل سؤالك بعد الأمر لبدء جلسة الحوار.\n\nمثال:\n/ai ما الفرق بين Python وJavaScript؟\n\nسأحاول تقديم إجابة واضحة ومباشرة."
       );
     }
 
@@ -45,14 +40,14 @@ module.exports = {
       if (!data || !data.response) throw new Error("لا يوجد رد من الخادم");
 
       const related = data.relatedSearch?.length
-        ? "\n\n💡 بحث مقترح:\n" + data.relatedSearch.slice(0, 3).map(r => `• ${r}`).join("\n")
+        ? "\n\n⟦ RELATED SIGNALS ⟧\n" + data.relatedSearch.slice(0, 3).map(r => `• ${r}`).join("\n")
         : "";
 
-      const LINE = "━━━━━━━━━━━━━━━━━━━━━━━━━";
+      const LINE = "────────────────────────";
       message.react("✅", messageID);
       return message.reply(
         `${LINE}\n` +
-        `  🤖 Saiyan AI\n` +
+        `⟦ SAIYAN / RESPONSE CORE ⟧\n` +
         `${LINE}\n\n` +
         `${data.response}` +
         `${related}\n\n` +
@@ -60,7 +55,7 @@ module.exports = {
       );
     } catch (err) {
       message.react("❌", messageID);
-      return message.reply(`❌ فشل الاتصال بـ AI: ${err.message?.slice(0, 60)}`);
+      return message.reply(`⟦ CONNECTION FAILURE ⟧\nتعذر الوصول إلى وحدة الذكاء الاصطناعي.\nالتفاصيل: ${err.message?.slice(0, 60) || "استجابة غير متاحة"}`);
     }
   }
 };
