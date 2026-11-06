@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /tag — تاق مجموعات مخصصة
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 (grouptag) & adapted for DAVID engine
+ * Saiyan V1 — /tag — تاق مجموعات مخصصة
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 (grouptag) & adapted for Saiyan engine
  * Simplified version using file-based storage (no threadsData)
  */
 "use strict";
@@ -35,7 +35,7 @@ module.exports = {
     name: "tag",
     aliases: ["grouptag", "grtag", "taggroup"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 1,
     category: "management",
