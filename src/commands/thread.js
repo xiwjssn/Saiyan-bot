@@ -64,7 +64,7 @@ module.exports = {
       const toggle = (args[1] || "").toLowerCase();
       if (toggle === "on" || toggle === "تشغيل") {
         settings[threadID].welcomeOn  = true;
-        settings[threadID].welcomeMsg = args.slice(2).join(" ") || "مرحباً بك {name} في {groupName}! 🎉";
+        settings[threadID].welcomeMsg = args.slice(2).join(" ") || "⟦ SAIYAN / WELCOME ⟧\nمرحبًا {name}، تم انضمامك إلى {groupName}. نتمنى لك تجربة طيبة.\n— magnus";
         saveSettings(settings);
         return message.reply(`⟦ WELCOME SEQUENCE ENABLED ⟧\nتم اعتماد رسالة الترحيب التالية:\n${settings[threadID].welcomeMsg}\n— magnus`);
       }
@@ -83,7 +83,7 @@ module.exports = {
       const toggle = (args[1] || "").toLowerCase();
       if (toggle === "on" || toggle === "تشغيل") {
         settings[threadID].leaveOn  = true;
-        settings[threadID].leaveMsg = args.slice(2).join(" ") || "وداعاً {name}! 👋";
+        settings[threadID].leaveMsg = args.slice(2).join(" ") || "⟦ SAIYAN / FAREWELL ⟧\nغادر {name} المجموعة. نتمنى له التوفيق.\n— magnus";
         saveSettings(settings);
         return message.reply(`⟦ FAREWELL SEQUENCE ENABLED ⟧\nتم اعتماد رسالة المغادرة التالية:\n${settings[threadID].leaveMsg}\n— magnus`);
       }
@@ -112,7 +112,7 @@ module.exports = {
     if (logMessageType === "log:subscribe" && ts.welcomeOn) {
       const addedIDs = logMessageData?.addedParticipants?.map(p => p.userFbId) || [];
       for (const uid of addedIDs) {
-        const msg = (ts.welcomeMsg || "مرحباً بك {name}!")
+        const msg = (ts.welcomeMsg || "⟦ SAIYAN / WELCOME ⟧\nأهلًا {name}، نورت المجموعة.\n— magnus")
           .replace("{name}", uid)
           .replace("{groupName}", threadID);
         try { await new Promise(r => setTimeout(r, 1000)); api.sendMessage(msg, threadID); } catch (_) {}
