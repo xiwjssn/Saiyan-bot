@@ -1,6 +1,6 @@
 /**
- * DAVID V1 — /groupimg — تغيير وقفل صورة الغروب
- * Copyright © 2025 DJAMEL — v5.0 Fixed
+ * Saiyan V1 — /groupimg — تغيير وقفل صورة الغروب
+ * Copyright © 2026 magnus
  * Fixed:
  *  - shim لـ parseAndCheckLogin (بعض إصدارات FCA تحتاجه)
  *  - منع حلقة لانهائية: تجاهل تغييرات البوت نفسه
@@ -118,7 +118,7 @@ module.exports = {
     name: "groupimg",
     aliases: ["gcimg", "صورة", "img"],
     version: "5.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 2,
     category: "management",
