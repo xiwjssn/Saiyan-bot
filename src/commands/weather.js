@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /weather — الطقس
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 & adapted for Saiyan engine (text-only, no canvas)
+ * Ported from SAIYAN CORE & adapted for Saiyan engine (text-only, no canvas)
  */
 "use strict";
 const axios = require("axios");
