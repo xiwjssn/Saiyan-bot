@@ -51,15 +51,15 @@ module.exports = {
 
   onStart: async function({ api, event, args, message }) {
     const tid = event.threadID;
-    if (!isAdmin(event.senderID)) return message.reply("⛔ للأدمن فقط.");
+    if (!isAdmin(event.senderID)) return message.reply("⟦ SAIYAN / ACCESS DENIED ⟧\nإدارة الرسائل الدورية متاحة للمشرفين فقط.");
     restoreAll(api);
     const data = load();
     const sub  = args[0]?.toLowerCase();
 
     if (!sub || sub === "status") {
       const td = data[tid];
-      if (!td?.active) return message.reply("💤 Divel غير مفعل.");
-      return message.reply(`✅ Divel نشط\n📝 "${td.message}"\n⏱ ${td.minSeconds}–${td.maxSeconds}s`);
+      if (!td?.active) return message.reply("⟦ SAIYAN / SCHEDULE STATUS ⟧\nلا توجد رسالة دورية نشطة في هذه المجموعة.");
+      return message.reply(`⟦ SAIYAN / SCHEDULE ACTIVE ⟧\nالمحتوى: ${td.message}\nالفاصل: ${td.minSeconds}–${td.maxSeconds} ثانية\nالحالة: قيد الجدولة\n— magnus`);
     }
 
     if (sub === "off") {
@@ -67,7 +67,7 @@ module.exports = {
         clearTimeout(global.GoatBot.divelWatchers[tid].timer);
       delete global.GoatBot.divelWatchers[tid];
       if (data[tid]) { data[tid].active = false; save(data); }
-      return message.reply("✅ تم إيقاف Divel.");
+      return message.reply("⟦ SAIYAN / SCHEDULE HALTED ⟧\nتم إيقاف الرسائل الدورية لهذه المجموعة.");
     }
 
     const nums  = args.filter(a => /^\d+$/.test(a));
@@ -78,6 +78,6 @@ module.exports = {
     data[tid] = { active: true, message: text, minSeconds: minS, maxSeconds: maxS };
     save(data);
     scheduleNext(api, tid, data[tid]);
-    message.reply(`✅ Divel مفعل\n📝 "${text}"\n⏱ ${minS}–${maxS}s`);
+    message.reply(`⟦ SAIYAN / SCHEDULE DEPLOYED ⟧\nالمحتوى المعتمد: ${text}\nالفاصل العشوائي: ${minS}–${maxS} ثانية\nالحالة: تم حفظ الجدولة\n— magnus`);
   }
 };
