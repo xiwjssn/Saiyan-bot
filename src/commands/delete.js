@@ -48,24 +48,14 @@ module.exports = {
     const allowed = await canManageMessages(api, senderID, threadID);
     if (!allowed) {
       return message.reply(
-        "╔══════════════════════════════╗\n" +
-        "║  ⛔  لا تملك صلاحية          ║\n" +
-        "╠══════════════════════════════╣\n" +
-        "║  هذا الأمر يتطلب صلاحية    ║\n" +
-        "║  إدارة الرسائل (Manage Msg) ║\n" +
-        "╚══════════════════════════════╝"
+        "⟦ SAIYAN / PERMISSION DENIED ⟧\nحسابك لا يملك صلاحية إدارة الرسائل في هذه المجموعة.\nيلزم أن تكون من إدارة البوت أو من مشرفي المجموعة."
       );
     }
 
     // ── يجب الرد على رسالة ────────────────────────────────────────────────
     if (!messageReply) {
       return message.reply(
-        "╔═══════════════════════════╗\n" +
-        "║  🗑️  حذف رسالة البوت    ║\n" +
-        "╠═══════════════════════════╣\n" +
-        "║  رد على رسالة البوت     ║\n" +
-        "║  ثم أرسل /delete        ║\n" +
-        "╚═══════════════════════════╝"
+        "⟦ SAIYAN / MESSAGE PURGE ⟧\nللإزالة، قم بالرد على رسالة صادرة من Saiyan ثم أرسل /delete."
       );
     }
 
@@ -75,10 +65,7 @@ module.exports = {
     // يمكن حذف رسائل البوت فقط
     if (targetSender !== botID) {
       return message.reply(
-        "╔═══════════════════════════╗\n" +
-        "║  ⛔  يمكنني حذف          ║\n" +
-        "║  رسائل البوت فقط        ║\n" +
-        "╚═══════════════════════════╝"
+        "⟦ TARGET NOT SUPPORTED ⟧\nهذه الوحدة تزيل رسائل Saiyan فقط، والرسالة المحددة ليست صادرة عنه."
       );
     }
 
@@ -93,7 +80,7 @@ module.exports = {
           api.unsendMessage(targetID, (e) => e ? rej(e) : res())
         );
       } else {
-        return message.reply("❌ مكتبة fca لا تدعم الحذف.");
+        return message.reply("⟦ FEATURE UNAVAILABLE ⟧\nواجهة الاتصال الحالية لا توفر وظيفة إزالة الرسائل.");
       }
 
       // حذف رسالة الأمر نفسها بعد ثانية
@@ -108,7 +95,7 @@ module.exports = {
       }, 1000);
 
     } catch (e) {
-      return message.reply("❌ فشل الحذف: " + (e.message || JSON.stringify(e)));
+      return message.reply("⟦ PURGE FAILED ⟧\nتعذرت إزالة الرسالة: " + (e.message || JSON.stringify(e)));
     }
   }
 };
