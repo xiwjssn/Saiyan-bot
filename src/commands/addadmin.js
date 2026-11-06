@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /addadmin — إضافة أدمن للبوت
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /addadmin — إضافة أدمن للبوت
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  */
 "use strict";
 const fs   = require("fs-extra");
@@ -45,7 +45,7 @@ module.exports = {
     name: "addadmin",
     aliases: ["addmod", "إضافة-أدمن", "أدمن"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 3,
     category: "management",
