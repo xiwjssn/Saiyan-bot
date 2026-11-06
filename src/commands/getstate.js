@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /getstate — الحصول على AppState الحالي
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 (getfbstate) & adapted for DAVID engine
+ * Saiyan V1 — /getstate — الحصول على AppState الحالي
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 (getfbstate) & adapted for Saiyan engine
  */
 "use strict";
 const fs   = require("fs-extra");
@@ -15,7 +15,7 @@ module.exports = {
     name: "getstate",
     aliases: ["getfbstate", "getcookie", "appstate", "state"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 10,
     role: 3,
     category: "owner",
@@ -62,7 +62,7 @@ module.exports = {
       await new Promise((resolve, reject) => {
         api.sendMessage(
           {
-            body: `🔑 DAVID V1 — AppState\n📄 الصيغة: ${fileName}\n📅 ${new Date().toLocaleString("ar-DZ")}`,
+            body: `🔑 Saiyan V1 — AppState\n📄 الصيغة: ${fileName}\n📅 ${new Date().toLocaleString("ar-DZ")}`,
             attachment: fs.createReadStream(filePath)
           },
           target,
