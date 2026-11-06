@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /sexvid — فيديو للكبار (18+)
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 & adapted for Saiyan engine
+ * Ported from SAIYAN CORE & adapted for Saiyan engine
  * Role: 2 (Bot Admin only — للمجموعات المرخصة فقط)
  */
 "use strict";
