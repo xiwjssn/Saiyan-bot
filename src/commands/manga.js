@@ -176,7 +176,7 @@ module.exports = {
   },
 
   _sendPages: async function ({ api, event, message }, title, chapter, offset) {
-    const wait  = await message.reply("🖼️ جاري تحميل الصفحات…");
+    const wait  = await message.reply("⟦ SAIYAN / PAGE RENDER ⟧\nجارٍ تجهيز صفحات الفصل للعرض…");
     const pages = chapter.__pages || (chapter.__pages = await getPages(chapter.url));
     const slice = pages.slice(offset, offset + PER_PAGE);
     const files = [];
