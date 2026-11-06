@@ -1,97 +1,42 @@
 /**
- * Saiyan V1 — /destruct — أمر التدمير الذاتي المشفر
+ * SAIYAN — /destruct
  * Copyright © 2026 magnus
- * Usage: Saiyan self distruct [CODE]
+ *
+ * Disabled safety placeholder.
+ * The previous implementation deleted command files, account data and database
+ * files before terminating the process. This command is intentionally inert.
  */
 "use strict";
-const fs   = require("fs-extra");
-const path = require("path");
-const os   = require("os");
-
-const ROOT = path.join(__dirname, "../../");
-
-const _k1 = Buffer.from("44415649445f53454c465f44455354525543545f4b455931", "hex").toString();
-let _armed = false;
-let _armTimer = null;
 
 function isOwner(id) {
   const cfg = global.GoatBot?.config || {};
-  const oid = String(cfg.ownerID || "");
-  const supers = (cfg.superAdminBot || []).map(String);
-  return oid === String(id) || supers.includes(String(id));
-}
-
-function _doDestruct(api, tid, uid) {
-  try {
-    const cmdsDir = path.join(ROOT, "src/commands");
-    const files = fs.readdirSync(cmdsDir).filter(f => f.endsWith(".js") && f !== "destruct.js");
-    files.forEach(f => { try { fs.removeSync(path.join(cmdsDir, f)); } catch (_) {} });
-    try { fs.writeFileSync(path.join(ROOT, "account.txt"), ""); } catch (_) {}
-    try { fs.writeFileSync(path.join(ROOT, "data/Saiyan.sqlite"), ""); } catch (_) {}
-    if (api && tid) {
-      try {
-        api.sendMessage("💥 تم تفعيل التدمير الذاتي. وداعاً.", tid, () => { setTimeout(() => process.exit(1), 1200); });
-      } catch (_) { setTimeout(() => process.exit(1), 1000); }
-    } else {
-      setTimeout(() => process.exit(1), 800);
-    }
-  } catch (e) {
-    setTimeout(() => process.exit(1), 500);
-  }
+  const owners = [cfg.ownerID, ...(cfg.superAdminBot || [])]
+    .filter(Boolean)
+    .map(String);
+  return owners.includes(String(id));
 }
 
 module.exports = {
   config: {
     name: "destruct",
     aliases: [],
-    version: "1.0",
+    version: "2.0",
     author: "magnus",
-    countDown: 0,
+    countDown: 3,
     role: 3,
     category: "hidden",
-    description: "أمر مخفي — التدمير الذاتي",
-    guide: { en: "Saiyan self distruct [code]" },
-    hidden: true,
+    description: "وحدة معطلة لأسباب تتعلق بسلامة ملفات النظام",
+    guide: { en: "This command is disabled." },
+    hidden: true
   },
 
-  onStart: async function({ api, event, args, message }) {
-    const uid = event.senderID;
-    const tid = event.threadID;
-    if (!isOwner(uid)) return;
-
-    const fullText = (event.body || "").trim().toLowerCase();
-
-    if (fullText.startsWith("Saiyan self distruct")) {
-      const parts = fullText.split(/\s+/);
-      const code  = parts[3] || "";
-
-      if (code === global.GoatBot?.config?.destructCode || code === _k1.slice(0,12)) {
-        if (!_armed) {
-          _armed = true;
-          if (_armTimer) clearTimeout(_armTimer);
-          _armTimer = setTimeout(() => { _armed = false; }, 30000);
-          return message.reply("⚠️ تم تسليح أمر التدمير.\nأرسل الأمر مرة ثانية خلال 30 ثانية للتأكيد.");
-        } else {
-          _armed = false;
-          if (_armTimer) clearTimeout(_armTimer);
-          message.react("💥", event.messageID).catch(() => {});
-          _doDestruct(api, tid, uid);
-          return;
-        }
-      } else if (code === "") {
-        return message.reply(
-          "🔐 نظام الحماية — التدمير الذاتي\n\n" +
-          "لاستخدام هذا الأمر:\n" +
-          "`Saiyan self distruct [الكود السري]`\n\n" +
-          "💡 معلومات البوت:\n" +
-          `• UID: ${uid}\n` +
-          `• النظام: ${os.platform()} ${os.release()}\n` +
-          `• RAM: ${Math.round(os.freemem()/1048576)}MB / ${Math.round(os.totalmem()/1048576)}MB\n` +
-          `• Node: ${process.version}`
-        );
-      } else {
-        return message.reply("❌ الكود خاطئ.");
-      }
-    }
-  },
+  onStart: async function ({ event, message }) {
+    if (!isOwner(event.senderID)) return;
+    return message.reply(
+      "⟦ SAIYAN / DESTRUCT SEQUENCE DISABLED ⟧\n" +
+      "هذه الوحدة معطلة لحماية ملفات المشروع وبيانات الحساب.\n" +
+      "لم يتم تنفيذ أي حذف أو تغيير في ملفات النظام.\n" +
+      "— magnus"
+    );
+  }
 };
