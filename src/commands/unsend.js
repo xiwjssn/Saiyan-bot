@@ -23,7 +23,7 @@ module.exports = {
     if (event.messageReply) {
       const targetSender = String(event.messageReply.senderID || "");
       if (targetSender !== botID) {
-        return message.reply("⛔ يمكنني حذف رسائل البوت فقط.");
+        return message.reply("⟦ TARGET NOT SUPPORTED ⟧\nهذه الوحدة مخصصة لإزالة الرسائل الصادرة من Saiyan فقط.");
       }
       targetID = event.messageReply.messageID;
     } 
@@ -33,7 +33,7 @@ module.exports = {
       targetID = global._lastBotMsg[String(threadID)];
 
       if (!targetID) {
-        return message.reply("❌ لا توجد رسالة سابقة مسجلة للحذف.\nالرجاء الرد على رسالة البوت مباشرة.");
+        return message.reply("⟦ NO TARGET IN MEMORY ⟧\nلا توجد رسالة سابقة محفوظة لهذه المحادثة. قم بالرد مباشرة على رسالة Saiyan ثم أعد الأمر.");
       }
     }
 
