@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /info — معلومات عن شخص أو الغروب
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 (boxinfo/user) & adapted for DAVID engine
+ * Saiyan V1 — /info — معلومات عن شخص أو الغروب
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 (boxinfo/user) & adapted for Saiyan engine
  */
 "use strict";
 
@@ -10,7 +10,7 @@ module.exports = {
     name: "info",
     aliases: ["boxinfo", "threadinfo", "معلومات-الغروب"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 0,
     category: "utility",
