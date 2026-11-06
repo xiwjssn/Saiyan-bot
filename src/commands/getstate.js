@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /getstate — الحصول على AppState الحالي
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 (getfbstate) & adapted for Saiyan engine
+ * Ported from SAIYAN CORE (getfbstate) & adapted for Saiyan engine
  */
 "use strict";
 const fs   = require("fs-extra");
