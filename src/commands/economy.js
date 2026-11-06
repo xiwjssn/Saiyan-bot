@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /balance /daily /bet /slot — نظام الاقتصاد
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 & adapted for Saiyan engine
+ * Ported from SAIYAN CORE & adapted for Saiyan engine
  * Commands: balance, daily, bet, slot, pay
  */
 "use strict";
