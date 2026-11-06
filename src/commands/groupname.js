@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /groupname — تغيير اسم الغروب
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 & adapted for Saiyan engine
+ * Ported from SAIYAN CORE & adapted for Saiyan engine
  */
 "use strict";
 
