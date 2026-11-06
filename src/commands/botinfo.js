@@ -2,7 +2,7 @@
 
 /**
  * SAIYAN — /botinfo
- * Copyright © 2026 MAGNUS
+ * Copyright © 2026 magnus
  * عرض معلومات البوت وحالته
  */
 "use strict";
@@ -36,7 +36,7 @@ module.exports = {
     name: "botinfo",
     aliases: ["معلومات", "معلومات_البوت", "saiyan"],
     version: "1.0",
-    author: "MAGNUS",
+    author: "magnus",
     countDown: 5,
     role: 0,
     category: "info",
