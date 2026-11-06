@@ -59,7 +59,7 @@ if (!global.GoatBot.saiyanIntervals)
 if (!global.GoatBot.saiyanSilenceTimers)
   global.GoatBot.saiyanSilenceTimers = {};
 
-if (!global._saiyanMessageState)
+if (!global._saiyanState)
   global._saiyanState = {};
 
 
@@ -80,7 +80,7 @@ if (!global._msgListeners)
 
 if (!global._saiyanMessageListenerRegistered) {
 
-  global._saiyanListenerRegistered = true;
+  global._saiyanMessageListenerRegistered = true;
 
   global._msgListeners.push(
     ({ threadID, messageID }) => {
