@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /video — تحميل فيديو من يوتيوب
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /video — تحميل فيديو من يوتيوب
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  * Uses yt-search for lookup + cobalt.tools API for download
  */
 "use strict";
@@ -35,7 +35,7 @@ module.exports = {
     name: "video",
     aliases: ["vid", "يوتيوب", "yt", "فيديو"],
     version: "3.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 10,
     role: 0,
     category: "media",
