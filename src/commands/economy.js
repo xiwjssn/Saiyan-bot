@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /balance /daily /bet /slot — نظام الاقتصاد
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /balance /daily /bet /slot — نظام الاقتصاد
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  * Commands: balance, daily, bet, slot, pay
  */
 "use strict";
@@ -55,7 +55,7 @@ module.exports = {
     name: "economy",
     aliases: ["balance", "bal", "daily", "bet", "slot", "pay", "رصيد", "يومي"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 3,
     role: 0,
     category: "economy",
