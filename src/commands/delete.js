@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /delete — حذف رسالة (الرد على رسالة البوت)
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 & adapted for Saiyan engine
+ * Ported from SAIYAN CORE & adapted for Saiyan engine
  * يتحقق من صلاحية إدارة الرسائل (Manage Messages) عبر adminIDs
  */
 "use strict";
