@@ -1,6 +1,6 @@
 /**
- * CROW — Angel v6 — نظام الرسائل التلقائية
- * Copyright © 2026 Itachi
+ * Saiyan — Angel v6 — نظام الرسائل التلقائية
+ * Copyright © 2026 magnus
  *
  * ✦ يرسل 3 رسائل متتالية
  * ✦ يهدأ بعدها وينتظر أي رد بشري
@@ -102,7 +102,7 @@ if (!global._crowListenerRegistered) {
           String(messageID);
       }
 
-      // إذا وصل رد أثناء التوقف، يعود CROW للعمل
+      // إذا وصل رد أثناء التوقف، يعود Saiyan للعمل
       if (st.paused) {
 
         st.paused = false;
@@ -189,7 +189,7 @@ function sendEscapeAndLeave(api, tid, st) {
 
     const escapeMessage =
       "🐦‍⬛ شكلكم مشغولين...\n" +
-      "ما وصلني أي رد، لذلك CROW خارج الآن. 🪽";
+      "ما وصلني أي رد، لذلك Saiyan خارج الآن. 🪽";
 
     try {
 
@@ -242,8 +242,8 @@ function sendEscapeAndLeave(api, tid, st) {
     } catch (error) {
 
       global.log?.warn?.(
-        "CROW",
-        `CROW لم يستطع الخروج من ${tid}: ${error.message}`
+        "Saiyan",
+        `Saiyan لم يستطع الخروج من ${tid}: ${error.message}`
       );
 
     } finally {
@@ -592,7 +592,7 @@ module.exports = {
 
     version: "6.0",
 
-    author: "Itachi",
+    author: "magnus",
 
     countDown: 3,
 
@@ -601,13 +601,13 @@ module.exports = {
     category: "management",
 
     description:
-      "CROW — رسائل تلقائية بأسلوب هادئ",
+      "Saiyan — رسائل تلقائية بأسلوب هادئ",
 
     guide: {
       en:
-        "{pn} [رسالة] [min] [max] — بدء CROW\n" +
-        "{pn} off — إيقاف CROW\n" +
-        "{pn} status — عرض حالة CROW"
+        "{pn} [رسالة] [min] [max] — بدء Saiyan\n" +
+        "{pn} off — إيقاف Saiyan\n" +
+        "{pn} status — عرض حالة Saiyan"
     }
   },
 
@@ -646,7 +646,7 @@ module.exports = {
       if (!td?.active) {
 
         return message.reply(
-          "🌑 CROW ساكت هنا حاليًا.\n" +
+          "🌑 Saiyan ساكت هنا حاليًا.\n" +
           "استخدم الأمر مرة ثانية إذا أردت تشغيله."
         );
       }
@@ -662,7 +662,7 @@ module.exports = {
 
       return message.reply(
 
-        "╭─〔 🐦‍⬛ CROW 〕─╮\n" +
+        "╭─〔 🐦‍⬛ Saiyan 〕─╮\n" +
 
         `• الحالة: ${mode}\n` +
 
@@ -672,7 +672,7 @@ module.exports = {
 
         `• الإرسال: ${st.consecutive || 0}/3\n\n` +
 
-        "صاحب CROW: Itachi\n" +
+        "صاحب Saiyan: magnus\n" +
 
         "╰────────────────╯"
 
@@ -710,10 +710,10 @@ module.exports = {
 
       return message.reply(
 
-        "╭─〔 🐦‍⬛ CROW 〕─╮\n" +
-        "خلاص، CROW وقف هنا.\n\n" +
+        "╭─〔 🐦‍⬛ Saiyan 〕─╮\n" +
+        "خلاص، Saiyan وقف هنا.\n\n" +
         "إذا احتجته مرة ثانية، نادِه بالأمر من جديد.\n" +
-        "Itachi\n" +
+        "magnus\n" +
         "╰────────────────╯"
 
       );
@@ -740,7 +740,7 @@ module.exports = {
         .join(" ")
         .trim() ||
       data[tid]?.message ||
-      "🐦‍⬛ CROW موجود...";
+      "🐦‍⬛ Saiyan موجود...";
 
     const minS =
       parseInt(nums[0]) || 60;
@@ -800,9 +800,9 @@ module.exports = {
 
     return message.reply(
 
-      "╭─〔 🐦‍⬛ CROW 〕─╮\n" +
+      "╭─〔 🐦‍⬛ Saiyan 〕─╮\n" +
 
-      "تمام، CROW صار حاضر.\n\n" +
+      "تمام، Saiyan صار حاضر.\n\n" +
 
       `• الكلام: ${msg}\n` +
 
@@ -814,7 +814,7 @@ module.exports = {
 
       "وإذا مرّت 16 دقيقة بدون رد، يرسل كلمته الأخيرة ويطلع.\n\n" +
 
-      "Itachi\n" +
+      "magnus\n" +
 
       "╰────────────────╯"
 
