@@ -9,14 +9,14 @@ const fs    = require("fs-extra");
 const path  = require("path");
 const os    = require("os");
 
-const CACHE_DIR = path.join(os.tmpdir(), "david_pair");
+const CACHE_DIR = path.join(os.tmpdir(), "saiyan_pair");
 
 const LOVE_MESSAGES = [
-  "تمنياتنا لكما بالسعادة الأبدية 💑",
-  "ما أجمل اللقاءات العشوائية! 💕",
-  "الحب لا يُخطّط له 😍",
-  "مبروك على الزواج الميسر 😂💍",
-  "قلب يبحث عن قلب وجده! 🫀",
+  "⟦ COMPATIBILITY SIGNAL ⟧ نتمنى لكما أوقاتًا جميلة 💑", 
+  "أحيانًا تبدأ الحكايات بصدفة لطيفة 💕", 
+  "التوافق لا يحتاج إلى موعد مسبق 😍", 
+  "تم رصد ثنائي محتمل... لا تستعجلوا الحفل 😂💍", 
+  "إشارة قلب إلى قلب... هل وصلت الرسالة؟ 🫀", 
 ];
 
 function cleanFile(f) {
@@ -64,7 +64,7 @@ module.exports = {
       partnerID = tagged[0];
     } else {
       const others = (participantIDs || []).filter(id => String(id) !== botID && String(id) !== String(senderID));
-      if (!others.length) return message.reply("❌ لا يوجد أعضاء كافيون في الغروب.");
+      if (!others.length) return message.reply("⟦ MATCH UNAVAILABLE ⟧\nلا يوجد عضو آخر متاح لإجراء المطابقة في هذه المجموعة.");
       partnerID = others[Math.floor(Math.random() * others.length)];
     }
 
@@ -98,10 +98,11 @@ module.exports = {
     if (gotB) attachments.push(fs.createReadStream(avatarPaths[1]));
 
     const body =
-      `💞 تم الربط!\n\n` +
-      `💕 ${senderName} + ${partnerName}\n` +
-      `❤️ نسبة التوافق: ${percent}%\n\n` +
-      `${loveMsg}`;
+      `⟦ SAIYAN / PAIRING RESULT ⟧\n` +
+      `الطرف الأول: ${senderName}\n` +
+      `الطرف الثاني: ${partnerName}\n` +
+      `مؤشر التوافق: ${percent}%\n\n` +
+      `${loveMsg}\n— magnus`;
 
     const mentions_arr = [
       { id: senderID,  tag: senderName  },
