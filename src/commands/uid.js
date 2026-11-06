@@ -33,14 +33,14 @@ module.exports = {
       label    = "الشخص الذي رددت عليه";
     }
 
-    const LINE = "━━━━━━━━━━━━━━━━━━━━━━━━━";
+    const LINE = "────────────────────────";
     return message.reply(
       `${LINE}\n` +
-      `  🆔  معرف فيسبوك\n` +
+      `⟦ SAIYAN / IDENTITY LOOKUP ⟧\n` +
       `${LINE}\n\n` +
-      `  👤 ${label}\n` +
-      `  🔢 ID : ${targetID}\n` +
-      `  💬 الغروب : ${threadID}\n\n` +
+      `الحساب المحدد: ${label}\n` +
+      `معرّف Facebook: ${targetID}\n` +
+      `معرّف المحادثة: ${threadID}\n\n` +
       `${LINE}`
     );
   }
