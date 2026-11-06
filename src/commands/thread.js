@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /thread — إدارة معلومات الغروب وإعداداته
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 (thread.js) & adapted for DAVID engine
+ * Saiyan V1 — /thread — إدارة معلومات الغروب وإعداداته
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 (thread.js) & adapted for Saiyan engine
  */
 "use strict";
 const fs   = require("fs-extra");
@@ -23,7 +23,7 @@ module.exports = {
     name: "thread",
     aliases: ["gc", "group", "غروب"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 2,
     category: "management",
