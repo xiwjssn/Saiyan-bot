@@ -1,6 +1,6 @@
 /**
  * SAIYAN — /nick v6 — قفل الكنيات (Continuous Lock Mode)
- * Copyright © 2026 MAGNUS
+ * Copyright © 2026 magnus
  * ✦ يقفل كنية كل عضو ويعيدها بشكل مستمر
  * ✦ يراقب تغييرات الكنيات ويعيدها تلقائياً
  * ✦ /nick off يوقف القفل والحلقة
@@ -145,7 +145,7 @@ module.exports = {
     name: "nick",
     aliases: ["كنيات", "nickname"],
     version: "6.0",
-    author: "MAGNUS",
+    author: "magnus",
     countDown: 3,
     role: 2,
     category: "management",
