@@ -23,7 +23,7 @@ const fs    = require("fs-extra");
 const path  = require("path");
 const os    = require("os");
 
-const TMP_DIR = path.join(os.tmpdir(), "david_webvid");
+const TMP_DIR = path.join(os.tmpdir(), "saiyan_webvid");
 const MAX_MB  = 24;   // حد الحجم للإرسال كمرفق
 const UA      = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36";
 
@@ -229,7 +229,7 @@ async function downloadAndSend(api, event, message, videoUrl, title, site) {
 
   try {
     message.react("⬇️", event.messageID);
-    const sendMsg = await message.reply(`⬇️ جاري تحميل الفيديو...\n📝 ${title.slice(0, 60)}`);
+    const sendMsg = await message.reply(`⟦ SAIYAN / MEDIA TRANSFER ⟧\nجارٍ تجهيز العنصر المحدد: ${title.slice(0, 60)}`);
 
     const res = await axios.get(videoUrl, {
       responseType: "stream",
@@ -244,14 +244,7 @@ async function downloadAndSend(api, event, message, videoUrl, title, site) {
       try { api.unsendMessage(sendMsg.messageID); } catch (_) {}
       message.react("🔗", event.messageID);
       return message.reply(
-        `╔════════════════════════════╗\n` +
-        `║  🔗 رابط الفيديو            ║\n` +
-        `╠════════════════════════════╣\n` +
-        `║  📝 ${title.slice(0, 50)}\n` +
-        `║  📦 حجم كبير (>${MAX_MB}MB)\n` +
-        `╠════════════════════════════╣\n` +
-        `║  🌐 ${videoUrl.slice(0, 60)}\n` +
-        `╚════════════════════════════╝`
+        `⟦ SAIYAN / DIRECT LINK FALLBACK ⟧\nالعنوان: ${title.slice(0, 80)}\nحجم الملف يتجاوز الحد المسموح (${MAX_MB} MB).\nالرابط المباشر: ${videoUrl}`
       );
     }
 
@@ -264,7 +257,7 @@ async function downloadAndSend(api, event, message, videoUrl, title, site) {
         if (downloadedBytes > MAX_MB * 1024 * 1024) {
           writer.destroy();
           res.data.destroy();
-          reject(new Error(`حجم كبير (>${MAX_MB}MB)`));
+          reject(new Error(`الملف يتجاوز حد ${MAX_MB} MB`));
         }
       });
       res.data.pipe(writer);
@@ -280,7 +273,7 @@ async function downloadAndSend(api, event, message, videoUrl, title, site) {
     await new Promise((resolve, reject) => {
       api.sendMessage(
         {
-          body: `🎬 ${title.slice(0, 80)}\n📦 ${sizeMB} MB  ·  🌐 ${SUPPORTED_SITES[site]?.label || site}\n👑 Saiyan V1`,
+          body: `⟦ SAIYAN / MEDIA DELIVERY ⟧\nالعنوان: ${title.slice(0, 80)}\nالحجم: ${sizeMB} MB · المصدر: ${SUPPORTED_SITES[site]?.label || site}\n— magnus`,
           attachment: fs.createReadStream(tmpFile),
         },
         event.threadID,
@@ -293,14 +286,7 @@ async function downloadAndSend(api, event, message, videoUrl, title, site) {
     message.react("❌", event.messageID);
     // إذا فشل التحميل أرسل الرابط
     message.reply(
-      `╔════════════════════════════╗\n` +
-      `║  🔗 فشل التحميل — الرابط   ║\n` +
-      `╠════════════════════════════╣\n` +
-      `║  📝 ${title.slice(0, 50)}\n` +
-      `║  ❌ ${String(err.message).slice(0, 50)}\n` +
-      `╠════════════════════════════╣\n` +
-      `║  🌐 ${videoUrl.slice(0, 60)}\n` +
-      `╚════════════════════════════╝`
+      `⟦ SAIYAN / TRANSFER INTERRUPTED ⟧\nالعنوان: ${title.slice(0, 80)}\nسبب التعذر: ${String(err.message).slice(0, 100)}\nالرابط البديل: ${videoUrl}`
     );
   }
 }
@@ -310,7 +296,7 @@ function buildResultsList(results, site, query) {
   const siteInfo = SUPPORTED_SITES[site];
   const LINE     = "━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
   let body = `${LINE}\n`;
-  body    += `  ${siteInfo?.emoji || "🎬"} ${siteInfo?.label || site} — "${query}"\n`;
+  body    += `⟦ SAIYAN / SEARCH RESULTS · ${siteInfo?.label || site} ⟧\nعبارة البحث: ${query}\n`;
   body    += `${LINE}\n\n`;
 
   results.forEach((v, i) => {
@@ -319,14 +305,14 @@ function buildResultsList(results, site, query) {
   });
 
   body += `${LINE}\n`;
-  body += `📥 ردّ بالرقم (1-${results.length}) لتحميل الفيديو`;
+  body += `أرسل رقم النتيجة من 1 إلى ${results.length} لاختيار العنصر.`;
   return body;
 }
 
 // ─── تنفيذ البحث وعرض النتائج ────────────────────────────────────────────────
 async function doSearch(api, event, message, site, query) {
   const searching = await message.reply(
-    `🔍 جاري البحث في ${SUPPORTED_SITES[site]?.label || site}...\n🔎 "${query}"`
+    `⟦ SAIYAN / CATALOG SEARCH ⟧\nالمصدر: ${SUPPORTED_SITES[site]?.label || site}\nالعبارة: ${query}`
   );
 
   try {
@@ -338,8 +324,7 @@ async function doSearch(api, event, message, site, query) {
     if (!results || !results.length) {
       message.react("❌", event.messageID);
       return message.reply(
-        `❌ لا توجد نتائج في ${SUPPORTED_SITES[site]?.label || site} لـ "${query}"\n` +
-        `جرب كلمات مختلفة أو موقعاً آخر.`
+        `⟦ NO MATCHES FOUND ⟧\nلم تظهر نتائج في ${SUPPORTED_SITES[site]?.label || site} لعبارة ${query}. جرّب عبارة أخرى.`
       );
     }
 
@@ -358,7 +343,7 @@ async function doSearch(api, event, message, site, query) {
         const choice = parseInt((re.body || "").trim()) - 1;
         if (isNaN(choice) || choice < 0 || choice >= results.length) {
           return rm.reply(
-            `⚠️ رقم غير صحيح.\nاختر بين 1 و ${results.length}`
+            `⟦ INVALID SELECTION ⟧\nاختر رقمًا من 1 إلى ${results.length}.`
           );
         }
 
@@ -367,7 +352,7 @@ async function doSearch(api, event, message, site, query) {
 
         // استخراج رابط الفيديو المباشر
         const fetchingMsg = await rm.reply(
-          `🔍 جاري استخراج رابط الفيديو...\n📝 ${selected.title.slice(0, 60)}`
+          `⟦ SAIYAN / SOURCE RESOLUTION ⟧\nجارٍ التحقق من العنصر: ${selected.title.slice(0, 60)}`
         );
 
         const directUrl = await extractVideoUrl(site, selected.url);
@@ -376,12 +361,7 @@ async function doSearch(api, event, message, site, query) {
         if (!directUrl) {
           rm.react("❌", re.messageID);
           return rm.reply(
-            `╔════════════════════════════╗\n` +
-            `║  ❌ تعذّر استخراج الرابط   ║\n` +
-            `╠════════════════════════════╣\n` +
-            `║  📝 ${selected.title.slice(0, 50)}\n` +
-            `║  🌐 ${selected.url}\n` +
-            `╚════════════════════════════╝`
+            `⟦ SOURCE RESOLUTION FAILED ⟧\nالعنوان: ${selected.title.slice(0, 80)}\nالمصدر: ${selected.url}`
           );
         }
 
@@ -392,7 +372,7 @@ async function doSearch(api, event, message, site, query) {
   } catch (err) {
     try { api.unsendMessage(searching.messageID); } catch (_) {}
     message.react("❌", event.messageID);
-    message.reply(`❌ خطأ في البحث: ${String(err.message).slice(0, 80)}`);
+    message.reply(`⟦ SEARCH PROCESS FAILED ⟧\nتعذر إكمال البحث: ${String(err.message).slice(0, 100)}`);
   }
 }
 
@@ -427,10 +407,10 @@ module.exports = {
         body += `  ${s.emoji} ${key.padEnd(10)} — ${s.label}\n`;
       }
       body += `\n${LINE}\n`;
-      body += `  📌 الاستخدام:\n`;
+      body += `صيغة الاستخدام:\n`;
       body += `  /webvideo [موقع] [بحث?]\n`;
-      body += `  مثال: /webvideo xnxx\n`;
-      body += `  مثال: /webvideo pornhub milf\n`;
+      body += `مثال: /webvideo [source]\n`;
+      body += `مثال: /webvideo [source] [query]\n`;
       body += `${LINE}`;
       return message.reply(body);
     }
@@ -441,10 +421,8 @@ module.exports = {
 
     if (!site) {
       return message.reply(
-        `❌ الموقع "${args[0]}" غير مدعوم.\n\n` +
-        `المواقع المدعومة:\n` +
-        Object.entries(SUPPORTED_SITES).map(([k, s]) => `  ${s.emoji} ${k}`).join("\n") +
-        `\n\nمثال: /webvideo xnxx teen`
+        `⟦ UNSUPPORTED SOURCE ⟧\nالمصدر ${args[0]} غير موجود في قائمة المصادر المتاحة.\nالمصادر المسجلة:\n` +
+        Object.entries(SUPPORTED_SITES).map(([k, s]) => `• ${s.label}`).join("\n")
       );
     }
 
@@ -454,13 +432,7 @@ module.exports = {
     if (!query) {
       const siteInfo = SUPPORTED_SITES[site];
       const askMsg   = await message.reply(
-        `╔════════════════════════════╗\n` +
-        `║  ${siteInfo.emoji} ${siteInfo.label.padEnd(22)}║\n` +
-        `╠════════════════════════════╣\n` +
-        `║  🔍 ما الذي تريد البحث عنه؟║\n` +
-        `║  ردّ على هذه الرسالة بكلمة ║\n` +
-        `║  البحث أو التصنيف          ║\n` +
-        `╚════════════════════════════╝`
+        `⟦ SAIYAN / SEARCH PARAMETERS ⟧\nالمصدر المحدد: ${siteInfo.label}\nأرسل عبارة البحث أو التصنيف بالرد على هذه الرسالة.`
       );
       message.react("❓", messageID);
 
