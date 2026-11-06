@@ -16,7 +16,7 @@ const path = require("path");
 
 const DATA = path.join(
   process.cwd(),
-  "database/data/crowData.json"
+  "database/data/saiyanMessages.json"
 );
 
 const SILENCE_MS = 16 * 60 * 1000;
@@ -54,13 +54,13 @@ function rand(min, max) {
 if (!global.GoatBot)
   global.GoatBot = {};
 
-if (!global.GoatBot.crowIntervals)
+if (!global.GoatBot.saiyanIntervals)
   global.GoatBot.crowIntervals = {};
 
-if (!global.GoatBot.crowSilenceTimers)
+if (!global.GoatBot.saiyanSilenceTimers)
   global.GoatBot.crowSilenceTimers = {};
 
-if (!global._crowState)
+if (!global._saiyanMessageState)
   global._crowState = {};
 
 
@@ -79,7 +79,7 @@ if (!global._crowState)
 if (!global._msgListeners)
   global._msgListeners = [];
 
-if (!global._crowListenerRegistered) {
+if (!global._saiyanMessageListenerRegistered) {
 
   global._crowListenerRegistered = true;
 
@@ -188,8 +188,7 @@ function sendEscapeAndLeave(api, tid, st) {
   return (async () => {
 
     const escapeMessage =
-      "🐦‍⬛ شكلكم مشغولين...\n" +
-      "ما وصلني أي رد، لذلك Saiyan خارج الآن. 🪽";
+      "⟦ SAIYAN / SESSION CLOSED ⟧\nلم يصل أي تفاعل خلال فترة الانتظار، لذلك سأغادر المجموعة الآن.\n— magnus";
 
     try {
 
@@ -243,7 +242,7 @@ function sendEscapeAndLeave(api, tid, st) {
 
       global.log?.warn?.(
         "Saiyan",
-        `Saiyan لم يستطع الخروج من ${tid}: ${error.message}`
+        `تعذر على Saiyan مغادرة المحادثة ${tid}: ${error.message}`
       );
 
     } finally {
@@ -646,8 +645,7 @@ module.exports = {
       if (!td?.active) {
 
         return message.reply(
-          "🌑 Saiyan ساكت هنا حاليًا.\n" +
-          "استخدم الأمر مرة ثانية إذا أردت تشغيله."
+          "⟦ SAIYAN / AUTO PRESENCE ⟧\nلا توجد جلسة رسائل تلقائية نشطة هنا. أرسل الأمر مع الرسالة المطلوبة لبدء جلسة جديدة."
         );
       }
 
@@ -710,11 +708,7 @@ module.exports = {
 
       return message.reply(
 
-        "╭─〔 🐦‍⬛ Saiyan 〕─╮\n" +
-        "خلاص، Saiyan وقف هنا.\n\n" +
-        "إذا احتجته مرة ثانية، نادِه بالأمر من جديد.\n" +
-        "magnus\n" +
-        "╰────────────────╯"
+        "⟦ SAIYAN / AUTO PRESENCE HALTED ⟧\nتم إيقاف الرسائل التلقائية في هذه المجموعة.\nيمكن إعادة تشغيل الوحدة بإرسال الأمر مجددًا.\n— magnus"
 
       );
     }
@@ -740,7 +734,7 @@ module.exports = {
         .join(" ")
         .trim() ||
       data[tid]?.message ||
-      "🐦‍⬛ Saiyan موجود...";
+      "⟦ Saiyan online ⟧";
 
     const minS =
       parseInt(nums[0]) || 60;
