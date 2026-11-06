@@ -11,7 +11,7 @@ const fs      = require("fs-extra");
 const path    = require("path");
 const os      = require("os");
 
-const TMP  = path.join(os.tmpdir(), "david_manga");
+const TMP  = path.join(os.tmpdir(), "saiyan_manga");
 const SITE = "https://3asq.online";
 const UA   = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
@@ -106,21 +106,21 @@ module.exports = {
     const query = args.join(" ").trim();
     if (!query)
       return message.reply(
-        `📚 M A N G A\n${LINE}\n/manga [اسم المانغا]\nمثال: /manga one piece`
+        `⟦ SAIYAN / MANGA LIBRARY ⟧\nأرسل اسم العمل للبحث عن المانغا.\nمثال: /manga one piece`
       );
 
     message.react("🔍", event.messageID);
-    const wait = await message.reply(`🔍 جاري البحث عن "${query}" في مانجا العاشق…`);
+    const wait = await message.reply(`⟦ SAIYAN / CATALOG SEARCH ⟧\nجارٍ البحث عن: ${query}…`);
 
     try {
       const list = await searchManga(query);
       api.unsendMessage(wait.messageID).catch(() => {});
       if (!list.length) {
         message.react("❌", event.messageID);
-        return message.reply(`❌ لم أجد أي مانغا باسم "${query}"`);
+        return message.reply(`⟦ NO TITLE MATCH ⟧\nلم أعثر على عمل يطابق الاسم: ${query}`);
       }
 
-      let body = `📚 نتائج البحث: "${query}"\n${LINE}\n`;
+      let body = `⟦ SAIYAN / SEARCH INDEX ⟧\nنتائج العبارة: ${query}\n${LINE}\n`;
       list.forEach((m, i) => { body += `${i + 1}️⃣ ${m.title}\n`; });
       body += `${LINE}\n📥 ردّ بالرقم (1-${list.length}) لاختيار المانغا`;
 
@@ -129,7 +129,7 @@ module.exports = {
       this._setReply(listMsg.messageID, event.senderID, async (ctx) => {
         const idx = parseInt(String(ctx.event.body || "").trim()) - 1;
         if (isNaN(idx) || idx < 0 || idx >= list.length)
-          return ctx.message.reply("❌ رقم غير صالح.");
+          return ctx.message.reply("⟦ INVALID INDEX ⟧\nالاختيار لا يطابق أي نتيجة في القائمة.");
         await this._showChapters(ctx, list[idx]);
       });
     } catch (e) {
@@ -157,22 +157,20 @@ module.exports = {
   },
 
   _showChapters: async function ({ api, event, message }, manga) {
-    const wait = await message.reply(`📖 جاري جلب فصول "${manga.title}"…`);
+    const wait = await message.reply(`⟦ CHAPTER INDEX ⟧\nجارٍ تحميل فصول ${manga.title}…`);
     const chapters = await getChapters(manga.url);
     api.unsendMessage(wait.messageID).catch(() => {});
 
     if (!chapters.length)
-      return message.reply(`❌ لا توجد فصول متاحة لـ "${manga.title}"\n🔗 ${manga.url}`);
+      return message.reply(`⟦ CHAPTERS UNAVAILABLE ⟧\nلا توجد فصول قابلة للعرض للعمل ${manga.title}.\nالمصدر: ${manga.url}`);
 
-    const body = `📚 **${manga.title}**\n${LINE}\n` +
-                 `✅ إجمالي الفصول المتاحة: **${chapters.length}** فصل.\n${LINE}\n` +
-                 `👇 ردّ برقم الفصل الذي تريد قراءته مباشرة (1 - ${chapters.length}):`;
+    const body = `⟦ SAIYAN / CHAPTER ARCHIVE ⟧\nالعمل: ${manga.title}\nالفصول المتاحة: ${chapters.length}\n${LINE}\nأرسل رقم الفصل لبدء القراءة (1–${chapters.length}).`;
 
     const msg = await message.reply(body);
     this._setReply(msg.messageID, event.senderID, async (ctx) => {
       const idx = parseInt(String(ctx.event.body || "").trim()) - 1;
       if (isNaN(idx) || idx < 0 || idx >= chapters.length)
-        return ctx.message.reply(`❌ يرجى كتابة رقم فصل صحيح بين 1 و ${chapters.length}`);
+        return ctx.message.reply(`⟦ INVALID CHAPTER ⟧\nأرسل رقمًا بين 1 و${chapters.length}.`);
       await this._sendPages(ctx, manga.title, chapters[idx], 0);
     });
   },
@@ -200,18 +198,18 @@ module.exports = {
     }
 
     api.unsendMessage(wait.messageID).catch(() => {});
-    if (!streams.length) return message.reply("❌ فشل تحميل صفحات هذا الفصل.");
+    if (!streams.length) return message.reply("⟦ PAGE RETRIEVAL FAILED ⟧\nلم أتمكن من تحميل صفحات هذا الفصل.");
 
     const last = offset + slice.length;
     let body =
-      `📚 ${title}\n📖 ${chapter.name}\n🖼️ الصفحات ${offset + 1}-${last} من ${pages.length}\n${LINE}\n`;
+      `⟦ SAIYAN / READING SESSION ⟧\nالعمل: ${title}\nالفصل: ${chapter.name}\nالصفحات: ${offset + 1}–${last} من ${pages.length}\n${LINE}\n`;
     const opts = [];
     if (last < pages.length) opts.push('"التالي" أو "next"');
     if (offset > 0) opts.push('"السابق" أو "back"');
     body += opts.length
-      ? `📥 ردّ بـ ${opts.join(" · ")}\nأو ردّ برقم صفحة (1-${pages.length})`
-      : "✅ نهاية الفصل";
-    body += `\n👑 Saiyan V1`;
+      ? `أرسل ${opts.join(" أو ")} للتنقل، أو رقم صفحة من 1 إلى ${pages.length}.`
+      : "⟦ CHAPTER COMPLETE ⟧\nوصلت إلى نهاية الفصل.";
+    body += `\n— magnus · Saiyan`;
 
     const sent = await new Promise((resolve) =>
       api.sendMessage({ body, attachment: streams }, event.threadID, (err, info) => {
@@ -231,7 +229,7 @@ module.exports = {
         const n = parseInt(txt);
         if (n >= 1 && n <= pages.length) next = n - 1;
       }
-      if (next === null) return ctx.message.reply("❌ اختيار غير صالح.");
+      if (next === null) return ctx.message.reply("⟦ INVALID NAVIGATION ⟧\nهذا الاختيار غير متاح في جلسة القراءة الحالية.");
       await this._sendPages(ctx, title, chapter, next);
     });
   }
