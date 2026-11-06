@@ -130,7 +130,7 @@ module.exports = {
       const amount = parseInt(args[1]);
       if (!amount || amount < 10) return message.reply("⟦ INVALID STAKE ⟧\nحدد قيمة الرهان، على ألا تقل عن 10 عملات.");
       const { data, user } = getUser(senderID);
-      if (user.balance < amount) return message.reply(`❌ رصيدك غير كافٍ (${fmt(user.balance)} عملة)`);
+      if (user.balance < amount) return message.reply(`⟦ INSUFFICIENT FUNDS ⟧\nرصيدك الحالي ${fmt(user.balance)} عملة، ولا يكفي لتنفيذ الرهان.`);
 
       const [a, b, c] = [spin(), spin(), spin()];
       const mult = slotMultiplier(a, b, c);
@@ -161,7 +161,7 @@ module.exports = {
         return message.reply("⟦ TRANSFER BLOCKED ⟧\nلا يمكن أن يكون المرسل والمستلم الحساب نفسه.");
 
       const { data: d1, user: sender } = getUser(senderID);
-      if (sender.balance < amount) return message.reply(`❌ رصيدك غير كافٍ (${fmt(sender.balance)} عملة)`);
+      if (sender.balance < amount) return message.reply(`⟦ TRANSFER DECLINED ⟧\nرصيدك الحالي ${fmt(sender.balance)} عملة، وهو أقل من قيمة التحويل المطلوبة.`);
 
       const recv = getUser(targetID);
       sender.balance -= amount;
