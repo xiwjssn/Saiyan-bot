@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /ai — دردشة مع الذكاء الاصطناعي
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 (youai/gpt) & adapted for DAVID engine
+ * Saiyan V1 — /ai — دردشة مع الذكاء الاصطناعي
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 (youai/gpt) & adapted for Saiyan engine
  * Uses free You.ai API (no key needed)
  */
 "use strict";
@@ -12,7 +12,7 @@ module.exports = {
     name: "ai",
     aliases: ["gpt", "youai", "chat", "ذكاء", "بوت"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 5,
     role: 0,
     category: "ai",
@@ -52,7 +52,7 @@ module.exports = {
       message.react("✅", messageID);
       return message.reply(
         `${LINE}\n` +
-        `  🤖 DAVID AI\n` +
+        `  🤖 Saiyan AI\n` +
         `${LINE}\n\n` +
         `${data.response}` +
         `${related}\n\n` +
