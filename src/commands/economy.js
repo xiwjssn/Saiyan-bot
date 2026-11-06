@@ -80,11 +80,11 @@ module.exports = {
       const LINE = "━━━━━━━━━━━━━━━━━━━━━━━━━";
       return message.reply(
         `${LINE}\n` +
-        `  💰 رصيد ${targetID === senderID ? "حسابك" : mentions?.[targetID] || targetID}\n` +
+        `⟦ SAIYAN / ACCOUNT LEDGER ⟧\nالحساب: ${targetID === senderID ? "حسابك" : mentions?.[targetID] || targetID}\n` +
         `${LINE}\n\n` +
-        `  💵 الرصيد : ${fmt(user.balance)} عملة\n` +
-        `  🏆 انتصارات: ${user.wins}\n` +
-        `  💀 خسارات : ${user.losses}\n\n` +
+        `الرصيد المتاح: ${fmt(user.balance)} عملة\n` +
+        `مرات الفوز: ${user.wins}\n` +
+        `مرات الخسارة: ${user.losses}\n\n` +
         `${LINE}`
       );
     }
@@ -98,27 +98,22 @@ module.exports = {
         const rem = DAILY_COOLDOWN - diff;
         const h   = Math.floor(rem / 3600000);
         const m   = Math.floor((rem % 3600000) / 60000);
-        return message.reply(`⏳ لقد أخذت مكافأتك اليومية بالفعل.\n⏱ العودة بعد: ${h}س ${m}د`);
+        return message.reply(`⟦ DAILY CLAIM LOCKED ⟧\nتم استلام مكافأة اليوم مسبقًا.\nالموعد التالي بعد: ${h} ساعة و${m} دقيقة.`);
       }
       user.balance += DAILY_BONUS;
       user.daily    = now;
       saveUser(data);
       return message.reply(
-        `╔══════════════════════════╗\n` +
-        `║  🎁  المكافأة اليومية   ║\n` +
-        `╠══════════════════════════╣\n` +
-        `║  +${DAILY_BONUS} عملة 🪙          ║\n` +
-        `║  الرصيد: ${fmt(user.balance)} عملة ║\n` +
-        `╚══════════════════════════╝`
+        `⟦ SAIYAN / DAILY REWARD ⟧\nتمت إضافة ${DAILY_BONUS} عملة إلى رصيدك.\nالرصيد الحالي: ${fmt(user.balance)} عملة\nالحالة: تمت المطالبة بنجاح\n— magnus`
       );
     }
 
     // ── /bet ──────────────────────────────────────────────────────────────
     if (["bet", "رهان"].includes(sub)) {
       const amount = parseInt(args[1]);
-      if (!amount || amount < 10) return message.reply("⚠️ أدخل مبلغاً صحيحاً (الحد الأدنى 10).");
+      if (!amount || amount < 10) return message.reply("⟦ INVALID AMOUNT ⟧\nأدخل مبلغًا لا يقل عن 10 عملات.");
       const { data, user } = getUser(senderID);
-      if (user.balance < amount) return message.reply(`❌ رصيدك غير كافٍ (${fmt(user.balance)} عملة)`);
+      if (user.balance < amount) return message.reply(`⟦ INSUFFICIENT FUNDS ⟧\nرصيدك الحالي ${fmt(user.balance)} عملة، وهو لا يكفي لهذه العملية.`);
 
       const win = Math.random() < 0.5;
       if (win) { user.balance += amount; user.wins++; }
@@ -126,15 +121,14 @@ module.exports = {
       saveUser(data);
 
       return message.reply(
-        `${win ? "✅" : "❌"} ${win ? "فزت" : "خسرت"} ${fmt(amount)} عملة!\n` +
-        `💰 الرصيد الجديد: ${fmt(user.balance)} عملة`
+        `⟦ SAIYAN / BET RESULT ⟧\n${win ? "نتيجة الجولة: فوز" : "نتيجة الجولة: خسارة"}\n${win ? "المبلغ المكتسب" : "المبلغ المفقود"}: ${fmt(amount)} عملة\nالرصيد الحالي: ${fmt(user.balance)} عملة\n— magnus`
       );
     }
 
     // ── /slot ─────────────────────────────────────────────────────────────
     if (["slot", "سلوت"].includes(sub)) {
       const amount = parseInt(args[1]);
-      if (!amount || amount < 10) return message.reply("⚠️ أدخل مبلغاً للرهان (الحد الأدنى 10).");
+      if (!amount || amount < 10) return message.reply("⟦ INVALID STAKE ⟧\nحدد قيمة الرهان، على ألا تقل عن 10 عملات.");
       const { data, user } = getUser(senderID);
       if (user.balance < amount) return message.reply(`❌ رصيدك غير كافٍ (${fmt(user.balance)} عملة)`);
 
@@ -147,17 +141,13 @@ module.exports = {
       if (gain > 0) user.wins++; else user.losses++;
       saveUser(data);
 
-      const resultLine = mult >= 3 ? "🎉 جاكبوت!" : mult > 0 ? "✅ ربح جزئي!" : "❌ خسارة";
+      const resultLine = mult >= 3 ? "MAXIMUM MATCH / تطابق كامل" : mult > 0 ? "PARTIAL MATCH / عائد جزئي" : "NO MATCH / لا عائد";
       return message.reply(
-        `╔══════════════════════════╗\n` +
-        `║  🎰  سلوت               ║\n` +
-        `╠══════════════════════════╣\n` +
-        `║   ${a}  ${b}  ${c}          ║\n` +
-        `╠══════════════════════════╣\n` +
-        `║  ${resultLine}\n` +
-        `║  ${gain > 0 ? `+${fmt(gain)}` : `-${fmt(amount)}`} عملة (×${mult})\n` +
-        `║  الرصيد: ${fmt(user.balance)} عملة\n` +
-        `╚══════════════════════════╝`
+        `⟦ SAIYAN / SLOT ENGINE ⟧\n` +
+        `نتيجة الدور: ${a}  ${b}  ${c}\n` +
+        `التقييم: ${resultLine}\n` +
+        `العائد: ${gain > 0 ? `+${fmt(gain)}` : `-${fmt(amount)}`} عملة · معامل ${mult}\n` +
+        `الرصيد بعد الجولة: ${fmt(user.balance)} عملة\n— magnus`
       );
     }
 
@@ -166,9 +156,9 @@ module.exports = {
       const targetID = Object.keys(mentions || {})[0];
       const amount   = parseInt(args[2] || args[1]);
       if (!targetID || !amount || amount < 1)
-        return message.reply("⚠️ الاستخدام: /pay @شخص [مبلغ]");
+        return message.reply("⟦ TRANSFER FORMAT ⟧\nاستخدم: /pay @عضو [المبلغ]");
       if (String(targetID) === String(senderID))
-        return message.reply("❌ لا يمكنك التحويل لنفسك.");
+        return message.reply("⟦ TRANSFER BLOCKED ⟧\nلا يمكن أن يكون المرسل والمستلم الحساب نفسه.");
 
       const { data: d1, user: sender } = getUser(senderID);
       if (sender.balance < amount) return message.reply(`❌ رصيدك غير كافٍ (${fmt(sender.balance)} عملة)`);
@@ -189,15 +179,12 @@ module.exports = {
     // ── مساعدة ────────────────────────────────────────────────────────────
     const prefix = global.GoatBot?.config?.prefix || "/";
     return message.reply(
-      `╔══════════════════════════════╗\n` +
-      `║  💰  نظام الاقتصاد          ║\n` +
-      `╠══════════════════════════════╣\n` +
-      `║  ${prefix}balance — رصيدك           ║\n` +
-      `║  ${prefix}daily   — مكافأة +${DAILY_BONUS}🪙   ║\n` +
-      `║  ${prefix}bet [مبلغ] — رهان 50/50  ║\n` +
-      `║  ${prefix}slot [مبلغ] — سلوت       ║\n` +
-      `║  ${prefix}pay @شخص [مبلغ] — تحويل ║\n` +
-      `╚══════════════════════════════╝`
+      `⟦ SAIYAN / ECONOMY MODULE ⟧\n` +
+      `${prefix}balance — عرض الرصيد والسجل\n` +
+      `${prefix}daily — استلام ${DAILY_BONUS} عملة كل 24 ساعة\n` +
+      `${prefix}bet [مبلغ] — جولة رهان\n` +
+      `${prefix}slot [مبلغ] — تشغيل آلة الحظ\n` +
+      `${prefix}pay @عضو [مبلغ] — تحويل عملات\n— magnus`
     );
   }
 };
