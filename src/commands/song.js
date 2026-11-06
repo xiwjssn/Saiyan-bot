@@ -11,7 +11,7 @@ const os       = require("os");
 const { spawn } = require("child_process");
 const ytdl     = require("@distube/ytdl-core");
 
-const TMP_DIR    = path.join(os.tmpdir(), "david_song");
+const TMP_DIR    = path.join(os.tmpdir(), "saiyan_song");
 const MAX_MB     = 25;
 
 function cleanFile(f) {
@@ -99,14 +99,7 @@ module.exports = {
 
     if (!input) {
       return message.reply(
-        "╔═══════════════════════════════╗\n" +
-        "║  🎵  تحميل أغنية             ║\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  /song [اسم الأغنية]          ║\n" +
-        "║  /song [رابط يوتيوب]          ║\n" +
-        "╠═══════════════════════════════╣\n" +
-        "║  الحد الأقصى: 25 MB           ║\n" +
-        "╚═══════════════════════════════╝"
+        "⟦ SAIYAN / AUDIO RETRIEVAL ⟧\nأرسل اسم الأغنية أو الفنان للبحث، أو ضع رابط YouTube مباشرًا.\nالحد الأقصى لحجم الملف: 25 MB."
       );
     }
 
@@ -124,7 +117,7 @@ module.exports = {
         const results = await ytSearch(input);
         if (!results?.videos?.length) {
           message.react("❌", messageID);
-          return message.reply(`❌ لا توجد نتائج لـ "${input}"`);
+          return message.reply(`⟦ NO MATCHING AUDIO ⟧\nلم أعثر على نتيجة مطابقة لعبارة البحث: ${input}`);
         }
         const best = results.videos[0];
         videoUrl  = `https://www.youtube.com/watch?v=${best.videoId}`;
@@ -136,9 +129,9 @@ module.exports = {
 
       const sizeMB = (fs.statSync(tmpFile).size / (1024 * 1024)).toFixed(2);
 
-      let caption = `🎵 ${videoInfo?.title || "أغنية"}\n📦 ${sizeMB} MB`;
+      let caption = `⟦ SAIYAN / AUDIO DELIVERY ⟧\nالعنوان: ${videoInfo?.title || "مقطع صوتي"}\nحجم الملف: ${sizeMB} MB`;
       if (videoInfo) {
-        caption += `\n📺 القناة: ${videoInfo.author?.name || ""}\n⏱ المدة: ${videoInfo.timestamp}`;
+        caption += `\nالقناة: ${videoInfo.author?.name || "غير محددة"}\nالمدة: ${videoInfo.timestamp}`;
       }
 
       await new Promise((res, rej) => {
@@ -153,11 +146,7 @@ module.exports = {
     } catch (err) {
       message.react("❌", messageID);
       message.reply(
-        `╔═══════════════════════════╗\n` +
-        `║  ❌ فشل التحميل           ║\n` +
-        `╠═══════════════════════════╣\n` +
-        `║  ${String(err.message).slice(0, 40)}\n` +
-        `╚═══════════════════════════╝`
+        `⟦ AUDIO RETRIEVAL FAILED ⟧\nتعذر تجهيز الملف الصوتي.\nالتفاصيل: ${String(err.message || err).slice(0, 100)}`
       );
     }
   }
