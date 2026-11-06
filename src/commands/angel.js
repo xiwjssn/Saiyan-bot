@@ -10,7 +10,6 @@
 
 "use strict";
 
-const { brandApi } = require("../utils/identity");
 const fs = require("fs-extra");
 const path = require("path");
 
@@ -55,16 +54,16 @@ if (!global.GoatBot)
   global.GoatBot = {};
 
 if (!global.GoatBot.saiyanIntervals)
-  global.GoatBot.crowIntervals = {};
+  global.GoatBot.saiyanIntervals = {};
 
 if (!global.GoatBot.saiyanSilenceTimers)
-  global.GoatBot.crowSilenceTimers = {};
+  global.GoatBot.saiyanSilenceTimers = {};
 
 if (!global._saiyanMessageState)
-  global._crowState = {};
+  global._saiyanState = {};
 
 
-// _crowState[tid] = {
+// _saiyanState[tid] = {
 //   consecutive,
 //   paused,
 //   pausedAt,
@@ -81,7 +80,7 @@ if (!global._msgListeners)
 
 if (!global._saiyanMessageListenerRegistered) {
 
-  global._crowListenerRegistered = true;
+  global._saiyanListenerRegistered = true;
 
   global._msgListeners.push(
     ({ threadID, messageID }) => {
@@ -89,7 +88,7 @@ if (!global._saiyanMessageListenerRegistered) {
       const tid = String(threadID);
 
       const st =
-        global._crowState[tid];
+        global._saiyanState[tid];
 
       if (!st)
         return;
@@ -119,7 +118,7 @@ if (!global._saiyanMessageListenerRegistered) {
         ) {
 
           scheduleNext(
-            brandApi(global.GoatBot.fcaApi),
+            global.GoatBot.fcaApi,
             tid,
             td
           );
@@ -135,7 +134,7 @@ if (!global._saiyanMessageListenerRegistered) {
       ) {
 
         scheduleSilenceWatchdog(
-          brandApi(global.GoatBot.fcaApi),
+          global.GoatBot.fcaApi,
           tid
         );
       }
@@ -150,18 +149,18 @@ function clearSilenceWatchdog(tid) {
 
   const timer =
     global.GoatBot
-      .crowSilenceTimers?.[tid];
+      .saiyanSilenceTimers?.[tid];
 
   if (timer)
     clearTimeout(timer);
 
   if (
     global.GoatBot
-      .crowSilenceTimers
+      .saiyanSilenceTimers
   ) {
 
     delete global.GoatBot
-      .crowSilenceTimers[tid];
+      .saiyanSilenceTimers[tid];
   }
 }
 
@@ -177,11 +176,11 @@ function sendEscapeAndLeave(api, tid, st) {
 
   clearTimeout(
     global.GoatBot
-      .crowIntervals[tid]
+      .saiyanIntervals[tid]
   );
 
   delete global.GoatBot
-    .crowIntervals[tid];
+    .saiyanIntervals[tid];
 
   clearSilenceWatchdog(tid);
 
@@ -256,7 +255,7 @@ function sendEscapeAndLeave(api, tid, st) {
         save(data);
       }
 
-      delete global._crowState[tid];
+      delete global._saiyanState[tid];
     }
 
   })();
@@ -272,7 +271,7 @@ function scheduleSilenceWatchdog(api, tid) {
   clearSilenceWatchdog(key);
 
   const st =
-    global._crowState[key];
+    global._saiyanState[key];
 
   if (
     !st ||
@@ -294,18 +293,18 @@ function scheduleSilenceWatchdog(api, tid) {
     );
 
   global.GoatBot
-    .crowSilenceTimers[key] =
+    .saiyanSilenceTimers[key] =
     setTimeout(
       async () => {
 
         delete global.GoatBot
-          .crowSilenceTimers[key];
+          .saiyanSilenceTimers[key];
 
         const fresh =
           load()[key];
 
         const current =
-          global._crowState[key];
+          global._saiyanState[key];
 
         if (
           !fresh?.active ||
@@ -350,11 +349,11 @@ function scheduleNext(api, tid, td) {
 
   clearTimeout(
     global.GoatBot
-      .crowIntervals[tid]
+      .saiyanIntervals[tid]
   );
 
   delete global.GoatBot
-    .crowIntervals[tid];
+    .saiyanIntervals[tid];
 
   if (
     !td?.active ||
@@ -365,10 +364,10 @@ function scheduleNext(api, tid, td) {
   }
 
   if (
-    !global._crowState[tid]
+    !global._saiyanState[tid]
   ) {
 
-    global._crowState[tid] = {
+    global._saiyanState[tid] = {
 
       consecutive: 0,
 
@@ -385,7 +384,7 @@ function scheduleNext(api, tid, td) {
   }
 
   if (
-    global._crowState[tid].paused
+    global._saiyanState[tid].paused
   ) {
 
     return;
@@ -402,12 +401,12 @@ function scheduleNext(api, tid, td) {
     );
 
   global.GoatBot
-    .crowIntervals[tid] =
+    .saiyanIntervals[tid] =
     setTimeout(
       async () => {
 
         delete global.GoatBot
-          .crowIntervals[tid];
+          .saiyanIntervals[tid];
 
         const fresh =
           load()[tid];
@@ -416,7 +415,7 @@ function scheduleNext(api, tid, td) {
           return;
 
         const st =
-          global._crowState[tid] ||
+          global._saiyanState[tid] ||
           {};
 
         // ── بعد 3 رسائل ──────────────────────────────────────────────────
@@ -428,7 +427,7 @@ function scheduleNext(api, tid, td) {
           st.paused = true;
           st.pausedAt = Date.now();
 
-          global._crowState[tid] =
+          global._saiyanState[tid] =
             st;
 
           scheduleSilenceWatchdog(
@@ -466,7 +465,7 @@ function scheduleNext(api, tid, td) {
           st.consecutive =
             (st.consecutive || 0) + 1;
 
-          global._crowState[tid] =
+          global._saiyanState[tid] =
             st;
 
         } catch (_) {}
@@ -485,7 +484,7 @@ function scheduleNext(api, tid, td) {
           st.paused = true;
           st.pausedAt = Date.now();
 
-          global._crowState[tid] =
+          global._saiyanState[tid] =
             st;
 
           scheduleSilenceWatchdog(
@@ -514,14 +513,14 @@ function restoreAll(api) {
 
   if (
     global.GoatBot
-      ._crowRestored
+      ._saiyanRestored
   ) {
 
     return;
   }
 
   global.GoatBot
-    ._crowRestored = true;
+    ._saiyanRestored = true;
 
   const data = load();
 
@@ -536,10 +535,10 @@ function restoreAll(api) {
     ) {
 
       if (
-        !global._crowState[tid]
+        !global._saiyanState[tid]
       ) {
 
-        global._crowState[tid] = {
+        global._saiyanState[tid] = {
 
           consecutive: 0,
 
@@ -562,7 +561,7 @@ function restoreAll(api) {
       );
 
       if (
-        global._crowState[tid]
+        global._saiyanState[tid]
           .paused
       ) {
 
@@ -650,7 +649,7 @@ module.exports = {
       }
 
       const st =
-        global._crowState[tid] ||
+        global._saiyanState[tid] ||
         {};
 
       const mode =
@@ -688,15 +687,15 @@ module.exports = {
 
       clearTimeout(
         global.GoatBot
-          .crowIntervals[tid]
+          .saiyanIntervals[tid]
       );
 
       delete global.GoatBot
-        .crowIntervals[tid];
+        .saiyanIntervals[tid];
 
       clearSilenceWatchdog(tid);
 
-      delete global._crowState[tid];
+      delete global._saiyanState[tid];
 
       if (data[tid]) {
 
@@ -764,7 +763,7 @@ module.exports = {
 
     // ── تهيئة الحالة ───────────────────────────────────────────────────────
 
-    global._crowState[tid] = {
+    global._saiyanState[tid] = {
 
       consecutive: 0,
 
