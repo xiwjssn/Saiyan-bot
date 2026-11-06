@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /badwords — فلتر الكلمات المحظورة
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 & adapted for Saiyan engine
+ * Ported from SAIYAN CORE & adapted for Saiyan engine
  * Uses onEvent to monitor all messages in real time
  */
 "use strict";
