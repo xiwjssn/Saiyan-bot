@@ -1,6 +1,6 @@
 /**
- * DAVID V1 — /setavatar — تغيير صورة بروفايل البوت
- * Copyright © 2025 DJAMEL
+ * Saiyan V1 — /setavatar — تغيير صورة بروفايل البوت
+ * Copyright © 2026 magnus
  *
  * تم المقارنة مع WHITE-V3 المصدر:
  *  - arraybuffer ← حفظ ملف مؤقت ← fs.createReadStream  (مطابق WHITE-V3)
@@ -27,7 +27,7 @@ module.exports = {
     name: "setavatar",
     aliases: ["changeavatar", "avatar", "pfp", "صورة-البوت"],
     version: "4.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 15,
     role: 3,
     category: "management",
