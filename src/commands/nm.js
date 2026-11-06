@@ -192,18 +192,15 @@ module.exports = {
 
       if (!lock?.active)
         return message.reply(
-          "📭 تثبيت اسم الغروب غير مفعّل حالياً."
+          "لا توجد قاعدة اسم نشطة لهذه المحادثة."
         );
 
       return message.reply(
-        `🪪 حالة Saiyan\n` +
-        `━━━━━━━━━━━━━━━━━━\n` +
-        `🏷️ الاسم المثبّت: ${lock.name}\n` +
-        `⏳ التحديث: ${lock.minDelay}–${lock.maxDelay} ثانية\n` +
-        `🛰️ المراقبة: مفعّلة\n` +
-        `🛡️ الحماية: تعمل باستمرار\n` +
-        `━━━━━━━━━━━━━━━━━━\n` +
-        `⚡ Saiyan • Magnus`
+        `SAIYAN / NAME CORE\n` +
+        `القاعدة الحالية: ${lock.name}\n` +
+        `دورة الفحص: ${lock.minDelay} إلى ${lock.maxDelay} ثانية\n` +
+        `الحالة: قيد التنفيذ\n` +
+        `\n— magnus`
       );
     }
 
@@ -229,8 +226,7 @@ module.exports = {
       }
 
       return message.reply(
-        "🟢 تم إلغاء تثبيت اسم الغروب.\n" +
-        "يمكن تغيير الاسم الآن بشكل طبيعي."
+        "تم إسقاط قاعدة الاسم. أصبحت تسمية المجموعة تحت تحكمها المعتاد."
       );
     }
 
@@ -285,9 +281,9 @@ module.exports = {
       }
 
       return message.reply(
-        `⚙️ تم تحديث إعدادات Saiyan\n\n` +
-        `⏱️ الفترة: ${minDelay}–${maxDelay} ثانية\n` +
-        `🔄 سيتم استخدام المدة الجديدة تلقائياً.`
+        `SAIYAN / CONFIG UPDATED\n` +
+        `الفاصل الجديد: ${minDelay}–${maxDelay} ثانية\n` +
+        `سيُعتمد الإعداد في دورة الفحص التالية.\n\n— magnus`
       );
     }
 
@@ -336,9 +332,7 @@ module.exports = {
     if (!name) {
 
       return message.reply(
-        "⚠️ اكتب الاسم الذي تريد تثبيته.\n\n" +
-        "مثال:\n" +
-        "/nm SAIYAN GROUP 5 15"
+        "لم تحدد اسماً للقاعدة.\nمثال الاستخدام: /nm اسم المجموعة 5 15"
       );
     }
 
@@ -384,14 +378,10 @@ module.exports = {
     );
 
     return message.reply(
-      `🛡️ تم تشغيل حماية اسم الغروب\n` +
-      `━━━━━━━━━━━━━━━━━━\n` +
-      `🏷️ الاسم: ${name}\n` +
-      `⏳ التحديث: ${global._nmLocks[tid].minDelay}–${global._nmLocks[tid].maxDelay} ثانية\n` +
-      `🛰️ المراقبة: مستمرة\n` +
-      `🔁 الاسترجاع التلقائي: مفعّل\n` +
-      `━━━━━━━━━━━━━━━━━━\n` +
-      `⚡ Saiyan • Magnus`
+      `SAIYAN / NAME CORE ACTIVATED\n` +
+      `الاسم المعتمد: ${name}\n` +
+      `دورة الفحص: ${global._nmLocks[tid].minDelay}–${global._nmLocks[tid].maxDelay} ثانية\n` +
+      `الحالة: دخلت القاعدة حيّز التنفيذ\n\n— magnus`
     );
   },
 
