@@ -45,12 +45,7 @@ module.exports = {
 
     if (!location) {
       return message.reply(
-        "╔═══════════════════════════╗\n" +
-        "║  🌤️  حالة الطقس           ║\n" +
-        "╠═══════════════════════════╣\n" +
-        "║  /weather [المدينة]       ║\n" +
-        "║  مثال: /weather الجزائر  ║\n" +
-        "╚═══════════════════════════╝"
+        "⟦ SAIYAN / ATMOSPHERIC REPORT ⟧\nحدد المدينة التي تريد معرفة حالة الطقس فيها.\nمثال: /weather Tripoli"
       );
     }
 
@@ -83,25 +78,24 @@ module.exports = {
       message.react("✅", messageID);
       return message.reply(
         `${LINE}\n` +
-        `  ${ic} الطقس — ${name}, ${country}\n` +
+        `⟦ SAIYAN / WEATHER REPORT ⟧\n${ic} الموقع: ${name}, ${country}\n` +
         `${LINE}\n\n` +
-        `  📝 الحالة     : ${desc}\n` +
-        `  🌡 الحرارة    : ${temp}°C (يبدو ${feels}°C)\n` +
-        `  🔽 أدنى       : ${min}°C   🔼 أقصى: ${max}°C\n` +
-        `  💧 الرطوبة    : ${humidity}%\n` +
-        `  💨 الرياح     : ${windSpeed} km/h — ${windDir}\n` +
-        `  ☁️ الغيوم     : ${clouds}%\n` +
-        `  👁️ الرؤية     : ${visibility}\n` +
-        `  📊 الضغط      : ${pressure} hPa\n` +
-        `  🌅 الشروق     : ${sunrise}\n` +
-        `  🌇 الغروب     : ${sunset}\n\n` +
+        `الوصف: ${desc}\n` +
+        `درجة الحرارة: ${temp}°C · المحسوسة: ${feels}°C\n` +
+        `النطاق: ${min}°C إلى ${max}°C\n` +
+        `الرطوبة: ${humidity}%\n` +
+        `الرياح: ${windSpeed} كم/س · ${windDir}\n` +
+        `الغطاء السحابي: ${clouds}%\n` +
+        `مدى الرؤية: ${visibility}\n` +
+        `الضغط: ${pressure} hPa\n` +
+        `الشروق: ${sunrise} · الغروب: ${sunset}\n\n` +
         `${LINE}`
       );
     } catch (err) {
       message.react("❌", messageID);
       const status = err.response?.status;
-      if (status === 404) return message.reply(`❌ لم يتم العثور على المدينة: "${location}"`);
-      return message.reply(`❌ خطأ: ${err.message?.slice(0, 60)}`);
+      if (status === 404) return message.reply(`⟦ LOCATION NOT FOUND ⟧\nلم أتعرف على المدينة: ${location}`);
+      return message.reply(`⟦ WEATHER SERVICE UNAVAILABLE ⟧\nتعذر استرجاع بيانات الطقس: ${err.message?.slice(0, 80) || "خطأ غير محدد"}`);
     }
   }
 };
