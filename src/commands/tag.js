@@ -57,37 +57,36 @@ module.exports = {
     // ── add ───────────────────────────────────────────────────────────────
     if (sub === "add" || sub === "إضافة") {
       const groupName = args[1]?.toUpperCase();
-      if (!groupName) return message.reply("⚠️ أدخل اسم المجموعة.\nمثال: /tag add TEAM @شخص1 @شخص2");
+      if (!groupName) return message.reply("⟦ GROUP LABEL REQUIRED ⟧\nأدخل اسمًا للمجموعة ثم أشر إلى الأعضاء المراد ضمهم.\nمثال: /tag add TEAM @عضو1 @عضو2");
       const newIDs = Object.keys(mentions || {});
-      if (!newIDs.length) return message.reply("⚠️ تاق الأشخاص المراد إضافتهم.");
+      if (!newIDs.length) return message.reply("⟦ MEMBERS REQUIRED ⟧\nأشر إلى عضو واحد على الأقل لإضافته إلى هذه المجموعة.");
 
       if (!groups[groupName]) groups[groupName] = [];
       const added = newIDs.filter(id => !groups[groupName].includes(id));
       groups[groupName] = [...new Set([...groups[groupName], ...newIDs])];
       saveThread(threadID, groups);
       return message.reply(
-        `✅ تمت إضافة ${added.length} عضو لمجموعة "${groupName}"\n` +
-        `👥 إجمالي الأعضاء: ${groups[groupName].length}`
+        `⟦ SAIYAN / TAG GROUP UPDATED ⟧\nالمجموعة: ${groupName}\nالأعضاء الجدد: ${added.length}\nإجمالي الأعضاء: ${groups[groupName].length}\n— magnus`
       );
     }
 
     // ── list ──────────────────────────────────────────────────────────────
     if (sub === "list" || sub === "all" || sub === "قائمة") {
       const names = Object.keys(groups);
-      if (!names.length) return message.reply("📋 لا توجد مجموعات تاق في هذا الغروب.\n/tag add [اسم] @أعضاء");
-      const lines = ["╔══════════════════════════╗", "║  🏷️  مجموعات التاق       ║", "╠══════════════════════════╣"];
-      for (const n of names) lines.push(`║  • ${n} (${groups[n].length} عضو)`);
-      lines.push("╚══════════════════════════╝");
+      if (!names.length) return message.reply("⟦ TAG REGISTRY EMPTY ⟧\nلا توجد مجموعات محفوظة. أنشئ مجموعة باستخدام /tag add [اسم] @الأعضاء.");
+      const lines = ["⟦ SAIYAN / TAG GROUP REGISTRY ⟧", "المجموعات المسجلة", "────────────────────────"];
+      for (const n of names) lines.push(`• ${n} — ${groups[n].length} عضو`);
+      lines.push("— magnus");
       return message.reply(lines.join("\n"));
     }
 
     // ── remove ────────────────────────────────────────────────────────────
     if (sub === "remove" || sub === "حذف" || sub === "delete") {
       const groupName = args[1]?.toUpperCase();
-      if (!groupName || !groups[groupName]) return message.reply(`⚠️ المجموعة "${args[1] || ''}" غير موجودة.`);
+      if (!groupName || !groups[groupName]) return message.reply(`⟦ GROUP NOT FOUND ⟧\nلا توجد مجموعة بالاسم: ${args[1] || "غير محدد"}`);
       delete groups[groupName];
       saveThread(threadID, groups);
-      return message.reply(`✅ تم حذف مجموعة "${groupName}"`);
+      return message.reply(`⟦ TAG GROUP REMOVED ⟧\nتم حذف المجموعة ${groupName} من السجل.`);
     }
 
     // ── info ──────────────────────────────────────────────────────────────
@@ -95,9 +94,8 @@ module.exports = {
       const groupName = args[1]?.toUpperCase();
       if (!groupName || !groups[groupName]) return message.reply(`⚠️ المجموعة "${args[1] || ''}" غير موجودة.`);
       return message.reply(
-        `📑 المجموعة: ${groupName}\n` +
-        `👥 الأعضاء (${groups[groupName].length}):\n` +
-        groups[groupName].map(id => `  • ${id}`).join("\n")
+        `⟦ SAIYAN / TAG GROUP DOSSIER ⟧\nالمجموعة: ${groupName}\nعدد الأعضاء: ${groups[groupName].length}\n` +
+        groups[groupName].map(id => `• ${id}`).join("\n") + "\n— magnus"
       );
     }
 
@@ -105,15 +103,14 @@ module.exports = {
     const groupName = args[0]?.toUpperCase();
     if (!groups[groupName]) {
       return message.reply(
-        `❌ المجموعة "${args[0]}" غير موجودة.\n` +
-        `/tag list — عرض المجموعات المتاحة`
+        `⟦ UNKNOWN TAG GROUP ⟧\nلا يوجد سجل باسم ${args[0] || "غير محدد"}.\nاستخدم /tag list لمراجعة المجموعات المتاحة.`
       );
     }
 
     const members = groups[groupName];
-    if (!members.length) return message.reply(`⚠️ المجموعة "${groupName}" فارغة.`);
+    if (!members.length) return message.reply(`⟦ EMPTY TAG GROUP ⟧\nالمجموعة ${groupName} لا تحتوي على أعضاء.`);
 
-    let body = `👥 ${groupName}:`;
+    let body = `⟦ SAIYAN / GROUP SIGNAL: ${groupName} ⟧`;
     const tagMentions = [];
     for (const uid of members) {
       const fromIndex = body.length;
@@ -126,7 +123,7 @@ module.exports = {
         api.sendMessage({ body, mentions: tagMentions }, threadID, (err) => err ? rej(err) : res())
       );
     } catch (err) {
-      message.reply(`❌ فشل التاق: ${err.message?.slice(0, 60)}`);
+      message.reply(`⟦ GROUP SIGNAL FAILED ⟧\nتعذر إرسال الإشارات إلى أعضاء المجموعة: ${err.message?.slice(0, 80) || "سبب غير محدد"}`);
     }
   }
 };
