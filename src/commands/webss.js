@@ -9,7 +9,7 @@ const fs    = require("fs-extra");
 const path  = require("path");
 const os    = require("os");
 
-const CACHE_DIR = path.join(os.tmpdir(), "david_webss");
+const CACHE_DIR = path.join(os.tmpdir(), "saiyan_webss");
 
 function cleanFile(f) {
   try { if (f && fs.existsSync(f)) fs.unlinkSync(f); } catch (_) {}
@@ -34,18 +34,13 @@ module.exports = {
 
     if (!rawUrl) {
       return message.reply(
-        "╔═══════════════════════════╗\n" +
-        "║  📸  لقطة شاشة موقع      ║\n" +
-        "╠═══════════════════════════╣\n" +
-        "║  /webss [رابط]            ║\n" +
-        "║  مثال: /webss google.com  ║\n" +
-        "╚═══════════════════════════╝"
+        "⟦ SAIYAN / WEB CAPTURE ⟧\nأرسل رابط الموقع الذي تريد التقاط صورة لصفحته.\nمثال: /webss https://example.com"
       );
     }
 
     const url = rawUrl.startsWith("http") ? rawUrl : `https://${rawUrl}`;
     message.react("⏳", messageID);
-    message.reply(`📸 جاري التقاط لقطة شاشة...\n🌐 ${url}`);
+    message.reply(`⟦ SAIYAN / PAGE CAPTURE ⟧\nجارٍ فتح الصفحة والتقاطها: ${url}`);
 
     fs.ensureDirSync(CACHE_DIR);
     const tmpFile = path.join(CACHE_DIR, `ss_${Date.now()}.jpg`);
@@ -62,7 +57,7 @@ module.exports = {
       message.react("✅", messageID);
       await new Promise((resolve, reject) => {
         api.sendMessage(
-          { body: `📸 لقطة شاشة: ${url}`, attachment: fs.createReadStream(tmpFile) },
+          { body: `⟦ SAIYAN / CAPTURED PAGE ⟧\nالمصدر: ${url}\n— magnus`, attachment: fs.createReadStream(tmpFile) },
           threadID,
           (err) => { cleanFile(tmpFile); err ? reject(err) : resolve(); }
         );
@@ -86,7 +81,7 @@ module.exports = {
           () => cleanFile(tmpFile2)
         );
       } catch (_) {
-        message.reply(`❌ فشل التقاط الشاشة: رابط غير صالح أو محجوب\n🌐 ${url}`);
+        message.reply(`⟦ PAGE CAPTURE FAILED ⟧\nتعذر التقاط الصفحة؛ قد يكون الرابط غير صالح أو يمنع الوصول.\nالمصدر: ${url}`);
       }
     }
   }
