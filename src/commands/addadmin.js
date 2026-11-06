@@ -59,7 +59,8 @@ module.exports = {
     const { senderID, threadID, mentions, messageReply } = event;
 
     if (!isTopAdmin(senderID))
-      return message.reply("⛔ هذا الأمر لمالك البوت (المستوى 3) فقط.");
+      return message.reply("⟦ SAIYAN / ACCESS DENIED ⟧
+هذا الإجراء محجوز لمالك النظام أو الإدارة العليا.");
 
     const sub = (args[0] || "").toLowerCase();
 
@@ -69,24 +70,27 @@ module.exports = {
       const cfg    = global.GoatBot?.config || {};
       const supers = [cfg.ownerID, ...(cfg.superAdminBot || [])].filter(Boolean).map(String);
       if (!Object.keys(levels).length && !supers.length)
-        return message.reply("📋 لا يوجد أدمن مسجّل.");
+        return message.reply("⟦ SAIYAN / ADMIN INDEX ⟧
+لا توجد حسابات إدارية إضافية مسجّلة حاليًا.");
 
-      const lines = ["╔══════════════════════════╗", "║  👑  قائمة الأدمن       ║", "╠══════════════════════════╣"];
+      const lines = ["⟦ SAIYAN / ADMIN REGISTRY ⟧", "سجل الصلاحيات الإدارية", "────────────────────────"];
       const emoji = { 3: "🥇", 2: "🥈", 1: "🥉" };
       for (const [id, lvl] of Object.entries(levels))
-        lines.push(`║  ${emoji[lvl] || "•"} Lv${lvl} — ${id}`);
+        lines.push(`${emoji[lvl] || "•"} المستوى ${lvl}  |  ${id}`);
       for (const id of supers)
-        if (!levels[id]) lines.push(`║  👑 Owner — ${id}`);
-      lines.push("╚══════════════════════════╝");
+        if (!levels[id]) lines.push(`♛ مالك النظام  |  ${id}`);
+      lines.push("────────────────────────\n— magnus");
       return message.reply(lines.join("\n"));
     }
 
     // ── إزالة أدمن ────────────────────────────────────────────────────────
     if (sub === "remove" || sub === "إزالة") {
       const rid = args[1] ? extractID(args[1]) : (messageReply?.senderID || Object.keys(mentions || {})[0]);
-      if (!rid) return message.reply("❌ حدد ID الشخص المراد إزالته.");
+      if (!rid) return message.reply("⟦ INPUT REQUIRED ⟧
+أرسل معرّف الحساب أو ردّ على رسالة صاحبه.");
       const levels = loadLevels();
-      if (!levels[String(rid)]) return message.reply(`⚠️ المعرف ${rid} ليس أدمناً.`);
+      if (!levels[String(rid)]) return message.reply(`⟦ NO MATCH ⟧
+المعرّف ${rid} غير موجود في سجل الإدارة.`);
       delete levels[String(rid)];
       saveLevels(levels);
       // تحديث config
@@ -96,26 +100,15 @@ module.exports = {
         fs.writeFileSync(CONFIG_FILE, JSON.stringify(cfg, null, 2));
         if (global.GoatBot?.config) global.GoatBot.config.adminBot = cfg.adminBot;
       } catch (_) {}
-      return message.reply(`✅ تم إزالة الأدمن: ${rid}`);
+      return message.reply(`⟦ ACCESS REVOKED ⟧
+تم سحب الصلاحية الإدارية من الحساب ${rid}.`);
     }
 
     // ── إضافة / تعديل ─────────────────────────────────────────────────────
     const level = parseInt(sub);
     if (isNaN(level) || level < 1 || level > 3) {
       return message.reply(
-        "╔══════════════════════════════╗\n" +
-        "║  👮  إضافة أدمن للبوت       ║\n" +
-        "╠══════════════════════════════╣\n" +
-        "║  /addadmin 2 @شخص           ║\n" +
-        "║  /addadmin 1 [ID]            ║\n" +
-        "║  /addadmin 3 — رد على رسالة ║\n" +
-        "║  /addadmin list              ║\n" +
-        "║  /addadmin remove [ID]       ║\n" +
-        "╠══════════════════════════════╣\n" +
-        "║  🥉 Lv1 جونيور              ║\n" +
-        "║  🥈 Lv2 أدمن عادي           ║\n" +
-        "║  🥇 Lv3 أدمن كبير           ║\n" +
-        "╚══════════════════════════════╝"
+        "⟦ SAIYAN / ADMIN CONTROL ⟧\nصيغة غير مكتملة أو مستوى غير صالح.\n\n/addadmin 1 @عضو — صلاحية أساسية\n/addadmin 2 [ID] — صلاحية متقدمة\n/addadmin 3 — رد على رسالة المالك\n/addadmin list — عرض السجل\n/addadmin remove [ID] — سحب الصلاحية\n\nالمستويات: 1 أساسي · 2 متقدم · 3 إدارة عليا\n— magnus"
       );
     }
 
@@ -125,9 +118,11 @@ module.exports = {
     else if (args[1])     targetID = extractID(args[1]);
     else if (messageReply) targetID = messageReply.senderID;
 
-    if (!targetID) return message.reply("❌ حدد الشخص: رد على رسالته، أو @mention، أو ضع ID.");
+    if (!targetID) return message.reply("⟦ TARGET MISSING ⟧
+حدّد الحساب بالإشارة إليه، أو بالرد على رسالته، أو بإرسال ID.");
     if (String(targetID) === String(senderID))
-      return message.reply("❌ لا يمكنك إضافة نفسك.");
+      return message.reply("⟦ OPERATION BLOCKED ⟧
+لا يمكن منح حسابك صلاحية إدارية عبر هذا الأمر.");
 
     const levels   = loadLevels();
     const oldLevel = levels[String(targetID)];
@@ -147,12 +142,11 @@ module.exports = {
     const labels = { 3: "أدمن كبير", 2: "أدمن عادي", 1: "جونيور" };
 
     return message.reply(
-      `╔══════════════════════════════╗\n` +
-      `║  ✅ ${oldLevel ? "تم تحديث الأدمن" : "تم إضافة أدمن جديد"}\n` +
-      `╠══════════════════════════════╣\n` +
-      `║  🆔 ID    : ${targetID}\n` +
-      (oldLevel ? `║  📊 المستوى: Lv${oldLevel} → Lv${level} ${emoji[level]}\n` : `║  📊 المستوى: ${emoji[level]} Lv${level} (${labels[level]})\n`) +
-      `╚══════════════════════════════╝`
+      `⟦ SAIYAN / PRIVILEGE UPDATED ⟧\n` +
+      `${oldLevel ? "تم تعديل مستوى الحساب" : "تم تسجيل حساب إداري جديد"}\n` +
+      `المعرّف: ${targetID}\n` +
+      (oldLevel ? `المستوى السابق: ${oldLevel}\nالمستوى الحالي: ${level} ${emoji[level]}\n` : `المستوى الممنوح: ${level} ${emoji[level]} — ${labels[level]}\n`) +
+      `الحالة: تم اعتماد التغيير\n— magnus`
     );
   }
 };
