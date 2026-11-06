@@ -1740,9 +1740,8 @@ module.exports = {
 
       return message.reply(
 
-        "⟦ SAIYAN / COMMAND CENTER ⟧\n\n"
-
-        "الأقسام المتاحة:\n\n"
+        "⟦ SAIYAN / COMMAND CENTER ⟧\n\n" +
+        "الأقسام المتاحة:\n\n" +
 
         "📂 /chats\n" +
         "   فتح المركز\n\n" +
