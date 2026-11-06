@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /imagegen — توليد صور بالذكاء الاصطناعي
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 (wgen/weigen) & adapted for Saiyan engine
+ * Ported from SAIYAN CORE (wgen/weigen) & adapted for Saiyan engine
  */
 "use strict";
 const axios = require("axios");
