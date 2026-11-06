@@ -1,7 +1,7 @@
 /**
- * DAVID V1 — /ping — قياس زمن استجابة البوت
- * Copyright © 2025 DJAMEL
- * Ported from WHITE-V3 & adapted for DAVID engine
+ * Saiyan V1 — /ping — قياس زمن استجابة البوت
+ * Copyright © 2026 magnus
+ * Ported from WHITE-V3 & adapted for Saiyan engine
  */
 "use strict";
 
@@ -10,7 +10,7 @@ module.exports = {
     name: "ping",
     aliases: ["pong", "latency", "استجابة"],
     version: "2.0",
-    author: "DJAMEL",
+    author: "magnus",
     countDown: 3,
     role: 0,
     category: "utility",
