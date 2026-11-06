@@ -1,6 +1,6 @@
 /**
  * SAIYAN — /nm v3 — تثبيت اسم الغروب
- * Copyright © 2026 Magnus
+ * Copyright © 2026 magnus
  * ✦ يراقب اسم الغروب ويعيده تلقائياً عند تغييره
  * ✦ /nm [اسم] [min] [max] — تشغيل التثبيت مع فترة تحديث
  * ✦ /nm off — إلغاء التثبيت
@@ -148,7 +148,7 @@ module.exports = {
 
     version: "3.0",
 
-    author: "Magnus",
+    author: "magnus",
 
     countDown: 3,
 
