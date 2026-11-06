@@ -27,17 +27,12 @@ module.exports = {
 
     if (!args[0]) {
       return message.reply(
-        `╔══════════════════════════╗\n` +
-        `║  ⚙️  البادئة الحالية     ║\n` +
-        `╠══════════════════════════╣\n` +
-        `║  "${current}"\n` +
-        `║  /prefix [بادئة جديدة]  ║\n` +
-        `╚══════════════════════════╝`
+        `⟦ SAIYAN / COMMAND ROUTING ⟧\nالبادئة الحالية: "${current}"\nلتحديثها أرسل: /prefix [البادئة الجديدة]\n— magnus`
       );
     }
 
     const newPrefix = args[0].trim();
-    if (newPrefix.length > 3) return message.reply("❌ البادئة يجب أن تكون 1-3 أحرف.");
+    if (newPrefix.length > 3) return message.reply("⟦ INVALID PREFIX ⟧\nيجب أن تتكون البادئة من حرف إلى ثلاثة أحرف كحد أقصى.");
 
     try {
       const cfg = JSON.parse(fs.readFileSync(CONFIG_FILE, "utf8"));
@@ -46,14 +41,10 @@ module.exports = {
       if (global.GoatBot?.config) global.GoatBot.config.prefix = newPrefix;
 
       return message.reply(
-        `╔══════════════════════════╗\n` +
-        `║  ✅ تم تغيير البادئة    ║\n` +
-        `╠══════════════════════════╣\n` +
-        `║  "${current}" ← "${newPrefix}"\n` +
-        `╚══════════════════════════╝`
+        `⟦ ROUTING CONFIGURATION UPDATED ⟧\nالبادئة السابقة: "${current}"\nالبادئة المعتمدة: "${newPrefix}"\nستُستخدم البادئة الجديدة للأوامر التالية.\n— magnus`
       );
     } catch (e) {
-      return message.reply(`❌ فشل: ${e.message}`);
+      return message.reply(`⟦ CONFIGURATION FAILURE ⟧\nتعذر حفظ البادئة الجديدة: ${e.message}`);
     }
   }
 };
