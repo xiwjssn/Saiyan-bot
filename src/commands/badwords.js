@@ -62,7 +62,7 @@ module.exports = {
     const { senderID, threadID, mentions, messageID } = event;
 
     if (!isAdmin(senderID, event))
-      return message.reply("⛔ هذا الأمر للمشرفين فقط.");
+      return message.reply("⟦ SAIYAN / ACCESS DENIED ⟧\nإدارة فلتر المجموعة متاحة للمشرفين فقط.");
 
     const thread = getThread(threadID);
     const sub    = (args[0] || "").toLowerCase();
@@ -71,22 +71,22 @@ module.exports = {
     if (sub === "on" || sub === "تفعيل") {
       thread.enabled = true;
       saveThread(threadID, thread);
-      return message.reply("✅ تم تفعيل فلتر الكلمات المحظورة في هذا الغروب.");
+      return message.reply("⟦ FILTER ONLINE ⟧\nبدأ Saiyan مراقبة الرسائل وفق قائمة الكلمات المحددة.");
     }
     if (sub === "off" || sub === "إيقاف") {
       thread.enabled = false;
       saveThread(threadID, thread);
-      return message.reply("❌ تم إيقاف فلتر الكلمات المحظورة.");
+      return message.reply("⟦ FILTER OFFLINE ⟧\nتم تعليق مراقبة الكلمات في هذه المجموعة.");
     }
 
     // ── إضافة كلمات ───────────────────────────────────────────────────
     if (sub === "add" || sub === "إضافة") {
       const newWords = args.slice(1).join(" ").split(/[,|،]/).map(w => w.trim().toLowerCase()).filter(w => w.length >= 2);
-      if (!newWords.length) return message.reply("⚠️ أدخل كلمة أو أكثر للإضافة.");
+      if (!newWords.length) return message.reply("⟦ INPUT REQUIRED ⟧\nأرسل الكلمات المراد إضافتها، وافصل بينها بفاصلة.");
       const added = newWords.filter(w => !thread.words.includes(w));
       thread.words = [...new Set([...thread.words, ...newWords])];
       saveThread(threadID, thread);
-      return message.reply(`✅ تمت إضافة ${added.length} كلمة محظورة:\n${added.join(", ")}`);
+      return message.reply(`⟦ FILTER DATABASE UPDATED ⟧\nعدد الكلمات الجديدة: ${added.length}\n${added.join(", ") || "لم تتم إضافة عناصر جديدة"}\n— magnus`);
     }
 
     // ── حذف كلمات ────────────────────────────────────────────────────
@@ -95,35 +95,30 @@ module.exports = {
       const removed  = delWords.filter(w => thread.words.includes(w));
       thread.words   = thread.words.filter(w => !delWords.includes(w));
       saveThread(threadID, thread);
-      return message.reply(`✅ تم حذف ${removed.length} كلمة:\n${removed.join(", ") || "—"}`);
+      return message.reply(`⟦ FILTER DATABASE REVISED ⟧\nعدد الكلمات المحذوفة: ${removed.length}\n${removed.join(", ") || "لم يُطابق أي عنصر"}\n— magnus`);
     }
 
     // ── قائمة الكلمات ────────────────────────────────────────────────
     if (sub === "list" || sub === "قائمة") {
-      if (!thread.words.length) return message.reply("📋 لا توجد كلمات محظورة في هذا الغروب.");
-      return message.reply(`📋 الكلمات المحظورة (${thread.words.length}):\n${thread.words.join(", ")}`);
+      if (!thread.words.length) return message.reply("⟦ FILTER DATABASE EMPTY ⟧\nلم تُضف أي كلمات إلى قائمة المراقبة بعد.");
+      return message.reply(`⟦ SAIYAN / FILTER INDEX ⟧\nعدد العناصر: ${thread.words.length}\n${thread.words.join(", ")}\n— magnus`);
     }
 
     // ── إزالة تحذير ──────────────────────────────────────────────────
     if (sub === "unwarn") {
       const targetID = Object.keys(mentions || {})[0] || args[1];
-      if (!targetID) return message.reply("⚠️ حدد الشخص المراد إزالة تحذيره.");
+      if (!targetID) return message.reply("⟦ TARGET REQUIRED ⟧\nحدّد العضو الذي تريد تصفير سجل تحذيراته.");
       delete thread.warns[String(targetID)];
       saveThread(threadID, thread);
-      return message.reply(`✅ تم إزالة تحذير ${mentions?.[targetID] || targetID}`);
+      return message.reply(`⟦ WARNING RECORD CLEARED ⟧\nتم تصفير سجل التحذير للحساب ${mentions?.[targetID] || targetID}.`);
     }
 
     // ── حالة ────────────────────────────────────────────────────────
     return message.reply(
-      `╔═══════════════════════════╗\n` +
-      `║  🚫  فلتر الكلمات         ║\n` +
-      `╠═══════════════════════════╣\n` +
-      `║  الحالة: ${thread.enabled ? "✅ مفعّل" : "❌ متوقف"}\n` +
-      `║  الكلمات: ${thread.words.length}\n` +
-      `╠═══════════════════════════╣\n` +
-      `║  on|off / add / remove    ║\n` +
-      `║  list / unwarn @شخص      ║\n` +
-      `╚═══════════════════════════╝`
+      `⟦ SAIYAN / FILTER STATUS ⟧\n` +
+      `حالة الوحدة: ${thread.enabled ? "ACTIVE / تعمل" : "PAUSED / متوقفة"}\n` +
+      `عناصر القائمة: ${thread.words.length}\n` +
+      `التحكم: on · off · add · remove · list · unwarn @عضو\n— magnus`
     );
   },
 
@@ -158,18 +153,18 @@ module.exports = {
           api.removeUserFromGroup(senderID, threadID, e => e ? rej(e) : res())
         );
         api.sendMessage(
-          `⛔ تم طرد ${senderID} بسبب استخدام كلمات محظورة (${found}) مرتين.`,
+          `⟦ MODERATION ACTION ⟧\nتم إخراج الحساب ${senderID} بعد تكرار استخدام كلمة محظورة: ${found}.`,
           threadID
         );
       } catch (_) {
         api.sendMessage(
-          `⚠️ الكلمة المحظورة "${found}" — تم رصد مخالفتك مرتين لكن البوت لا يملك صلاحية الطرد.`,
+          `⟦ MODERATION ALERT ⟧\nتم رصد تكرار الكلمة المحظورة "${found}"، لكن صلاحية إخراج العضو غير متاحة لـ Saiyan.`,
           threadID
         );
       }
     } else {
       api.sendMessage(
-        `⚠️ تحذير ${warnCount}/2\nالكلمة المحظورة: "${found}"\nاستمرار المخالفة يؤدي للطرد.`,
+        `⟦ SAIYAN / WARNING ${warnCount} OF 2 ⟧\nتم رصد كلمة غير مسموح بها: "${found}".\nتكرار المخالفة مرة أخرى يؤدي إلى إخراجك من المجموعة.`,
         threadID,
         null,
         messageID
