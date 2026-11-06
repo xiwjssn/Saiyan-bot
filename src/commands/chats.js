@@ -14,9 +14,9 @@ const DM_DATA = path.join(
 );
 
 const MANAGED_COMMANDS = [
-  { name: "angel", label: "Angel — الرسائل التلقائية" },
-  { name: "nm",    label: "NM — قفل اسم الغروب" },
-  { name: "nick",  label: "Nick — قفل كنيات الأعضاء" },
+  { name: "angel", label: "Saiyan Presence — الرسائل التلقائية" },
+  { name: "nm",    label: "Name Core — تثبيت اسم المجموعة" },
+  { name: "nick",  label: "Nickname Core — تثبيت كنيات الأعضاء" },
 ];
 
 const MANAGED_COMMAND_NAMES =
@@ -538,7 +538,7 @@ async function acceptConversation(
 
         const result =
           api.sendMessage(
-            "أهلًا، Saiyan هنا 🐦‍⬛",
+            "⟦ SAIYAN / CHANNEL OPEN ⟧\nأهلًا، تم فتح قناة المحادثة.",
             tid,
             finish
           );
@@ -582,18 +582,17 @@ async function acceptConversation(
 function buildMainMenu() {
 
   return (
-    "🐦‍⬛ ══ Saiyan CONTROL ══\n\n" +
+    "⟦ SAIYAN / CONVERSATION COMMAND CENTER ⟧\n\n" +
 
-    "اختر المسار الذي تريد فتحه:\n\n" +
+    "حدد القسم الذي تريد إدارته:\n\n" +
 
-    "🧩 1 — الغروبات\n" +
-    "✉️ 2 — طلبات المراسلة\n" +
-    "🕸️ 3 — Other / غير المهم\n" +
-    "📈 4 — إحصائيات المحادثات\n" +
-    "🔐 5 — DM Lock\n\n" +
+    "01 — سجل المجموعات\n" +
+    "02 — طلبات التواصل\n" +
+    "03 — الرسائل الأخرى\n" +
+    "04 — إحصائيات الاتصال\n" +
+    "05 — قفل الرسائل الخاصة\n\n" +
 
-    "━━━━━━━━━━━━━━━━\n" +
-    "⌨️ أرسل رقم الخيار"
+    "────────────────────────\nأرسل رقم القسم للمتابعة."
   );
 }
 
@@ -603,8 +602,7 @@ function buildMainMenu() {
 function buildGroupList(groups) {
 
   let body =
-    `🧩 الغروبات المتاحة: ${groups.length}\n` +
-    "━━━━━━━━━━━━━━━━\n";
+    `⟦ SAIYAN / GROUP DIRECTORY ⟧\nعدد المجموعات المتاحة: ${groups.length}\n────────────────────────\n`;
 
   groups
     .slice(0, 30)
@@ -616,9 +614,7 @@ function buildGroupList(groups) {
     });
 
   body +=
-    "━━━━━━━━━━━━━━━━\n" +
-    "🎯 أرسل رقم الغروب للدخول إلى إعداداته\n" +
-    "↩️ 0 — رجوع";
+    "────────────────────────\nأرسل رقم المجموعة لفتح إعداداتها.\n0 — العودة";
 
   return body;
 }
@@ -1092,7 +1088,7 @@ async function showGroups(
 
     return send(
       api,
-      "📭 لا توجد غروبات متاحة حاليًا.",
+      "⟦ EMPTY DIRECTORY ⟧\nلا توجد مجموعات متاحة في قائمة المحادثات الحالية.",
       event.threadID
     );
   }
@@ -1137,7 +1133,7 @@ async function showGroups(
       ) {
 
         return message.reply(
-          `⚠️ اختر رقمًا من 1 إلى ${Math.min(state.groups.length, 30)}.`
+          `⟦ INVALID SELECTION ⟧\nاختر رقمًا بين 1 و${Math.min(state.groups.length, 30)}.`
         );
       }
 
@@ -1171,7 +1167,7 @@ async function showRequestList(
 
       `${emoji} ${title}\n` +
       "━━━━━━━━━━━━━━━━\n" +
-      "📭 لا يوجد شيء هنا حاليًا.\n" +
+      "لا توجد عناصر في هذا القسم حاليًا.\n" +
       "━━━━━━━━━━━━━━━━\n" +
       "↩️ 0 — رجوع",
 
@@ -1194,7 +1190,7 @@ async function showRequestList(
           );
 
         return message.reply(
-          "↩️ أرسل 0 للعودة."
+          "⟦ NAVIGATION ⟧\nأرسل 0 للعودة إلى القائمة الرئيسية."
         );
       }
     );
@@ -1245,7 +1241,7 @@ async function showRequestList(
       ) {
 
         return message.reply(
-          `⚠️ الرقم غير موجود.\nاختر من 1 إلى ${Math.min(state.items.length, 30)}.`
+          `⟦ INVALID SELECTION ⟧\nالرقم غير موجود. اختر من 1 إلى ${Math.min(state.items.length, 30)}.`
         );
       }
 
@@ -1307,13 +1303,12 @@ async function showRequestList(
             if (result.helloSent) {
 
               return dMsg.reply(
-                "🟢 تم فتح المحادثة.\n" +
-                "👋 Saiyan أرسل تحية تلقائية."
+                "⟦ CONVERSATION ACCEPTED ⟧\nتم فتح المحادثة وإرسال رسالة تعريفية من Saiyan."
               );
             }
 
             return dMsg.reply(
-              "🟠 تمت محاولة فتح المحادثة، لكن لم تصل التحية.\n" +
+              "⟦ PARTIAL COMPLETION ⟧\nتمت محاولة فتح المحادثة، لكن تعذر إرسال رسالة التعريف.\n"
               (
                 result.helloError?.message ||
                 "تحقق من اتصال الحساب."
@@ -1322,9 +1317,7 @@ async function showRequestList(
           }
 
           return dMsg.reply(
-            "⚠️ هذا الاختيار غير متاح.\n\n" +
-            "🟢 1 — قبول\n" +
-            "↩️ 0 — رجوع"
+            "⟦ INVALID ACTION ⟧\n1 — قبول المحادثة\n0 — العودة"
           );
         }
       );
@@ -1380,9 +1373,7 @@ async function acceptByThreadID(
   if (!tid) {
 
     return message.reply(
-      "⚠️ أحتاج Thread ID أولًا.\n\n" +
-      "مثال:\n" +
-      "/chats accept 123456789"
+      "⟦ THREAD IDENTIFIER REQUIRED ⟧\nأرسل معرّف المحادثة.\nمثال: /chats accept 123456789"
     );
   }
 
@@ -1395,14 +1386,12 @@ async function acceptByThreadID(
   if (result.helloSent) {
 
     return message.reply(
-      "🟢 تمت العملية.\n" +
-      `🔗 Thread: ${tid}\n` +
-      "👋 تم إرسال التحية."
+      `⟦ CONVERSATION OPENED ⟧\nالمعرّف: ${tid}\nتم إرسال رسالة التعريف.\n— magnus`
     );
   }
 
   return message.reply(
-    "🟠 تمت محاولة قبول المحادثة، لكن تعذر إرسال التحية.\n" +
+    "⟦ CONVERSATION PARTIALLY OPENED ⟧\nتعذر إرسال رسالة التعريف.\n"
     (
       result.helloError?.message ||
       result.acceptError?.message ||
@@ -1447,15 +1436,7 @@ async function showChatCount(
     api,
     event,
 
-    "📡 Saiyan — قراءة الشبكة\n" +
-    "━━━━━━━━━━━━━━━━\n" +
-    `👥 الغروبات       : ${groups.length}\n` +
-    `💬 الخاص          : ${dms.length}\n` +
-    `✉️ الطلبات        : ${requests.length}\n` +
-    `🕸️ Other          : ${other.length}\n` +
-    `🔐 DM Lock        : ${getDmLocked() ? "🟢 ON" : "⚫ OFF"}\n` +
-    "━━━━━━━━━━━━━━━━\n" +
-    "↩️ 0 — رجوع",
+    `⟦ SAIYAN / CONNECTION METRICS ⟧\nالمجموعات: ${groups.length}\nالمحادثات الخاصة: ${dms.length}\nطلبات التواصل: ${requests.length}\nالرسائل الأخرى: ${other.length}\nقفل الخاص: ${getDmLocked() ? "ACTIVE" : "OFF"}\n0 — العودة`,
 
     {
       step:
@@ -1533,7 +1514,7 @@ async function showMainMenu(
       if (input === "5") {
 
         return message.reply(
-          "🔐 حالة DM Lock\n\n" +
+          "⟦ PRIVATE MESSAGE GATE ⟧\n\n" +
           `الحالة الحالية: ${
             getDmLocked()
               ? "🟢 ON"
@@ -1546,8 +1527,7 @@ async function showMainMenu(
       }
 
       return message.reply(
-        "⚠️ الرقم غير صحيح.\n" +
-        "اختر من 1 إلى 5."
+        "⟦ INVALID MENU INDEX ⟧\nاختر قسمًا من 1 إلى 5."
       );
     }
   );
@@ -1616,8 +1596,7 @@ module.exports = {
       ) {
 
         return message.reply(
-          "🔐 هذا القسم مغلق.\n" +
-          "صلاحية الأدمن مطلوبة."
+          "⟦ SAIYAN / ACCESS DENIED ⟧\nهذا المركز متاح لحسابات الإدارة المصرح لها فقط."
         );
       }
 
@@ -1643,8 +1622,7 @@ module.exports = {
           setDmLocked(true);
 
           return message.reply(
-            "🔒 DM Lock: 🟢 ON\n\n" +
-            "تم إغلاق الردود على الخاص."
+            "⟦ PRIVATE GATE ENABLED ⟧\nتم تفعيل قفل الرسائل الخاصة."
           );
         }
 
@@ -1655,13 +1633,12 @@ module.exports = {
           setDmLocked(false);
 
           return message.reply(
-            "🔓 DM Lock: ⚫ OFF\n\n" +
-            "الردود الخاصة عادت للعمل."
+            "⟦ PRIVATE GATE DISABLED ⟧\nتم إلغاء قفل الرسائل الخاصة."
           );
         }
 
         return message.reply(
-          "🔐 DM Lock حاليًا: " +
+          "⟦ PRIVATE GATE STATUS ⟧\nالحالة الحالية: " +
           (
             getDmLocked()
               ? "🟢 ON"
@@ -1763,9 +1740,9 @@ module.exports = {
 
       return message.reply(
 
-        "🐦‍⬛ Saiyan COMMAND CENTER\n\n" +
+        "⟦ SAIYAN / COMMAND CENTER ⟧\n\n"
 
-        "🧭 الأوامر المتاحة:\n\n" +
+        "الأقسام المتاحة:\n\n"
 
         "📂 /chats\n" +
         "   فتح المركز\n\n" +
