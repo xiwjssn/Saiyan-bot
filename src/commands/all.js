@@ -1,7 +1,7 @@
 /**
  * Saiyan V1 — /all — تاق لجميع أعضاء الغروب
  * Copyright © 2026 magnus
- * Ported from WHITE-V3 & adapted for Saiyan engine
+ * Ported from SAIYAN CORE & adapted for Saiyan engine
  */
 "use strict";
 
