@@ -10,6 +10,7 @@
 
 "use strict";
 
+const { brandApi } = require("../utils/identity");
 const fs = require("fs-extra");
 const path = require("path");
 
@@ -118,7 +119,7 @@ if (!global._crowListenerRegistered) {
         ) {
 
           scheduleNext(
-            global.GoatBot.fcaApi,
+            brandApi(global.GoatBot.fcaApi),
             tid,
             td
           );
@@ -134,7 +135,7 @@ if (!global._crowListenerRegistered) {
       ) {
 
         scheduleSilenceWatchdog(
-          global.GoatBot.fcaApi,
+          brandApi(global.GoatBot.fcaApi),
           tid
         );
       }
