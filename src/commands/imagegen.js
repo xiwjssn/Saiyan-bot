@@ -9,7 +9,7 @@ const fs    = require("fs-extra");
 const path  = require("path");
 const os    = require("os");
 
-const CACHE_DIR = path.join(os.tmpdir(), "david_imggen");
+const CACHE_DIR = path.join(os.tmpdir(), "saiyan_imggen");
 
 function cleanFile(f) {
   try { if (f && fs.existsSync(f)) fs.unlinkSync(f); } catch (_) {}
@@ -34,17 +34,12 @@ module.exports = {
 
     if (!prompt) {
       return message.reply(
-        "╔═══════════════════════════╗\n" +
-        "║  🖌️  توليد صورة AI        ║\n" +
-        "╠═══════════════════════════╣\n" +
-        "║  /imagegen [وصف الصورة]  ║\n" +
-        "║  مثال: /imggen anime girl ║\n" +
-        "╚═══════════════════════════╝"
+        "⟦ SAIYAN / IMAGE SYNTHESIS ⟧\nلم تحدد وصف الصورة. أرسل /imagegen متبوعًا بوصف واضح للمشهد والأسلوب المطلوب.\nمثال: /imagegen sunset over the ocean, photorealistic"
       );
     }
 
     message.react("⏳", messageID);
-    message.reply(`🖌️ جاري توليد الصورة...\n📝 "${prompt}"`);
+    message.reply(`⟦ SAIYAN / IMAGE CORE ⟧\nتم استلام الوصف، جارٍ إنشاء الصورة...\nالمشهد: ${prompt}`);
 
     fs.ensureDirSync(CACHE_DIR);
     const tmpFile = path.join(CACHE_DIR, `imggen_${Date.now()}.png`);
@@ -74,7 +69,7 @@ module.exports = {
           message.react("✅", messageID);
           await new Promise((res2, rej) => {
             api.sendMessage(
-              { body: `🎨 صورة AI\n📝 "${prompt}"`, attachment: fs.createReadStream(tmpFile) },
+              { body: `⟦ SAIYAN / GENERATED VISUAL ⟧\nالوصف: ${prompt}\n— magnus`, attachment: fs.createReadStream(tmpFile) },
               threadID,
               (err) => { cleanFile(tmpFile); err ? rej(err) : res2(); }
             );
@@ -88,6 +83,6 @@ module.exports = {
     }
 
     message.react("❌", messageID);
-    message.reply("❌ فشل توليد الصورة. جرب وصفاً مختلفاً.");
+    message.reply("⟦ IMAGE SYNTHESIS FAILED ⟧\nتعذر إنشاء الصورة من الوصف الحالي. جرّب صياغة أخرى أو أعد المحاولة لاحقًا.");
   }
 };
